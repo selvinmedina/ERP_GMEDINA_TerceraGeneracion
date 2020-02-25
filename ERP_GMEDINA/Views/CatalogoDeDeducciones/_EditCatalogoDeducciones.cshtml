@@ -1,0 +1,78 @@
+﻿@model ERP_GMEDINA.Models.tbCatalogoDeDeducciones
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCatalogoDeducciones" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body" id="Editar">
+        <div class="ibox-content">
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.cde_IdDeducciones)
+                @Html.HiddenFor(model => model.cde_FechaCrea)
+                @Html.HiddenFor(model => model.cde_UsuarioCrea)
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Descripción<label class="" id="AsteriscoDescripcionDeduEdit" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label></strong>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.cde_DescripcionDeduccion, new { htmlAttributes = new { @class = "form-control", @maxlength = "100", @autocomplete = "off", @id = "cde_DescripcionDeduccion", onkeyup = "ValidarEditar(this.value, '-1', '-1')" } })
+                            <label class="text-danger" id="validareditar1" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo Descripción requerido.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Tipo de Deducción<label class="" id="AsteriscoTipoDeduEdit" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label></strong>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="tde_IdTipoDedu" name="tde_IdTipoDedu" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Porcentaje Colaborador<label class="" id="AsteriscoPorcentajeColaboradorEdit" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label></strong>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.cde_PorcentajeColaborador, new { htmlAttributes = new { @class = "form-control MascaraCantidad", @autocomplete = "off", @id = "cde_PorcentajeColaborador", onkeyup = "ValidarEditar('-1', this.value, '-1')" } })
+                            <span class="field-validation-valid text-danger" style="display: none" id="validareditar2">Campo Porcentaje Colaborador requerido.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Porcentaje Empresa<label class="" id="AsteriscoPorcentajeEmpresaEdit" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label></strong>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.cde_PorcentajeEmpresa, new { htmlAttributes = new { @class = "form-control MascaraCantidad", @autocomplete = "off", @id = "cde_PorcentajeEmpresa", onkeyup = "ValidarEditar('-1', '-1', this.value)" } })
+                            <span class="field-validation-valid text-danger" style="display: none" id="validareditar3">Campo Porcentaje Empresa requerido.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary pull-left" id="btnUpdateDeduccion">Actualizar</button>
+        <button type="button" class="btn btn-danger col-md-2" id="btnmodalInactivarCatalogoDeducciones">Inactivar</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal" id="btnCerrarEditar">Cerrar</button>
+    </div>
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCatalogoDeduccionesInactivar" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.cde_IdDeducciones)
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCatalogoDeduccionesActivar" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.cde_IdDeducciones)
+}

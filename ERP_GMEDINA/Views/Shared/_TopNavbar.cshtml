@@ -1,0 +1,30 @@
+﻿<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;" id="navMenu">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" id="menuDesplegar"><i class="fa fa-bars"></i> </a>
+            
+        </div>
+        <ul class="nav navbar-top-links navbar-right" id="ulMenu">
+			
+			@{
+                //var oUsuario = (ERP_GMEDINA.Models.UDP_Acce_Login_Result)HttpContext.Current.Session["sesionUsuario"];
+                var oUsuario = HttpContext.Current.Session["UserName"];
+            string nombreUsuario = oUsuario?.ToString();
+            }			
+		
+
+			<li>
+				<a href="#">
+					Bienvenido @nombreUsuario
+				</a>
+			</li>
+            
+            
+            <li>
+                <a href="@Url.Action("CerrarSesion","Login")">
+                    <i class="fa fa-sign-out"></i> Cerrar sesión
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

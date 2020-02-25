@@ -1,0 +1,81 @@
+﻿@model ERP_GMEDINA.Models.tbISR
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmDetailsISR" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="ibox-content" style="border-top-color: #fff">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Rango inicial")
+                </div>
+                <div class="col-md-6">
+                    <span id="isr_RangoInicial">@Html.DisplayFor(model => model.isr_RangoInicial, new { htmlAttributes = new { @class = "text-box single-line", @disabled = "disabled" } })</span>
+                    @Html.ValidationMessageFor(model => model.isr_RangoInicial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Rango final")
+                </div>
+                <div class="col-md-6">
+                    <span id="isr_RangoFinal">@Html.DisplayFor(model => model.isr_RangoFinal, new { htmlAttributes = new { @class = "text-box single-line", @disabled = "disabled" } })</span>
+                    @Html.ValidationMessageFor(model => model.isr_RangoFinal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Porcentaje")
+                </div>
+                <div class="col-md-6">
+                    <span id="isr_Porcentaje">@Html.DisplayFor(model => model.isr_Porcentaje, new { htmlAttributes = new { @class = "text-box single-line", @disabled = "disabled" } })</span>
+                    @Html.ValidationMessageFor(model => model.isr_Porcentaje, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Tipo Deducción")
+                </div>
+                <div class="col-md-6">
+                    <span id="tde_IdTipoDedu">@Html.DisplayFor(model => model.tde_IdTipoDedu, new { htmlAttributes = new { @class = "text-box single-line", @disabled = "disabled" } })</span>
+                    @Html.ValidationMessageFor(model => model.tde_IdTipoDedu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h4>Auditoría</h4>
+        </div>
+        <div class="ibox-content">
+            <div class="form-horizontal">
+                <table class="table table-striped table-bordered dataTable">
+                    <thead>
+                        <tr>
+                            <th>Acción</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Creado</td>
+                            @Html.HiddenFor(model => model.isr_UsuarioCrea)
+                            <td><span id="tbUsuario_usu_NombreUsuario">@Html.DisplayFor(model => model.tbUsuario.usu_NombreUsuario, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
+                            <td><span id="FechaCrea">@Html.DisplayFor(model => model.isr_FechaCrea, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
+                        </tr>
+                        <tr>
+                            <td>Modificado</td>
+                            @Html.HiddenFor(model => model.isr_UsuarioModifica)
+                            <td><span id="tbUsuario1_usu_NombreUsuario">@Html.DisplayFor(model => model.tbUsuario1.usu_NombreUsuario, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
+                            <td><span id="isr_FechaModifica">@Html.DisplayFor(model => model.isr_FechaModifica, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}

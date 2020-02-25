@@ -1,0 +1,57 @@
+﻿@model ERP_GMEDINA.Models.tbAdelantoSueldo
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEmpleadoAdelantos" }))
+{
+    <div class="modal-body" id="Crear">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.adsu_IdAdelantoSueldo)
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    Colaborador<label class="" id="AsteriscoColaborador">*</label>
+                    <select class="form-control lg" name="emp_Id" id="emp_IdEmpleado" onchange="ValidarCamposCrear('-1', '-1', this.value, '-1')">
+                        <option></option>
+                    </select>
+                    <span class="text-danger" id="Span_emp_Id" style="display:none; z-index:9999 !important;">Campo Colaborador requerido</span>
+                </div>
+                <div class="col-md-6">
+                    Razón<label class="" id="AsteriscoRazon">*</label>
+                    @Html.EditorFor(model => model.adsu_RazonAdelanto, new { htmlAttributes = new { @class = "col-md-9", @name = "adsu_RazonAdelanto", @id = "adsu_RazonAdelanto", @autocomplete = "off", onkeyup = "ValidarCamposCrear(this.value, '-1', '-1', '-1')", maxlength = 50 } })
+                    <div><span class="text-danger" id="adsu_RazonAdelantoValidacion" style="display:none;">Campo Razón requerido</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    Monto<label class="" id="AsteriscoMonto">*</label>
+                    @Html.EditorFor(model => model.adsu_Monto, new { htmlAttributes = new { @class = "col-md-9 MascaraCantidad soloNumero", @name = "adsu_Monto", @id = "adsu_Monto", @disabled = "disabled", @autocomplete = "off", onkeyup = "ValidarCamposCrear('-1', this.value, '-1', '-1')" } })
+                    <div>
+                        <span class="text-danger" id="adsu_MontoValidacion" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El campo monto es requerido</span>
+                        <span class="text-danger" id="adsu_MontoValidacion2" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El campo Monto debe ser mayor que cero</span>
+                        <span class="text-danger" style="display: none;" id="SueldoPromedioCrear"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    Fecha Adelanto<label class="" id="AsteriscoFecha">*</label>
+                    <div class="input-group date">
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                        @Html.EditorFor(model => model.adsu_FechaAdelanto, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "adsu_FechaAdelanto", @id = "adsu_FechaAdelanto", onchange = "ValidarCamposCrear('-1', '-1', '-1', this.value)", @autocomplete = "off" } })
+                    </div>
+                    <div>
+                        <span class="text-danger" id="Validation_adsu_FechaAdelanto" style="display:none;">Campo Fecha requerido</span>
+                        <span class="text-danger" id="Validation_adsu_FechaAdelantoMenor" style="display:none;">El adelanto no se puede efectuar en una fecha antes de la actual</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary pull-left" id="btnCreateRegistroAdelantos">Guardar</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal" id="btnCerrarCrearAdelanto">Cerrar</button>
+    </div>
+}

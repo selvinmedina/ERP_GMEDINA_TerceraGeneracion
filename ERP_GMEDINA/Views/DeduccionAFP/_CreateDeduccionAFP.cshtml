@@ -1,0 +1,45 @@
+﻿@model ERP_GMEDINA.Models.tbDeduccionAFP
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCreateDeduccionAFP" }))
+{
+    <div class="modal-body" id="Crear">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    Colaborador<label class="" id="Asterisco1" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label>
+                    <select id="emp_IdCrear" name="emp_Id" class="text-box single-line" onchange="ValidarCampos(this.value,'-1','-1' )"></select>
+                    <label class="text-danger" id="validatione1d" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo Colaborador requerido</label>
+                </div>
+                <div class="col-md-6">
+                    Aporte<label class="" id="Asterisco2" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label>
+                    @Html.EditorFor(model => model.dafp_AporteLps, new { htmlAttributes = new { @class = "form-control MascaraCantidad soloNumero", @id = "dafp_AporteLps", @autocomplete = "off", onkeyup = "ValidarCampos('-1',this.value,'-1' )" } })
+                    <label class="text-danger" id="validatione2d" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo Aporte requerido</label>
+                    <label class="text-danger" id="validatione2d2" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Número decimal válido con un máximo de 2 decimales</label>
+                    <label class="text-danger" id="validatione2d3" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El campo Aporte debe ser mayor que cero</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    AFP<label class="" id="Asterisco3" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label>
+                    <select id="afp_Id" name="afp_Id" class="form-control" onchange="ValidarCampos('-1', '-1', this.value)"></select>
+                    <label class="text-danger" id="validatione3d" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo AFP requerido</label>
+                </div>
+                <div class="col-md-6">
+                    Incluir para el ISR<br />
+                    <input type="checkbox" class="icheckbox_square-green" name="dafp_DeducirISR" id="dafp_DeducirISR">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" id="btnCerrarAgregar">Cerrar</button>
+        <button type="submit" class="btn btn-primary pull-left" id="btnCreateRegistroDeduccionAFP">Guardar</button>
+        <div style="display:none" class="btn pull-left" id="cargandoCrear"></div>
+    </div>
+}
+
+

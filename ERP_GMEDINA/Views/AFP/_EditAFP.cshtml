@@ -1,0 +1,95 @@
+﻿@model ERP_GMEDINA.Models.tbAFP
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEditarAFP" }))
+{
+    <div class="modal-body" id="Editar">
+        <div class="ibox-content">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.afp_Id)
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.afp_Id)<span id="EditarasiteriscoIDAFP">*</span>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.afp_Id, new { htmlAttributes = new { @class = "text-box single-line", @autocomplete = "off", disabled = "disabled" } })
+                        <span class="text-danger" id="validation_IDAFPRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                        <span class="text-danger" id="validation_IDAFPNumerico" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo solo admite datos numérico</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.afp_Descripcion)<span id="EditarasiteriscoDescripcion">*</span>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.afp_Descripcion, new { htmlAttributes = new { @class = "text-box single-line", @autocomplete = "off", @id = "afp_Descripcion", maxlength = "100" } })
+                        <span class="text-danger" id="validation_EditarDescripcionRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                        <span class="text-danger" id="validation_EditarDescripcionNumerico" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo no admite datos numérico</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.afp_AporteMinimoLps)<span id="EditarastericosAporteMinimoLps">*</span>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.afp_AporteMinimoLps, new { htmlAttributes = new { @class = "text-box single-line MascaraCantidad soloNumero", @autocomplete = "off", @id = "afp_AporteMinimoLps"} })
+                        <span class="text-danger" id="validation_EditarAporteMinimoMayorACero" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El monto no puede ser menor o igual a cero</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.afp_InteresAporte)<span id="EditarastericoInteresAporte">*</span>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.afp_InteresAporte, new { htmlAttributes = new { @class = "text-box single-line MascaraPorcentaje soloNumero", @autocomplete = "off", @id = "afp_InteresAporte", @min = 0.01, @max = 100.00 } })
+                        <span class="text-danger" id="validation_EditarInteresAporteMenorACero" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser menor a cero</span>
+                        <span class="text-danger" id="validation_EditarInteresAporteMenorACien" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser mayor a cien</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.afp_InteresAnual)<span id="EditarastericosInteresAnual">*</span>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.afp_InteresAnual, new { htmlAttributes = new { @class = "text-box single-line MascaraPorcentaje soloNumero", @autocomplete = "off", @id = "afp_InteresAnual", @min = 0.01, @max = 100.00 } })
+                        <span class="text-danger" id="validation_EditarInteresAnualMenorACero" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser menor a cero</span>
+                        <span class="text-danger" id="validation_EditarInteresAnualMenorACien" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser mayor a cien</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.tde_IdTipoDedu)<span id="EditarastericosTipoDeduccion">*</span>
+                    </div>
+                    <div class="col-md-8">
+                        <select id="tde_IdTipoDedu" name="tde_IdTipoDedu" class="text-box single-line"></select>
+                        <span class="text-danger" id="validation_EditarTipoDeduccionRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white pull-right" id="btnCerrarEditar">Cerrar</button>
+        <button type="submit" class="btn btn-primary pull-left" id="btnEditAFP">Actualizar</button>
+        <button type="button" class="btn btn-danger pull-left" id="btnInactivarAFP">Inactivar</button>
+    </div>
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmInactivarAFP" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.afp_Id)
+}
+
+
+
+
+

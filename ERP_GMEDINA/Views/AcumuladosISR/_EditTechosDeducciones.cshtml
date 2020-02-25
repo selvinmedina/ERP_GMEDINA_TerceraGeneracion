@@ -1,0 +1,65 @@
+﻿@model ERP_GMEDINA.Models.tbAcumuladosISR
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEditAcumuladosISR" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="modal-body" id="Editar">
+        <div class="ibox-content">
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.aisr_Id)
+                @Html.HiddenFor(model => model.aisr_UsuarioModifica)
+                @Html.HiddenFor(model => model.aisr_FechaModifica)
+                <div class="form-group">
+                    <div class="col-md-4">
+                        Empleado<label class="" id="AsteriscoEmpleadoEditar" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select id="emp_IdEditar" name="emp_Id" class="text-box single-line"></select>
+                        <label class="text-danger" id="validation_emp_Id" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo Empleado requerido</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        Descripción<label class="" id="AsteriscoDescripcionEditAISR" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.aisr_Descripcion, new { htmlAttributes = new { @class = "text-box single-line", @id = "aisr_Descripcion", @autocomplete = "off", maxlength = "100" } })
+                        <span class="text-danger" id="validation_EditarDescripcionRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                        <span class="text-danger" id="validation_EditarDescripcionNumerico" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo no admite datos numérico</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        Monto<label class="" id="AsteriscoMontoEditAISR" style="opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">*</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.aisr_Monto, new { htmlAttributes = new { @class = "text-box single-line MascaraCantidad soloNumero", @id = "aisr_Monto", @autocomplete = "off" } })
+                        <span class="text-danger" id="validation_EditarMontoMayorACero" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El monto no puede ser menor o igual a cero</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        Incluir para el ISR
+                    </div>
+                    <div class="col-md-8">
+                        <input type="checkbox" class="icheckbox_square-green" name="aisr_DeducirISR" id="aisr_DeducirISREdit">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BOTONES -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white pull-right" id="btnCerrarEditar" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary pull-left" id="btnEditarAcumulado">Actualizar</button>
+        <button type="button" class="btn btn-danger pull-left" id="btnInactivarAcumuladosISR">Inactivar</button>
+    </div>
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmInactivarAcumuladosISR" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.aisr_Id)
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

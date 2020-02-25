@@ -1,0 +1,176 @@
+﻿@model IEnumerable<ERP_GMEDINA.Models.tbTipoDeduccion>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBasePlanillas.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Listado de tipos de deducciones</h5>
+                    <div class="ibox-tools">
+                        <button type="button" class="btn btn-primary pull-right btn-xs" id="btnAgregarTipoDeducciones">Registrar tipo de deducción</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    @{
+                        <!-- obtener la sesion actual del usuario para luego verificar si este es adminsitrador-->
+                        var oUsuario = (ERP_GMEDINA.Models.UDP_Acce_Login_Result)HttpContext.Current.Session["sesionUsuario"];
+
+                        <!-- Esto es para hacer las validaciones del rol de usuario a la hora de recargar la tabla con el JS -->
+                        string rol_Usuario = oUsuario?.usu_EsAdministrador == true ? "1" : "0";
+
+                        <!-- Tomaremos el valor de este input en el JS para validar si el usuario es administrador-->
+                        <input type="hidden" name="rol_Usuario" id="rol_Usuario" value="@rol_Usuario" />
+                    }
+                    <table id="tblTipoDeducciones" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr role="row">
+                                <th>Número</th>
+                                <th class="sorting_asc" aria-controls="DataTables_Table_0" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">@Html.DisplayNameFor(model => model.tde_Descripcion)</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyTipoDeducciones">
+                            @foreach (var item in Model)
+                            {
+                                <!-- validar el estado del registro (activo/inactivo)-->
+                                string estadoISR = item.tde_Activo == false ? "Inactivo" : "Activo";
+
+                               
+
+                                <tr class="gradeA odd" role="row" data-id="@item.tde_IdTipoDedu">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tde_IdTipoDedu)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tde_Descripcion)
+                                    </td>
+                                    <td>
+                                        @estadoISR
+                                    </td>
+                                    <td>
+                                        @{
+                                            <!-- validar si el estado es activo para mostrar los botones "detalles" y "editar" -->
+                                            if (item.tde_Activo == true)
+                                            {
+                                                <button type="button" data-id="@item.tde_IdTipoDedu" class="btn btn-primary btn-xs" id="btnDetalleTipoDeducciones">Detalles</button>
+                                                <button type="button" data-id="@item.tde_IdTipoDedu" class="btn btn-default btn-xs" id="btnEditarTipoDeducciones">Editar</button>
+                                            }
+                                            <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
+                                            if (oUsuario?.usu_EsAdministrador == true && item.tde_Activo == false)
+                                            {
+                                                <button type="button" data-id="@item.tde_IdTipoDedu" class="btn btn-primary btn-xs" id="btnDetalleTipoDeducciones">Detalles</button>
+                                                <!-- ACTIVAR -->
+                                                <button type="button" data-id="@item.tde_IdTipoDedu" class="btn btn-default btn-xs" id="btnActivarTipoDeducciones">Activar</button>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="AgregarTipoDeducciones" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Crear tipo de deducción</h4>
+            </div>
+            @Html.Partial("_CreateTipoDeduccion", new ERP_GMEDINA.Models.tbTipoDeduccion())
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditarTipoDeducciones" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar tipo de deducción</h4>
+            </div>
+            @Html.Partial("_EditTipoDeduccion", new ERP_GMEDINA.Models.tbTipoDeduccion())
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditarTipoDeduccionConfirmacion" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <div class="modal-body" id="Activar">
+                ¿Está seguro que desea Editar este registro?
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnEditarTipoDedu" value="Sí" class="btn btn-primary " />
+
+                <button type="button" class="btn btn-white" id="denegarEdicion" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="InactivarTipoDeducciones" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Inactivar</h4>
+            </div>
+            <div class="modal-body" id="Inactivar">
+                <p><b>¿Está seguro que desea inactivar este registro?</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" id="btnInactivarRegistroTipoDeducciones">Si</button>
+                <button type="button" class="btn btn-white" id="btnCerrar" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DetailsTipoDeducciones" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detalle del tipo de registro</h4>
+            </div>
+            <div class="modal-body" id="Detalles">
+                @Html.Partial("_DetailsTipoDeducciones", new ERP_GMEDINA.Models.tbTipoDeduccion())
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal activar -->
+<div class="modal fade" id="ActivarTipoDeducciones" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Activar</h4>
+            </div>
+            <div class="modal-body" id="Inactivar">
+                ¿Está seguro que desea activar este registro?
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnActivarRegistroTipoDeducciones">Si</button>
+                <button type="button" class="btn btn-white" id="btnCerrar" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/Scripts/app/General/TipoDeducciones")
+    @Scripts.Render("~/Scripts/Scripts_Base/Jquery-Validate-DataAnnotations")
+}
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+}

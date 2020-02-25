@@ -1,0 +1,67 @@
+﻿@model ERP_GMEDINA.Models.tbTechosDeducciones
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEditTechosDeducciones" }))
+{
+    @Html.AntiForgeryToken()
+    <style>.asterisco{margin:0px;padding:0px;}</style>
+    <div class="modal-body" id="Editar">
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.tddu_IdTechosDeducciones)
+            @Html.HiddenFor(model => model.tddu_FechaCrea)
+            @Html.HiddenFor(model => model.tddu_UsuarioCrea)
+            <div class="form-group">
+                <div class="col-md-5">
+                    <label style="padding:0px;" class="control-label">Descripción Deducción</label><label class="asterisco" id="AsteriskDeduccionE">*</label>
+                </div>
+                <div class="col-md-7">
+                    <select id="cde_IdDeducciones" name="cde_IdDeducciones" class="form-control"></select>
+                    <label class="text-danger" id="Validation_deduccionE" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo deducción requerido.</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    @Html.LabelFor(model => model.tddu_Techo, htmlAttributes: new { @class = "control-label" })<label class="asterisco" id="AsteriskTechoE">*</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.tddu_Techo, new { htmlAttributes = new { @class = "form-control MascaraCantidad soloNumero" } })
+                        <label class="text-danger" id="Validation_TechoE" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo Techo requerido.</label>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    @Html.LabelFor(model => model.tddu_PorcentajeColaboradores, htmlAttributes: new { @class = "control-label" })<label class="asterisco" id="AsteriskPorcentajeColaboradorE">*</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.tddu_PorcentajeColaboradores, new { htmlAttributes = new { @class = "form-control MascaraPorcentaje soloNumero" } })
+                        <label class="text-danger" id="Validation_PorcentajeColaboradoresE" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo Porcentaje Colaborador requerido.</label>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    @Html.LabelFor(model => model.tddu_PorcentajeEmpresa, htmlAttributes: new { @class = "control-label" })<label class="asterisco" id="AsteriskPorcentajeEmpresaE">*</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.tddu_PorcentajeEmpresa, new { htmlAttributes = new { @class = "form-control MascaraPorcentaje soloNumero" } })
+                        <label class="text-danger" id="Validation_PorcentajeEmpresaE" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Campo Porcentaje Empresa requerido.</label>
+                    </div>
+                </div>
+        </div>
+    </div>
+        <div class="modal-footer">
+            @*data-dismiss="modal"*@
+            <input type="submit" class="btn btn-primary pull-left" id="btnEditarTecho" value="Actualizar">
+
+            @*<button type="button" class="btn btn-primary" id="btnEditarTecho">Aceptar</button>*@
+            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" id="btnInactivarTechoDeducciones">Inactivar</button>
+            <button type="button" class="btn btn-white pull-right" id="btnCerrarEditar">Cerrar</button>
+        </div>
+        }
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmInactivarTechosDeducciones" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.tddu_IdTechosDeducciones)
+        }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

@@ -1,0 +1,76 @@
+﻿@model ERP_GMEDINA.Models.tbAFP
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCreateAFP" }))
+{
+    <div class="modal-body" id="Crear">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.afp_Id)
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.afp_Descripcion)<span id="asiteriscoDescripcion">*</span>
+                </div>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.afp_Descripcion, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @id = "afp_Descripcion", maxlength = "100" } })
+                    <span class="text-danger" id="validation_DescripcionRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                    <span class="text-danger" id="validation_DescripcionNumerico" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo no admite datos numérico</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.afp_AporteMinimoLps)<span id="astericosAporteMinimoLps">*</span>
+                </div>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.afp_AporteMinimoLps, new { htmlAttributes = new { @class = "form-control MascaraCantidad soloNumero", @autocomplete = "off", @id = "afp_AporteMinimoLps"} })
+                    <span class="text-danger" id="validation_AporteMinimoMayorACero" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El monto no puede ser menor o igual a cero</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.afp_InteresAporte)<span id="astericoInteresAporte">*</span>
+                </div>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.afp_InteresAporte, new { htmlAttributes = new { @class = "form-control MascaraPorcentaje soloNumero", @autocomplete = "off",  @id = "afp_InteresAporte", @min = 0.00, @max = 100.00 } })
+                    <span class="text-danger" id="validation_InteresAporteMenorACero" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser menor a cero</span>
+                    <span class="text-danger" id="validation_InteresAporteMenorACien" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser mayor a cien</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.afp_InteresAnual)<span id="astericosInteresAnual">*</span>
+                </div>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.afp_InteresAnual, new { htmlAttributes = new { @class = "form-control MascaraPorcentaje soloNumero", @autocomplete = "off", @id = "afp_InteresAnual", @min = 0.00, @max = 100.00 } })
+                    <span class="text-danger" id="validation_InteresAnualMenorACero" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser menor a cero</span>
+                    <span class="text-danger" id="validation_InteresAnualMenorACien" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">El porcentaje no puede ser mayor a cien</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.tde_IdTipoDedu)<span id="astericosTipoDeduccion">*</span>
+                </div>
+                <div class="col-md-8">
+                    <select id="tde_IdTipoDedu" name="tde_IdTipoDedu" class="form-control"></select>
+                    <span class="text-danger" id="validation_TipoDeduccionRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white pull-right" id="btnCerrarCrear">Cerrar</button>
+            <button type="submit" class="btn btn-primary pull-left" id="btnCreateRegistroAFP">Guardar</button>
+        </div>
+}
+
+
+

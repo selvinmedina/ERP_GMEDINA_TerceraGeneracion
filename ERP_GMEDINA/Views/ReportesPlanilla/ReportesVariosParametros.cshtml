@@ -1,0 +1,108 @@
+﻿@using ReportViewerForMvc;
+@model ERP_GMEDINA.Models.V_Ingresos_RPT
+
+@{
+	ViewBag.Title = "Reportes varios";
+	Layout = "~/Views/Shared/_LayoutBasePlanillas.cshtml";
+}
+@using (Html.BeginForm("ReportesVariosParametros", "ReportesPlanilla", FormMethod.Post, new { id = "frmReportVariosPreview" }))
+{
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="float-e-margins">
+				<div class="ibox-title">
+					<h5>Reportes Varios</h5>
+					<div class="ibox-tools">
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<div class="col-md-6">
+								<label class="font-normal">Reporte</label><label class="AsteriscoReporte" id="AsteriscoReporte">*</label>
+								<select name="reporte" id="ReporteReportesVarios" required class="form-control">
+                                    <option value="0">Seleccione una opción</option>
+                                    <option value="ISR">ISR</option>
+									<option value="AFP">AFP</option>
+									<option value="Comisiones">Comisiones</option>
+									<option value="HorasExtras">Horas extras</option>
+									<option value="Vacaciones">Vacaciones</option>
+									<option value="SeptimoDia">Séptimo día</option>
+									<option value="AdelantosSueldo">Adelantos de sueldo</option>
+								</select>
+                                <span class="text-danger" id="validation_ReporteRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+							</div>
+
+							<div class="col-md-6">
+								<label class="font-normal">Planilla</label><label class="AsteriscoPlanilla" id="AsteriscoPlanilla">*</label>
+
+								@Html.DropDownList("cpla_IdPlanilla", (IEnumerable<SelectListItem>)ViewBag.Planillas, "Seleccione una opción", new { @class = "form-control" })
+
+                                <span class="text-danger" id="validation_PlanillaRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+							</div>
+
+						</div>
+						<div class="form-group">
+							<div class="col-md-6">
+								<label class="font-normal">Fecha inicio</label><label class="AsteriscoFechaInicio" id="AsteriscoFechaInicio">*</label>
+								<div class="input-group date">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>@Html.EditorFor(model => model.hipa_FechaInicio, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "hipa_FechaInicio", @id = "hipa_FechaInicio"} })
+                                </div>
+                                <span class="text-danger" id="validation_FechaInicioRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                                <span class="text-danger" id="validation_FechaInicioMenor1920" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">La fecha no puede ser menor que 1920</span>
+							</div>
+							<div class="col-md-6">
+								<label class="font-normal">Fecha fin</label><label class="AsteriscoFechaFin" id="AsteriscoFechaFin">*</label>
+
+								<div class="input-group date">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>@Html.EditorFor(model => model.hipa_FechaFin, new { htmlAttributes = new { @class = "form-control", @type = "date", @name = "hipa_FechaFin", @id = "hipa_FechaFin"} })
+                                </div>
+                                <span class="text-danger" id="validation_FechaFinRequerida" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">Este campo es requerido</span>
+                                <span class="text-danger" id="validation_FechaFinMenor192" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">La fecha no puede ser menor que 1920</span>
+                                <span class="text-danger" id="validation_FechaFinMenorFechaInicio" style="display:none; opacity: 1; font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: normal;">La fecha fin no puede ser menor o igual que la fecha inicio</span>
+							</div>
+
+						</div>
+						<button type="submit" class="btn btn-primary btn-sm" id="btnPrevisualizar">Previsualizar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+<br />
+
+@{
+	string visibilidadPreview = ViewBag.ReportViewer == null ? "none" : "";
+}
+
+<div class="row" style="display:@visibilidadPreview;">
+	<div class="col-lg-12">
+		<div class="float-e-margins">
+			<div class="ibox-title">
+				<h5>Previsualización de reporte</h5>
+				<div class="ibox-tools">
+				</div>
+			</div>
+			<div class="ibox-content">
+				@{
+					if (ViewBag.ReportViewer != null)
+					{
+						@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+					}
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<br />
+<br />
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/app/General/ReportesPlanilla")
+}
+
+
