@@ -686,6 +686,7 @@ $(document).on("click", "#tblEmpleadoBonos tbody tr td #btnDetalleEmpleadoBonos"
                     });
                 }
             });
+        $("#DetallesEmpleadoBonos").modal({ backdrop: 'static', keyboard: false });
     }
 });
 

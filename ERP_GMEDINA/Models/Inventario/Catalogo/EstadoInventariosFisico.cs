@@ -13,7 +13,7 @@ namespace ERP_GMEDINA.Models
     }
     public class EstadoInventariosFisicoMetadata
     {
-       [Display(Name ="Id")]
+       [Display(Name ="Numero")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo {0} es requerido")]
         public byte estif_Id { get; set; }
         [Display(Name ="Descripción")]
