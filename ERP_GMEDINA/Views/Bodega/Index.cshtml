@@ -1,15 +1,64 @@
 ﻿@model IEnumerable<ERP_GMEDINA.Models.tbBodega>
-
+@using ERP_GMEDINA.Models
 @{
     ViewBag.Title = "Bodegas";
     Layout = "~/Views/Shared/_LayoutBaseInventario.cshtml";
 }
-@using ERP_GMEDINA.Models
 @{
 
 }
 @{
     var itemEstado = new ERP_GMEDINA.Models.tbBodega();
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+<link href="~/Content/css/Auditoria.css" rel="stylesheet" />
+<style>
+	.validation-error {
+		color: red;
+		font-size: small;
+	}
+
+	.validation-summary-errors {
+		color: red;
+		font-size: small;
+	}
+
+	.required:after {
+		content: "*";
+		font-weight: bold;
+		color: red;
+	}
+
+	#bod_Nombre {
+		text-transform: uppercase;
+	}
+</style>
+@if (ViewBag.smserror != "" && ViewBag.smserror != null)
+{
+	<div class="col-md-12" id="mensaje">
+		<div class="alert alert-warning alert-danger">
+
+			<button type="button" class="close" data-dissmiss="alert" aria-hidden="true">x</button>
+			<h4><i class="icon fa fa-warning"></i>Alerta</h4>
+			<h2>@ViewBag.smserror</h2>
+
+
+		</div>
+	</div>
+}
+@if (ViewBag.smserror_Estado != "" && ViewBag.smserror_Estado != null)
+{
+	<div class="col-md-12" id="mensaje">
+		<div class="alert alert-warning alert-danger">
+
+			<button type="button" class="close" data-dissmiss="alert" aria-hidden="true">x</button>
+			<h4><i class="icon fa fa-warning"></i>Alerta</h4>
+			<h2>@ViewBag.smserror_Estado</h2>
+
+
+		</div>
+	</div>
 }
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
@@ -84,34 +133,119 @@
                                             }
                                             else
                                             {
-                                                <p>Inactiva</p>;
+                                                <p>Inactiva</p>
                                             }
                                         }
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Detalles", "Details", new { id = item.bod_Id }, new { @class = "btn btn-primary btn-xs" })
-                                        @Html.ActionLink("Editar", "Edit", new { id = item.bod_Id }, new { @class = "btn btn-white btn-xs" })
+                                        @if (item.bod_EsActiva == 1)
+                                        {
+		                                    @Html.ActionLink("Detalles", "Details", new { id = item.bod_Id }, new { @class = "btn btn-primary btn-xs" })
+                                            @Html.ActionLink("Editar", "Edit", new { id = item.bod_Id }, new { @class = "btn btn-white btn-xs" })
+                                            <input type="button" class="btn btn-danger btn-xs" onclick="Eliminar(@item.bod_Id);" value="Inactivar" />
+                                        }
+                                        else
+                                        {
+                                            <input type="button" class="btn btn-default btn-xs" onclick="Activar(@item.bod_Id);" value="Activar" />
+                                        }
+
                                     </td>
                                 </tr>
-                            }
+                                <div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4 id="i">¿Está seguro que quiere Inactivar esta Bodega?</h4>
+												<h4 id="a">¿Está seguro que quiere Activar esta Bodega?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btnInactive" type="button" class="btn btn-primary" onclick="confirmarEliminar();">Si</button>
+                                                <button id="btnInactive2" type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                <button id="btnActive" type="button" class="btn btn-primary" onclick="confirmarActivacion();">Si</button>
+                                                <button id="btnActive2" type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                            }
                         </tbody>
                     </table>
-
-
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/app/DataTable.js"></script>
 <script>
+	var ID;
+
+	//Inactivar Bodega
+    function Eliminar(id) {
+    	$("#ModalEstado").modal();
+    	document.getElementById("exampleModalLabel").textContent = "Inactivar Bodega";
+    	document.getElementById("btnActive").style.display = 'none';
+    	document.getElementById("btnActive2").style.display = 'none';
+    	document.getElementById("a").hidden = true;
+        ID = id;
+
+    }
+
+    function confirmarEliminar() {
+        $.ajax({
+            type: "POST",
+            url: "/Bodega/EstadoInactivar",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ id: ID}),
+        }).done(function (data) {
+            var Retorno = data;
+            console.log(data);
+            $(this).addClass("done");
+        });
+
+        window.location.reload(true);
+    }
+
+	//Activar Bodega
+    function Activar(id) {
+    	$("#ModalEstado").modal();
+    	document.getElementById("exampleModalLabel").textContent = "Activar Bodega";
+    	document.getElementById("i").hidden = true;
+    	document.getElementById("btnInactive").style.display = 'none';
+    	document.getElementById("btnInactive2").style.display = 'none';
+    	ID = id;
+    	console.log(ID);
+    }
+
+    function confirmarActivacion() {
+    	$.ajax({
+    		type: "POST",
+    		url: "/Bodega/Estadoactivar",
+    		dataType: "json",
+    		contentType: "application/json; charset=utf-8",
+    		data: JSON.stringify({ id: ID }),
+    	}).done(function (data) {
+    		var Retorno = data;
+    		console.log(data);
+    		$(this).addClass("done");
+    	});
+
+    	window.location.reload(true);
+    }
+
     $(document).ready(function () {
         $('#tbBodega').DataTable({
-
             "searching": true,
             "oLanguage": {
                 "oPaginate": {

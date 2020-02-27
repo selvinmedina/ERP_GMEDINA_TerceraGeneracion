@@ -282,7 +282,7 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.smserror_Estado = TempData["smserror_Estado"];
                     Function.InsertBitacoraErrores("Bodega/EstadoInactivar", MsjError, "EstadoInactivar");
                     ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                    return RedirectToAction("Edit/" + id);
+                    return View(db.tbBodega.ToList());
                 }
                 else if (MsjError.StartsWith("-2"))
                 {
@@ -290,7 +290,7 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.smserror_Estado = TempData["smserror_Estado"];
                     Function.InsertBitacoraErrores("Bodega/EstadoInactivar", MsjError, "EstadoInactivar");
                     ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                    return RedirectToAction("Edit/" + id);
+                    return View(db.tbBodega.ToList());
                 }
                 else if (MsjError.StartsWith("-4"))
                 {
@@ -298,7 +298,7 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.smserror_Estado = TempData["smserror_Estado"];
                     Function.InsertBitacoraErrores("Bodega/EstadoInactivar", MsjError, "EstadoInactivar");
                     ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                    return RedirectToAction("Edit/" + id);
+                    return View(db.tbBodega.ToList());
                 }
                 else if (MsjError.StartsWith("-3"))
                 {
@@ -306,20 +306,20 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.smserror_Estado = TempData["smserror_Estado"];
                     Function.InsertBitacoraErrores("Bodega/EstadoInactivar", MsjError, "EstadoInactivar");
                     ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                    return RedirectToAction("Edit/" + id);
+                    return View(db.tbBodega.ToList());
                 }
                 else
                 {
                     
                     ViewBag.smserror_Estado = "";
-                    return RedirectToAction("Edit/" + id);
+                    return View(db.tbBodega.ToList());
                 }
             }
             catch (Exception Ex)
             {
                 Function.InsertBitacoraErrores("Bodega/EstadoInactivar", Ex.Message.ToString(), "EstadoInactivar");
                 ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                return RedirectToAction("Edit/" + id);
+                return RedirectToAction("Index");
             }
         }
         //para que cambie estado a inactivar
@@ -340,19 +340,19 @@ namespace ERP_GMEDINA.Controllers
                 {
 
                     ModelState.AddModelError("", "No se Actualizo el registro");
-                    return RedirectToAction("Edit/" + id);
-                }
+					return View(db.tbBodega.ToList());
+				}
                 else
                 {
-                    return RedirectToAction("Edit/" + id);
-                }
+					return View(db.tbBodega.ToList());
+				}
             }
             catch (Exception Ex)
             {
                 Ex.Message.ToString();
                 ModelState.AddModelError("", "No se Actualizo el registro");
-                return RedirectToAction("Edit/" + id);
-            }
+				return View(db.tbBodega.ToList());
+			}
 
         }
         //[SessionManager("Bodega/DeleteDetalle")]
