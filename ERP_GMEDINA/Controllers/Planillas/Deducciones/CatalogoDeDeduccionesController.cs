@@ -211,53 +211,102 @@ namespace ERP_GMEDINA.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             return Json(tbCatalogoDeDeduccionesJSON, JsonRequestBehavior.AllowGet);
         }
-#endregion
+        #endregion
 
-        #region Inactivar Catalogo de Deducciones
-        [HttpPost]
+        //#region Inactivar Catalogo de Deducciones
+        //[HttpPost]
+        //[SessionManager("CatalogoDeDeducciones/Inactivar")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Inactivar(int id)
+        //{
+        //    IEnumerable<object> listCatalogoDeIngresos = null;
+        //    string MensajeError = "";
+        //    //VARIABLE DONDE SE ALMACENARA EL RESULTADO DEL PROCESO
+        //    string response = String.Empty;
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            listCatalogoDeIngresos = db.UDP_Plani_tbCatalogoDeDeducciones_Inactivar(id,
+        //                                                                                    Function.GetUser(),
+        //                                                                                    Function.DatetimeNow());
+
+        //            foreach (UDP_Plani_tbCatalogoDeDeducciones_Inactivar_Result Resultado in listCatalogoDeIngresos)
+        //                MensajeError = Resultado.MensajeError;
+
+
+        //            if (MensajeError.StartsWith("-1"))
+        //            {
+        //                //EN CASO DE OCURRIR UN ERROR, IGUALAMOS LA VARIABLE "RESPONSE" A ERROR PARA VALIDARLO EN EL CLIENTE
+        //                ModelState.AddModelError("", "No se pudo actualizar el registro. Contacte al administrador.");
+        //                response = "error";
+        //            }
+        //        }
+        //        catch (Exception)
+        //        {
+        //            response = "error";
+        //        }
+        //        //SI LA EJECUCIÓN LLEGA A ESTE PUNTO SIGNIFICA QUE NO OCURRIÓ NINGÚN ERROR Y EL PROCESO FUE EXITOSO
+        //        //IGUALAMOS LA VARIABLE "RESPONSE" A "BIEN" PARA VALIDARLO EN EL CLIENTE
+        //        response = "bien";
+        //    }
+        //    else
+        //    {
+        //        //Se devuelve un mensaje de error en caso de que el modelo no sea válido
+        //        response = "error";
+        //    }
+        //    return Json(JsonRequestBehavior.AllowGet);
+        //}
+        [HttpGet]
         [SessionManager("CatalogoDeDeducciones/Inactivar")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Inactivar(int id)
+        public JsonResult Inactivar(int? id)
         {
-            IEnumerable<object> listCatalogoDeIngresos = null;
+            if (id == null)
+                return Json("error", JsonRequestBehavior.AllowGet);
+            //Variable para enviarla al lado del Cliente
+            string Response = "bien";
+            IEnumerable<object> listCatalogoDeDeducciones = null;
             string MensajeError = "";
-            //VARIABLE DONDE SE ALMACENARA EL RESULTADO DEL PROCESO
-            string response = String.Empty;
             if (ModelState.IsValid)
             {
                 try
                 {
-                    listCatalogoDeIngresos = db.UDP_Plani_tbCatalogoDeDeducciones_Inactivar(id,
-                                                                                            Function.GetUser(),
-                                                                                            Function.DatetimeNow());
 
-                    foreach (UDP_Plani_tbCatalogoDeDeducciones_Inactivar_Result Resultado in listCatalogoDeIngresos)
+                    //Ejecutar Procedimiento Almacenado
+                    listCatalogoDeDeducciones = db.UDP_Plani_tbCatalogoDeDeducciones_Inactivar          (id,
+                                                                                                         Function.GetUser(),
+                                                                                                         Function.DatetimeNow());
+
+                    //El tipo complejo del Procedimiento Almacenado
+                    foreach (UDP_Plani_tbCatalogoDeDeducciones_Inactivar_Result Resultado in listCatalogoDeDeducciones)
+                    {
                         MensajeError = Resultado.MensajeError;
-
+                    }
 
                     if (MensajeError.StartsWith("-1"))
                     {
-                        //EN CASO DE OCURRIR UN ERROR, IGUALAMOS LA VARIABLE "RESPONSE" A ERROR PARA VALIDARLO EN EL CLIENTE
-                        ModelState.AddModelError("", "No se pudo actualizar el registro. Contacte al administrador.");
-                        response = "error";
+
+                        //En caso de un error igualamos la variable Response a "Error" para validar en el lado del Cliente
+                        ModelState.AddModelError("", "No se pudo Inactivar. Contacte al Administrador!");
+                        Response = "Error";
                     }
                 }
-                catch (Exception)
+                catch (Exception Ex)
                 {
-                    response = "error";
+                    Response = Ex.Message.ToString();
                 }
-                //SI LA EJECUCIÓN LLEGA A ESTE PUNTO SIGNIFICA QUE NO OCURRIÓ NINGÚN ERROR Y EL PROCESO FUE EXITOSO
-                //IGUALAMOS LA VARIABLE "RESPONSE" A "BIEN" PARA VALIDARLO EN EL CLIENTE
-                response = "bien";
             }
             else
             {
-                //Se devuelve un mensaje de error en caso de que el modelo no sea válido
-                response = "error";
+
+                //Si el modelo no es valido. Igualamos Response a "Error" para validar en el lado del Cliente
+                Response = "Error";
             }
-            return Json(JsonRequestBehavior.AllowGet);
+
+            return Json(Response, JsonRequestBehavior.AllowGet);
+
         }
-#endregion
+//#endregion
 
         #region Activar Catalogo de Deducciones
         [HttpPost]
