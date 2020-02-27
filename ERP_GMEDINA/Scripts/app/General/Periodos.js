@@ -54,6 +54,8 @@ function cargarGridPeriodo() {
 
                 // variable boton editar
                 var botonEditar = ListPeriodo[i].peri_Activo == true ? '<button data-id = "' + ListPeriodo[i].peri_IdPeriodo + '" type="button" class="btn btn-default btn-xs"  id="btnEditarPeriodo">Editar</button>' : '';
+                // variable donde está el boton Inactivar
+                var botonInactivar = ListPeriodo[i].peri_Activo == true ? '<button data-id = "' + ListPeriodo[i].peri_IdPeriodo + '" type="button" class="btn btn-danger btn-xs"  id="btnInactivarPeriodo">Inactivar</button>' : '';
 
                 // variable donde está el boton activar
                 var botonActivar = ListPeriodo[i].peri_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListPeriodo[i].peri_IdPeriodo + '" type="button" class="btn btn-default btn-xs"  id="btnActivarPeriodos">Activar</button>' : '' : '';
@@ -65,7 +67,7 @@ function cargarGridPeriodo() {
                     ListPeriodo[i].peri_CantidadDias,
                     SeptimoDia,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar]
+                    botonDetalles + botonEditar + botonInactivar +  botonActivar]
                 );
             }
         });
@@ -275,17 +277,16 @@ $(document).on("click", "#btnConfirmarEditar", function () {
 });
 
 //DESPLEGAR EL MODAL DE INACTIVAR
-$(document).on("click", "#btnInactivarPeriodo", function () {
+$(document).on("click", "#tblPeriodo tbody tr td #btnInactivarPeriodo", function () {
 
     // validar informacion del usuario
     var validacionPermiso = userModelState("Periodos/Inactivar");
 
     if (validacionPermiso.status == true) {
-
+        var ID = $(this).data('id');
+        IDInactivar = ID;
         //DESBLOQUEAR EL BOTON DE CONFIRMAR INACTIVACION
         $("#btnInactivarPeriodoConfirmar").attr("disabled", false);
-        //OCULTAR MODAL DE EDICION
-        $("#EditarPeriodo").modal('hide');
         //MOSTRAR MODAL DE INACTIVACION
         $("#InactivarPeriodo").modal({ backdrop: 'static', keyboard: false });
     }
@@ -295,8 +296,6 @@ $(document).on("click", "#btnInactivarPeriodo", function () {
 $(document).on("click", "#btnCerrarInactivar", function () {
     //OCULTAR MODAL DE INACTIVACION
     $("#InactivarPeriodo").modal('hide');
-    //MOSTRAR MODAL DE EDICION
-    $("#EditarPeriodo").modal({ backdrop: 'static', keyboard: false });
 });
 
 //CONFIRMAR INACTIVACION DEL REGISTRO

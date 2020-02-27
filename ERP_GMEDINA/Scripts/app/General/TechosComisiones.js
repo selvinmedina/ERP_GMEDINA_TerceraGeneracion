@@ -47,6 +47,8 @@ function cargarGridTechoComisiones() {
 
                 //variable boton editar
                 var botonEditar = ListaTeC[i].tc_Estado == true ? '<button data-id = "' + ListaTeC[i].tc_Id + '" type="button" class="btn btn-default btn-xs"  id="btnEditarTechosComisiones">Editar</button>' : '';
+                //variable boton inactivar 
+                var botonInactivar = ListaTeC[i].tc_Estado == true ? '<button data-id = "' + ListaTeC[i].tc_Id + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarTechosComisiones">Inactivar</button>' : '';
 
                 //variable donde está el boton activar
                 var botonActivar = ListaTeC[i].tc_Estado == false ? esAdministrador == "1" ? '<button data-id = "' + ListaTeC[i].tc_Id + '" type="button" class="btn btn-default btn-xs"  id="btnActivarTechosComisiones">Activar</button>' : '' : '';
@@ -58,7 +60,7 @@ function cargarGridTechoComisiones() {
                     (ListaTeC[i].tc_RangoFin % 1 == 0) ? ListaTeC[i].tc_RangoFin + ".00" : ListaTeC[i].tc_RangoFin,
                     (ListaTeC[i].tc_PorcentajeComision % 1 == 0) ? ListaTeC[i].tc_PorcentajeComision + ".00" + '%' : ListaTeC[i].tc_PorcentajeComision + '%',
                    Estado,
-                   botonDetalles + botonEditar + botonActivar]
+                   botonDetalles + botonEditar + botonInactivar + botonActivar]
                    );
             }
         });
@@ -697,20 +699,20 @@ $(document).on("click", "#tblTechoCom tbody tr td #btnDetallesTechosComisiones",
 
 
 //INACTIVAR
-$(document).on("click", "#btnmodalInactivarTechosComisiones", function () {
+$(document).on("click", "#tblTechoCom tbody tr td #btnmodalInactivarTechosComisiones", function () {
     // validar informacion del usuario
     var validacionPermiso = userModelState("TechosComisiones/Inactivar");
 
     if (validacionPermiso.status == true) {
         //MOSTRAR EL MODAL DE INACTIVAR
-        $("#EditarTechoComision").modal('hide');
+        var ID = $(this).data('id');
+        IDInactivar = ID;
         $("#InactivarTechoComision").modal({ backdrop: 'static', keyboard: false });
     }
 });
 
 //FUNCION: PRIMERA FASE DE INACTIVACION DE REGISTROS, MOSTRAR MODAL CON MENSAJE DE CONFIRMACION
 $("#btnInactivarTechosComisiones").click(function () {
-    $("#EditarTechosComisiones").modal('hide');
     $("#btnInactivarTechoComision").attr("disabled", false);
     $("#InactivarTechosComisiones").modal({ backdrop: 'static', keyboard: false });
 });
@@ -757,7 +759,6 @@ $("#btnInactivarTechoComision").click(function () {
 //FUNCION: OCULTAR MODAL DE INACTIVACION
 $("#btnCerrarInactivar").click(function () {
     $("#InactivarTechoComision").modal('hide');
-    $("#EditarTechoComision").modal({ backdrop: 'static', keyboard: false });
 });
 
 $(document).on("click", "#tblTechoCom tbody tr td #btnActivarTechosComisiones", function () {
