@@ -61,14 +61,15 @@
                                             if (item.aces_Activo == true)
                                             {
                                                 <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-primary btn-xs" id="btnModalDetalles">Detalles</button>
-                                                    <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-default btn-xs" id="btnModalEdit">Editar</button>
+                                                <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-default btn-xs" id="btnModalEdit">Editar</button>
+                                                <button type="button" idauxiliocesantia="@item.aces_IdAuxilioCesantia" data-id="@item.aces_IdAuxilioCesantia" name="idauxiliocesantia" class="btn btn-danger btn-xs" id="btnInactivarauxiliocesantia">Inactivar</button>
                                             }
                                                 <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             if (esAdmin == true && item.aces_Activo == false)
                                             {
                                                 <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-primary btn-xs" id="btnModalDetalles">Detalles</button>
                                                     <!-- ACTIVAR -->
-                                                    <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-default btn-xs" id="btnModalActivarAuxCes">Activar</button>
+                                                <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-default btn-xs" id="btnModalActivarAuxCes">Activar</button>
                                             }
                                         }
                                     </td>
@@ -114,7 +115,6 @@
             @Html.Partial("_EditAuxCes", new ERP_GMEDINA.Models.tbAuxilioDeCesantias())
             <div class="modal-footer">
                 <input type="button" class="btn btn-primary pull-left" id="btnUpdateAuxCes" value="Actualizar" />
-                <button type="button" class="btn btn-danger pull-left" id="btnModalEliminar">Inactivar</button>
                 <button type="button" data-dismiss="modal" class="btn btn-white pull-right" id="btnCerrarEditar">Cerrar</button>
             </div>
         </div>

@@ -34,6 +34,9 @@ function cargarGridAuxilioCesantia() {
                 //variable donde está el boton activar
                 var botonActivar = ListaAuxCes[i].aces_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaAuxCes[i].aces_IdAuxilioCesantia + '" type="button" class="btn btn-default btn-xs"  id="btnModalActivarAuxCes">Activar</button>' : '' : '';
 
+                //variable donde esta el boton inactivar
+                var botonInactivar = ListaAuxCes[i].aces_Activo == true ? esAdministrador == "1" ? '<button type="button" name="idauxiliocesantia" class="btn btn-danger btn-xs" id="btnInactivarauxiliocesantia" data-id="' + ListaAuxCes[i].aces_IdAuxilioCesantia + '">Inactivar</button>' : '' : '';
+
                 //agregar fila al datatable
                 $('#tblAuxCesantia').dataTable().fnAddData([
                     ListaAuxCes[i].aces_IdAuxilioCesantia,
@@ -41,7 +44,7 @@ function cargarGridAuxilioCesantia() {
                     ListaAuxCes[i].aces_RangoFinMeses,
                     ListaAuxCes[i].aces_DiasAuxilioCesantia,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar]
+                    botonDetalles + botonEditar + botonInactivar + botonActivar]
                 );
             }
         });
@@ -910,13 +913,32 @@ $("#btnModalEliminar").click(function () {
     }
 
 });
+//VARIABLE GLOBAL DE INACTIVAR
+var GB_Inactivar = 0;
+//Modal de Inactivar
+$(document).on("click", "#btnInactivarauxiliocesantia", function () {
+    //validar informacion del usuario
+    var validacionPermiso = userModelState("AuxilioDeCesantias/Inactivar");
+    if (validacionPermiso.status == true) {
+        //DESBLOQUEAR EL BOTON
+        $("#btnEliminarAuxCes").attr("disabled", false);
+        var ID = $(this).data('id');
+        GB_Inactivar = ID;
+        console.log(GB_Inactivar);
+        //Mostrar el Modal
+        $("#frmEliminarAuxCes").modal({ backdrop: 'static', keyboard: false });
+    }
 
+
+});
+
+//Funcionamiento del Modal Inactivar
 // ejecutar inactivar
 $("#btnEliminarAuxCes").click(function () {
     $("#btnEliminarAuxCes").attr('disabled', true);
     //SERIALIZAR EL FORMULARIO (QUE ESTÁ EN LA VISTA PARCIAL) DEL MODAL, SE PARSEA A FORMATO JSON
     var data = $("#frmEliminarAuxCes").serializeArray();
-    var ID = EliminarID;
+    var ID = GB_Inactivar;
     //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
     $.ajax({
         url: "/AuxilioDeCesantias/Inactivar/" + ID,
@@ -942,7 +964,6 @@ $("#btnEliminarAuxCes").click(function () {
         }
     });
 });
-
 
 // activar
 var activarID = 0;
