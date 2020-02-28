@@ -1,4 +1,6 @@
-﻿var jor_Id = 0;
+﻿/// <reference path="../../../plugins/dataTables/DatatablesConfigurations.js" />
+/// <reference path="../../../plugins/dataTables/DatatablesConfigurations.js" />
+var jor_Id = 0;
 var fill = 0;
 $(document).ready(function () {
     fill = Admin == undefined ? 0 : -1;
@@ -36,6 +38,8 @@ function llenarTabla() {
 
        });
 }
+
+
 function tablaEditar(ID) {
     id = ID;
     _ajax(null,
@@ -48,6 +52,7 @@ function tablaEditar(ID) {
             }
         });
 }
+
 function tablaDetalles(ID) {
     var validacionPermiso = userModelState("Jornadas/Detalles");
     if (validacionPermiso.status == true) {
