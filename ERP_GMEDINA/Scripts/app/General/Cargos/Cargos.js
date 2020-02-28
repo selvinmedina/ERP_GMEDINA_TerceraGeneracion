@@ -108,15 +108,15 @@ $("#btnEditar").click(function () {
         });
 });
 
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Cargos/delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#car_RazonInactivo").val("");
-        $("#ModalInactivar").find("#car_RazonInactivo").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("Cargos/delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#car_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#car_RazonInactivo").focus();
+//    }
+//});
 
 //botones POST
 $("#btnGuardar").click(function () {
@@ -168,7 +168,7 @@ $("#InActivar").click(function () {
     var data = $("#FormInactivar").serializeArray();
     data = serializar(data);
     if (data != null) {
-        data.car_Id = id;
+        data.car_Id = $("#txtId").val();
         data = JSON.stringify({ tbCargos: data });
         _ajax(data,
             '/Cargos/Delete',
