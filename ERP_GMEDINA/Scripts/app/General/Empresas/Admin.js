@@ -12,6 +12,20 @@ function hablilitar(btn) {
     }
 }
 
+function inactivar(btn) {
+    var validacionPermiso = userModelState("Empresas/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#empr_RazonInactivo").val("");
+        $("#ModalInactivar").find("#empr_RazonInactivo").focus();
+
+    }
+}
 //Cambiar el controlador para ejecutar el UDP de restaurar
 $("#btnActivar").click(function () {
  var Id = $("#ModalHabilitar").data("id");
