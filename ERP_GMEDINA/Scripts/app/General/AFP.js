@@ -27,8 +27,11 @@ function cargarGridDeducciones() {
                 //variable boton editar
                 var botonEditar = ListaAFP[i].afp_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnEditarAFP" data-id = "' + ListaAFP[i].afp_Id + '">Editar</button>' : '';
 
+                //variable boton editar
+                var botonInactivar = ListaAFP[i].afp_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-danger btn-xs" id="btnActivarAFP" data-id = "' + ListaAFP[i].afp_Id + '">Inactivar</button>' : '';
+
                 //variable donde está el boton activar
-                var botonActivar = ListaAFP[i].afp_Activo == false ? esAdministrador == "1" ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnActivarAFP" afpid="' + ListaAFP[i].afp_Id + '" data-id = "' + ListaAFP[i].afp_Id + '">Activar</button>' : '' : '';
+                var botonActivar = ListaAFP[i].afp_Activo == false ? esAdministrador == "1" ? '<button type="button" style="margin-right:6px;" class="btn btn-default btn-xs" id="btnActivarAFP" afpid="' + ListaAFP[i].afp_Id + '" data-id = "' + ListaAFP[i].afp_Id + '">Activar</button>' : '' : '';
 
                 //agregar row al datatble
                 $('#tblAFP').dataTable().fnAddData([
@@ -39,7 +42,7 @@ function cargarGridDeducciones() {
                     (ListaAFP[i].afp_InteresAnual % 1 == 0) ? ListaAFP[i].afp_InteresAnual + ".00" : ListaAFP[i].afp_InteresAnual,
                     ListaAFP[i].tde_Descripcion,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonActivar + botonInactivar
                 ]);
             }
             FullBody();
@@ -98,16 +101,16 @@ $("#btnActivarRegistroAFP").click(function () {
                 });
             }
             else {
-
                 // refrescar datatable
                 cargarGridDeducciones();
-
+                window.location.reload(true);
                 // mensaje de exito
                 iziToast.success({
                     title: 'Exito',
                     message: '¡El registro se activó de forma exitosa!',
                 });
             }
+            
         });
     activarID = 0;
 
@@ -1063,20 +1066,20 @@ $(document).on("click", "#btnBack", function () {
     // ocultar modal inactivar
     $("#InactivarAFP").modal('hide');
 
-    // mostrar modal editar
-    $("#EditarAFP").modal({ backdrop: 'static', keyboard: false });
 
 });
 
+
 // inactivar confirmar
 $(document).on("click", "#btnInactivarAFP", function () {
+    var ID = $(this).data('id');
     //validar informacion del usuario
     var validacionPermiso = userModelState("AFP/Inactivar");
 
     if (validacionPermiso.status == true) {
         // habilitar boton ejecutar inactivar
         $("#btnInactivarRegistroAFP").attr('disabled', false);
-
+        inactivarID = ID;
         // modales
         $("#EditarAFP").modal('hide');
         $("#InactivarAFP").modal({ backdrop: 'static', keyboard: false });
@@ -1105,7 +1108,6 @@ $("#btnInactivarRegistroAFP").click(function () {
             });
         }
         else {
-
             // actualizar datatable
             cargarGridDeducciones();
 

@@ -245,6 +245,7 @@ namespace ERP_GMEDINA.Controllers
         #endregion
 
         #region Activar
+        [HttpPost]
         [SessionManager("AuxilioDeCesantias/Activar")]
         public ActionResult Activar(int id)
         {

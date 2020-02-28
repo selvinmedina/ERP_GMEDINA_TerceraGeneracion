@@ -149,8 +149,8 @@ namespace ERP_GMEDINA.Controllers
                             {
                                 suc_Id = t.suc_Id,
                                 mun_Codigo = t.mun_Codigo,
-                                bod_Id = t.bod_Id,
-                                pemi_Id = t.pemi_Id,
+                                bod_Id = t.tbBodega.bod_Nombre,
+                                pemi_Id = t.tbPuntoEmision.pemi_NumeroCAI,
                                 empr_Nombre = t.tbEmpresas.empr_Nombre,
                                 suc_Correo = t.suc_Correo,
                                 suc_Descripcion = t.suc_Descripcion,

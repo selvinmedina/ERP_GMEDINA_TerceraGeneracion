@@ -47,7 +47,7 @@ function cargarGridDeducciones() {
                     title: 'Error',
                     message: 'No se cargó la información, contacte al administrador',
                 });
-            }
+            } 
             //GUARDAR EN UNA VARIABLE LA DATA OBTENIDA
             var ListaDeducciones = data,
                 template = '';
@@ -82,7 +82,7 @@ function cargarGridDeducciones() {
                     botonDetalles + botonEditar + botonInactivar + botonActivar  
                 ]);
             }
-        });
+        }); 
     FullBody();
 }
 
@@ -216,28 +216,33 @@ $('#btnCreateRegistroDeduccion').click(function () {
 
                 //ocultar el modal
                 $("#AgregarCatalogoDeducciones").modal('hide');
-
+               
                 // Mensaje de exito cuando un registro se ha guardado bien
                 iziToast.success({
                     title: 'Exito',
                     message: '¡El registro se agregó de forma exitosa!',
                 });
+              
             } else {
                 iziToast.error({
                     title: 'Error',
                     message: 'No se guardó el registro, contacte al administrador',
                 });
-            }
+            } 
         });
     }
     else {
         ValidarCrear(cde_DescripcionDeduccionA, tde_IdTipoDeduc, MontoporcentajecolFormateado, MontoporcentajeEmpFormateado);
     }
-});
+    window.location = "http://localhost:51144/CatalogoDeDeducciones";
+}); 
+
+
 
 // EVITAR POSTBACK DE FORMULARIOS
 $("#frmCatalogoDeduccionesCreate").submit(function (e) {
     return false;
+   
 });
 
 //VALIDAR EDIT//

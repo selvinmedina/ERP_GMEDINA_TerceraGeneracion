@@ -158,9 +158,10 @@
                                 </div>
                                 @Html.LabelFor(model => model.mun_Codigo, new { @class = "control-label col-md-2 , required" })
                                 <div class="col-md-4">
-                                    @Html.DropDownList("mun_Codigo",@*null, "Seleccione Municipio",*@                              /**/                                                                                                                                                               /**/
-                                                                                                                                                                      /**/
-                                                                                                                                                                       (IEnumerable<SelectListItem>)ViewBag.municipio_Edit, new { @class = "form-control" })
+                                    @Html.DropDownList("mun_Codigo",@*null, "Seleccione Municipio",*@                              /**/
+                                                                                                                                                                       /**/
+                                                                                                                                                                       /**/
+                                    (IEnumerable<SelectListItem>)ViewBag.municipio_Edit, new { @class = "form-control" })
                                     <p id="Municipio" style="color:red">@Html.ValidationMessageFor(model => model.mun_Codigo)</p>
                                 </div>
                                 @*<div class="form-group">
@@ -243,22 +244,8 @@
                             </div>
                             <div class="form-group ">
                                 <div class="col-md-offset-4 col-md-10">
-
-                                    @{if (Model.bod_EsActiva == 1)
-                                        {
-
-                                            <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" />
-                                            <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado" value="Inactivar" />
-
-                                        }
-                                        else
-                                        {
-                                            <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" disabled />
-                                            @Html.ActionLink("Activar", "Estadoactivar", new { id = Model.bod_Id }, new { @class = "btn btn-primary" })
-                                        }
-                                    }
+                                    <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" />
                                     @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
-
                                 </div>
                             </div>
                         </div>
@@ -302,25 +289,7 @@
 @*MODALES*@
 
 
-<div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Inactivar Bodega</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro que quiere Inactivar esta Bodega?
-            </div>
-            <div class="modal-footer">
-                @Html.ActionLink("Sí", "EstadoInactivar", new { id = Model.bod_Id }, new { @class = "btn btn-danger" })
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 
