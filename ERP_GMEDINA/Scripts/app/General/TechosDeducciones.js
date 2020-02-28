@@ -212,6 +212,8 @@ function cargarGridTechosDeducciones() {
 
                 //variable boton editar
                 var botonEditar = ListaTechosDeducciones[i].tddu_Activo == true ? '<button data-id = "' + ListaTechosDeducciones[i].tddu_IdTechosDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnEditarTechosDeducciones">Editar</button>' : '';
+                //variable boton inactivar
+                var botonInactivar = ListaTechosDeducciones[i].tddu_Activo == true ? '<button data-id = "' + ListaTechosDeducciones[i].tddu_IdTechosDeducciones + '" type="button" class="btn btn-danger btn-xs"  id="btnInactivarTechoDeducciones">Inactivar</button>' : '';
 
                 //variable donde está el boton activar
                 var botonActivar = ListaTechosDeducciones[i].tddu_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaTechosDeducciones[i].tddu_IdTechosDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnActivarTechosDeducciones">Activar</button>' : '' : '';
@@ -223,7 +225,7 @@ function cargarGridTechosDeducciones() {
                     ListaTechosDeducciones[i].tddu_Techo.toFixed(2),
                     ListaTechosDeducciones[i].cde_DescripcionDeduccion,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar]
+                    botonDetalles + botonEditar + botonInactivar + botonActivar]
                 );
             }
         });
@@ -695,14 +697,15 @@ $("#btnCerrarConfirmarEditar").click(function () {
 //quitar Confirmacion
 $('#btnNoInactivar').click(function () {
     $("#InactivarTechosDeducciones").modal('hide');
-    $("#EditarTechosDeducciones").modal({ backdrop: 'static', keyboard: false });
 });
 
 // validar informacion del usuario
 
-$(document).on("click", "#btnInactivarTechoDeducciones", function () {
+$(document).on("click", "#tblTechosDeducciones tbody tr td #btnInactivarTechoDeducciones", function () {
     var validacionPermiso = userModelState("TechosDeducciones/Inactivar");
     if (validacionPermiso.status == true) {
+        var ID = $(this).data('id');
+        InactivarID = ID;
         $('#btnInactivarTechosDeducciones').attr('disabled', false);
             $("#btnInactivarTechosDeducciones").modal('hide');
             $("#InactivarTechosDeducciones").modal({ backdrop: 'static', keyboard: false });

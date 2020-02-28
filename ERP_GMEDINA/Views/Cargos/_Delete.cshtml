@@ -10,6 +10,7 @@
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "FormInactivar" }))
                 {
                     <div class="form-horizontal">
+                        <input type="hidden" value="" id="txtId">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
 							@Html.LabelFor(model => model.car_RazonInactivo, htmlAttributes: new { @class = "control-label col-md-3" })
@@ -22,7 +23,7 @@
 					}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white pull-right" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-white pull-right" id="btnCerrar" data-dismiss="modal">No</button>
                 <button type="button" class="btn btn-danger pull-right" id="InActivar">Si</button>
             </div>
         </div>
