@@ -26,7 +26,7 @@
                         <!-- Tomaremos el valor de este input en el JS para validar si el usuario es administrador-->
                         <input type="hidden" name="rol_Usuario" id="rol_Usuario" value="@rol_Usuario" />
                     }
-                    <table class="table table-striped table-bordered table-hover dataTables-example" id="IndexTabla">
+                    <table class="table table-striped table-bordered table-hover " id="IndexTabla">
                         <thead>
                             <tr role="row">
                                 <th>@Html.DisplayNameFor(model => model.ini_IdIngresosIndividuales)</th>
@@ -62,7 +62,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ini_comentario)
                                     </td>
-                                    <td>
+                                    <td nowrap>
                                         @{
                                             <!-- validar si el estado es activo para mostrar los botones "detalles" y "editar" -->
                                             if (item.ini_Activo == true)

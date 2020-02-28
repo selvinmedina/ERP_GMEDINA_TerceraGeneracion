@@ -7,7 +7,7 @@ var fill = 0;
 var id = 0;
 //Format Dibujar ChildRow
 function format(obj) {
-    var div = '<div class="ibox"><div class="ibox-title"><h5>Historial Fases de Reclutamiento</h5><div align=right> </div></div><div class="ibox-content"><div class="row">' + '<table class="table table-striped table-borderef table-hover dataTables-example"> ' +
+    var div = '<div class="ibox"><div class="ibox-title"><h5>Historial Fases de Reclutamiento</h5><div align=right> </div></div><div class="ibox-content"><div class="row">' + '<table class="table table-striped table-borderef table-hover "> ' +
         '<thead>' +
             '<tr>' +
                 '<th>' + 'Número' + '</th>' +

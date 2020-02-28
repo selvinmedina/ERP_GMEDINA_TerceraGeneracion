@@ -1,6 +1,6 @@
 ﻿function format(obj) {
     var div = '<div class="ibox"><div class="ibox-title"><h5>Audiencias de Descargo</h5> <div align=right><button type="button" class="btn btn-primary btn-xs" onclick="Llamarmodalcreate(' + idEmpleado + ')">Registrar</button> </div> </div><div class="ibox-content"><div class="row">'
-        + '<table class="table table-striped table-bordered table-hover dataTables-example" >'
+        + '<table class="table table-striped table-bordered table-hover " >'
         + '<thead>'
         + '<tr> <th>  Motivo  </th>'
         + '<th>Fecha</th>'

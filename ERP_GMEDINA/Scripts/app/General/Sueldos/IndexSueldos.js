@@ -33,7 +33,7 @@ function tablaEditar(ID) {
 
 
 function format(obj) {
-    var div = '<div class="ibox"><div class="ibox-title"><h5>Historial de Sueldos del Empleado</h5><div align=right><div class="ibox-content"><div class="row">' + '<table class="table table-striped table-borderef table-hover dataTables-example"> ' +
+    var div = '<div class="ibox"><div class="ibox-title"><h5>Historial de Sueldos del Empleado</h5><div align=right><div class="ibox-content"><div class="row">' + '<table class="table table-striped table-borderef table-hover "> ' +
         '<thead>' +
             '<tr>' +
                 '<th>' + 'Sueldo Anterior' + '</th>' +

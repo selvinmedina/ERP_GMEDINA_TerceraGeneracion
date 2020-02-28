@@ -10,7 +10,7 @@ function format(obj) {
 
 
     var div = '<div class="ibox"><div class="ibox-title"><h5>Incapacidades</h5> <div align=right><button href="Create" type="button" class="btn btn-primary btn-xs" onclick="tablaEditar(' + idEmpleado + ')" id="nuevo" data-id="@item.cin_IdIngreso">Nueva Incapacidad</button> </div> </div><div class="ibox-content"><div class="row">'
-        + '<table class="table table-striped table-bordered table-hover dataTables-example" >'
+        + '<table class="table table-striped table-bordered table-hover " >'
         + '<thead>'
         + '<tr> <th> Número   </th>'
         + '<th>Incapacidad</th>'
