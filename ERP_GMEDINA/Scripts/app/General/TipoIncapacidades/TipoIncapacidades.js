@@ -23,6 +23,21 @@ function tablaEditar(ID) {
     }
 }
 
+function inactivar(btn) {
+    var validacionPermiso = userModelState("TipoIncapacidades/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#ticn_Descripcion").val("");
+        $("#ModalInactivar").find("#ticn_Descripcion").focus();
+
+    }
+}
+
 function tablaDetalles(ID) {
     var validacionPermiso = userModelState("TipoIncapacidades/Edit");
     if (validacionPermiso.status == true) {
@@ -103,15 +118,15 @@ $("#btnEditar").click(function () {
     }
 });
 
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("TipoIncapacidades/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#ticn_Descripcion").val("");
-        $("#ModalInactivar").find("ticn_Descripcion").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("TipoIncapacidades/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#ticn_Descripcion").val("");
+//        $("#ModalInactivar").find("ticn_Descripcion").focus();
+//    }
+//});
 
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -136,29 +151,25 @@ $("#btnGuardar").click(function () {
     }
 });
 
-$("#InActivar").click(function () {
-    var data = $("#FormInactivar").serializeArray();
-    data = serializar(data);
-    if (data != null) {
-        data.ticn_Id = id;
-        data = JSON.stringify({ tbTipoIncapacidades: data });
-        _ajax(data,
-            '/TipoIncapacidades/Delete',
-            'POST',
-            function (obj) {
-                if (obj != "-1" && obj != "-2" && obj != "-3") {
-                    CierraPopups();
-                    llenarTabla();
-                    LimpiarControles(["ticn_Descripcion"]);
-                    MsgSuccess("¡Éxito!", "El registro inactivó de forma exitosa.");
-                } else {
-                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
-                }
-            });
-    } else {
-        MsgError("Error", "Por favor llene todas las cajas de texto.");
-    }
-});
+//$("#InActivar").click(function () {
+   
+//    var Id = $("#txtIdDelete").val(); 
+//        data = JSON.stringify({ id: Id });
+//        _ajax(data,
+//            '/TipoIncapacidades/Delete',
+//            'POST',
+//            function (obj) {
+//                if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                    CierraPopups();
+//                    llenarTabla();
+//                    LimpiarControles(["ticn_Descripcion"]);
+//                    MsgSuccess("¡Éxito!", "El registro inactivó de forma exitosa.");
+//                } else {
+//                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+//                }
+//            });
+  
+//});
 
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();

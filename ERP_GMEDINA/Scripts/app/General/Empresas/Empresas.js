@@ -149,15 +149,15 @@ $("#btnEditar").click(function () {
             });
     }
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Empresas/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#empr_RazonInactivo").val("");
-        $("#ModalInactivar").find("#empr_RazonInactivo").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("Empresas/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#empr_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#empr_RazonInactivo").focus();
+//    }
+//});
 $("#FormNuevo").on("submit", function (event) {
     var data = $("#FormNuevo").find("input").not("input[name='empr_RTN']").serializeArray();
  data = serializar(data);
@@ -234,7 +234,7 @@ $("#InActivar").click(function () {
  var data = $("#FormInactivar").serializeArray();
  data = serializar(data);
  if (data != null) {
-  data.empr_Id = id;
+     data.empr_Id = $("#txtIdDelete").val();
   data = JSON.stringify({ tbEmpresas: data });
   _ajax(data,
       '/Empresas/Delete',
