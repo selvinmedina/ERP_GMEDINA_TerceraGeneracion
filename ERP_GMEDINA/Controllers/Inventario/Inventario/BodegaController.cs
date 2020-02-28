@@ -515,6 +515,9 @@ namespace ERP_GMEDINA.Controllers
             return Json(Datos);
         }
 
+
+
+
         [HttpPost]
         public JsonResult GetMunicipios(string CodDepartamento)
         {
