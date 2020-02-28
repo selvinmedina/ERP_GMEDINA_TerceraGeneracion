@@ -68,6 +68,10 @@ function cargarGridIngresos() {
                     '<button type="button" class="btn btn-default btn-xs" id="btnEditarIngreso" data-id="'
                     + ListaIngresos[i].cin_IdIngreso + '">Editar</button>' : '';
 
+                var botonInactivar = ListaIngresos[i].cin_Activo == true ? 
+                    '<button type="button" class="btn btn-danger btn-xs" id="btnModalInactivar" data-id="'
+                    + ListaIngresos[i].cin_IdIngreso + '">Inactivar</button>' : '';
+
                 var botonActivar = ListaIngresos[i].cin_Activo == false ? esAdministrador == "1" ?
                     '<button type="button" class="btn btn-default btn-xs" id="btnActivar" data-id="'
                     + ListaIngresos[i].cin_IdIngreso + '">Activar</button>' : '' : '';
@@ -78,7 +82,7 @@ function cargarGridIngresos() {
                     ListaIngresos[i].cin_DescripcionIngreso,
                     getTipoIngreso(ListaIngresos[i].cin_TipoIngreso),
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar]
+                    botonDetalles + botonEditar + botonInactivar + botonActivar]
                 );
             }
         });
@@ -324,26 +328,40 @@ $("#btnEditarNo").click(function () {
 });
 
 // INACTIVAR 
-$("#btnModalInactivar").click(function () {
-    // validar informacion del usuario
+$(document).on("click", "#tblCatalogoIngresos tbody tr td #btnModalInactivar", function () {
     let validacionPermiso = userModelState("CatalogoDeIngresos/Inactivar");
 
     if (validacionPermiso.status == true) {
-        //DESBLOQUEAR EL BOTON
+        var ID = $(this).data('id');
+        //SETEAR LA VARIABLE GLOBAL DE INACTIVACION
+        InactivarID = ID;
+        //DESBLOQUEAR EL BOTON DE ACTIVAR
         $("#btnInactivarIngresos").attr("disabled", false);
-        //OCULTAR EL MODAL DE EDICION
-        $("#EditarCatalogoIngresos").modal('hide');
         //MOSTRAR EL MODAL DE INACTIVACION
         $("#InactivarCatalogoIngresos").modal({ backdrop: 'static', keyboard: false });
     }
 });
 
+//************************Código inservible***********************//
+//$("#tblCatalogoIngresos tbody tr td #btnModalInactivar").click(function () {
+//    // validar informacion del usuario
+//    let validacionPermiso = userModelState("CatalogoDeIngresos/Inactivar");
+
+//    if (validacionPermiso.status == true) {
+//        var ID = $(this).data('id');
+//        //SETEAR LA VARIABLE GLOBAL DE INACTIVACION
+//        InactivarID = ID;
+//        //DESBLOQUEAR EL BOTON
+//        $("#btnInactivarIngresos").attr("disabled", false);
+//        //MOSTRAR EL MODAL DE INACTIVACION
+//        $("#InactivarCatalogoIngresos").modal({ backdrop: 'static', keyboard: false });
+//    }
+//});
+
 //CERRAR EL MODAL DE CONFIRMACION DE INACTIVAR
 $("#btnNoInactivar").click(function () {
     //OCULTAR EL MODAL DE INACTIVACION
     $("#InactivarCatalogoIngresos").modal('hide');
-    //MOSTRAR EL MODAL DE EDICION
-    $("#EditarCatalogoIngresos").modal({ backdrop: 'static', keyboard: false });
 });
 
 //CONFIRMAR LA INACTIVACION
@@ -412,6 +430,7 @@ $("#btnActivarIngreso").click(function () {
         if (data == "error") {
             //DESBLOQUEAR EL BOTON DE ACTIVAR
             $("#btnActivarIngreso").attr("disabled", false);
+            window.location.reload(true);
             //Cuando traiga un error del backend al guardar la edicion
             iziToast.error({
                 title: 'Error',
