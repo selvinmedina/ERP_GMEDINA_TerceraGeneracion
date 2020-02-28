@@ -66,23 +66,23 @@ namespace ERP_GMEDINA.Controllers
             {
                 db = new ERP_GMEDINAEntities();
 
-                var Equipo = db.tbEquipoTrabajo.Select(e => new  { e.eqtra_Id, e.eqtra_Descripcion, e.eqtra_Estado}).Where(y => y.eqtra_Estado == true).ToList();
-                var EquipoAsignado = db.tbEquipoEmpleados.Select(e => new  {e.eqtra_Id, e.eqem_Estado })./*Where(d => d.eqem_Estado == true).*/ToList();
+                var Equipo = db.tbEquipoTrabajo.Select(e => new  { e.eqtra_Id, e.eqtra_Descripcion}).ToList();
+                var EquipoAsignado = db.tbEquipoEmpleados.Select(e => new  {e.eqtra_Id, e.eqem_Estado }).Where(d => d.eqem_Estado == true).ToList();
                 bool Found = false;
                 List<tbEquipoTrabajo> Send = new List<tbEquipoTrabajo>();
                 tbEquipoTrabajo _snd = null;
                 foreach (var et in Equipo)
                 {
-                    //Found = false;
-                    //foreach (var ee in EquipoAsignado)
-                    ////    {
-                    //        if (et.eqtra_Estado == true)
-                    //        {
-                    //            Found = true;
-                    //        }
-                        //}
+                    Found = false;
+                    foreach (var ee in EquipoAsignado)
+                    {
+                        if (ee.eqtra_Id == et.eqtra_Id)
+                        {
+                            Found = true;
+                        }
+                    }
 
-                        if (!Found)
+                    if(!Found)
                     {
                         _snd = new tbEquipoTrabajo();
                         _snd.eqtra_Id = et.eqtra_Id;

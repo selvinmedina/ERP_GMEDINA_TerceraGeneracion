@@ -152,7 +152,8 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.dep_Codigo, new { @class = "control-label col-md-2 , required" })
                                 <div class="col-md-4">
-                                    @Html.DropDownList("dep_Codigo", (IEnumerable<SelectListItem>)ViewBag.deparatamento_Edit, new { @class = "form-control" })
+                                    @Html.DropDownList("dep_Codigo", (IEnumerable<SelectListItem>)ViewBag.deparatamento_Edit, new { @class = "form-control" , @Id="ddlDepartamentos"})
+
                                     <p id="Departamento" style="color:red">@Html.ValidationMessageFor(muni => ListadoDepartamento.dep_Codigo)</p>
                                 </div>
                                 @Html.LabelFor(model => model.mun_Codigo, new { @class = "control-label col-md-2 , required" })
@@ -300,6 +301,7 @@
 <script src="~/Scripts/app/BodegaDetalle.js"></script>
 <script src="~/Scripts/app/EditBodegaDetalle.js"></script>
 <script src="~/Scripts/app/ValidationErrorsBodega.js"></script>
+
 @*<script src="~/Scripts/app/disableSubmits.js"></script>*@
 @*<script language="javascript" type="text/javascript" src="disableSubmits.js"></script>*@
 @*<script src="~/Scripts/jquery.validate.min.js"></script>
@@ -311,7 +313,7 @@
 <script>
     $("#bod_Nombre").focus();
     $(document).ready(function () {
-        var Mun = $('#mun_Codigo').val();
+        var Mun = $('#dep_Codigo').val();
 
         console.log(Mun);
         if (Mun != '') {
@@ -320,6 +322,7 @@
         }
 
     });
+
 
     function GetDepartamento() {
         var CodMunicipio = $('#mun_Codigo').val();
@@ -330,14 +333,31 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ CodMunicipio: CodMunicipio }),
         })
+            
             .done(function (data) {
+                console.log("Verificar la data",data)
                 if (data.length > 0) {
                     $('#dep_Codigo').empty();
                     //$('#dep_Codigo').append("<option value=''>Seleccione Municipio</option>");
                     $.each(data, function (key, val) {
                         $('#dep_Codigo').append("<option value=" + val.dep_Codigo + ">" + val.dep_Nombre + "</option>");
                     });
-                    $('#dep_Codigo').trigger("chosen:updated");
+                    $('#mun_Codigo').trigger("chosen:updated");
+
+                    console.log(data)
+                    console.log(data[0].dep_Codigo)
+
+
+                    //var elemento = document.getElementById("ddDepartamentos");
+                    
+
+                    //var prueba = strUser = elemento.options[elemento.selectedIndex].value;
+                    var prueba = $('#ddlDepartamentos option[value='+data[0].dep_Codigo+']')
+                    console.log('Esta es una prueba', prueba)
+                    
+                    var departamento = document.getElementById("ddlDepartamentos")  
+                    departamento.selectedIndex = prueba.index();
+                    console.log(departamento)
                 }
                 else {
                     $('#dep_Codigo').empty();

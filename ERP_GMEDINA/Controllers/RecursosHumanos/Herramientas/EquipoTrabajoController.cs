@@ -161,18 +161,17 @@ namespace ERP_GMEDINA.Controllers
 		// GET: /EquipoTrabajo//Delete/5
         [HttpPost]
         [SessionManager("EquipoTrabajo/Delete")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(tbEquipoTrabajo tbEquipoTrabajo)
         {
-            tbEquipoTrabajo tra = new tbEquipoTrabajo();
             string msj = "";
-            if (/*tbEquipoTrabajo.eqtra_Id != 0*/id != 0 && tra.eqtra_RazonInactivo != "")
+            if (tbEquipoTrabajo.eqtra_Id != 0 && tbEquipoTrabajo.eqtra_RazonInactivo != "")
             {
                 //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
                     db = new ERP_GMEDINAEntities();
-                    var list = db.UDP_RRHH_tbEquipoTrabajo_Inactivar(id, (int)Session["UserLogin"], Function.DatetimeNow());
+                    var list = db.UDP_RRHH_tbEquipoTrabajo_Inactivar(tbEquipoTrabajo.eqtra_Id, (int)Session["UserLogin"], Function.DatetimeNow());
                     foreach (UDP_RRHH_tbEquipoTrabajo_Inactivar_Result item in list)
                     {
                         msj = item.MensajeError + " ";

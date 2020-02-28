@@ -211,12 +211,12 @@ namespace ERP_GMEDINA.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             return Json(tbCatalogoDeDeduccionesJSON, JsonRequestBehavior.AllowGet);
         }
-#endregion
+        #endregion
 
-        #region Inactivar Catalogo de Deducciones
+        //#region Inactivar Catalogo de Deducciones
         [HttpPost]
         [SessionManager("CatalogoDeDeducciones/Inactivar")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Inactivar(int id)
         {
             IEnumerable<object> listCatalogoDeIngresos = null;
@@ -257,7 +257,56 @@ namespace ERP_GMEDINA.Controllers
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
-#endregion
+        //[HttpGet]
+        //[SessionManager("CatalogoDeDeducciones/Inactivar")]
+        //public JsonResult Inactivar(int? id)
+        //{
+        //    if (id == null)
+        //        return Json("error", JsonRequestBehavior.AllowGet);
+        //    //Variable para enviarla al lado del Cliente
+        //    string Response = "bien";
+        //    IEnumerable<object> listCatalogoDeDeducciones = null;
+        //    string MensajeError = "";
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+
+        //            //Ejecutar Procedimiento Almacenado
+        //            listCatalogoDeDeducciones = db.UDP_Plani_tbCatalogoDeDeducciones_Inactivar          (id,
+        //                                                                                                 Function.GetUser(),
+        //                                                                                                 Function.DatetimeNow());
+
+        //            //El tipo complejo del Procedimiento Almacenado
+        //            foreach (UDP_Plani_tbCatalogoDeDeducciones_Inactivar_Result Resultado in listCatalogoDeDeducciones)
+        //            {
+        //                MensajeError = Resultado.MensajeError;
+        //            }
+
+        //            if (MensajeError.StartsWith("-1"))
+        //            {
+
+        //                //En caso de un error igualamos la variable Response a "Error" para validar en el lado del Cliente
+        //                ModelState.AddModelError("", "No se pudo Inactivar. Contacte al Administrador!");
+        //                Response = "Error";
+        //            }
+        //        }
+        //        catch (Exception Ex)
+        //        {
+        //            Response = Ex.Message.ToString();
+        //        }
+        //    }
+        //    else
+        //    {
+
+        //        //Si el modelo no es valido. Igualamos Response a "Error" para validar en el lado del Cliente
+        //        Response = "Error";
+        //    }
+
+        //    return Json(Response, JsonRequestBehavior.AllowGet);
+
+        //}
+//#endregion
 
         #region Activar Catalogo de Deducciones
         [HttpPost]
