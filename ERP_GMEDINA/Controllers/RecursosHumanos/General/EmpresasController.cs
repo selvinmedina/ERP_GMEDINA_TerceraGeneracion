@@ -242,11 +242,11 @@ namespace ERP_GMEDINA.Controllers
             string msj = "...";
             if (tbEmpresas.empr_Id != 0 && tbEmpresas.empr_RazonInactivo != "")
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
-                    var list = db.UDP_RRHH_tbEmpresas_Delete(id, tbEmpresas.empr_RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
+                    var list = db.UDP_RRHH_tbEmpresas_Delete(tbEmpresas.empr_Id, tbEmpresas.empr_RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
                     foreach (UDP_RRHH_tbEmpresas_Delete_Result item in list)
                     {
                         msj = item.MensajeError + " ";
