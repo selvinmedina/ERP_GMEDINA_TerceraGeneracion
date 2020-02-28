@@ -71,8 +71,8 @@
                                             {
                                                 <button type="button" data-id="@item.cde_IdDeducciones" class="btn btn-primary btn-xs" id="btnDetalleCatalogoDeducciones">Detalles</button>
                                                     <button type="button" data-id="@item.cde_IdDeducciones" class="btn btn-default btn-xs" id="btnEditarCatalogoDeducciones">Editar</button>
-                                                    <button type="button" data-id="@item.cde_IdDeducciones" class="btn btn-danger btn-xs"  id="btnmodalInactivarCatalogoDeducciones">Inactivar</button>
-
+                                                     <!-- INACTIVAR -->
+                                                    <button type="button" data-id="@item.cde_IdDeducciones" class="btn btn-danger btn-xs" id="btnmodalInactivarCatalogoDeducciones">Inactivar</button>
                                             }
 
                                                 <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
@@ -183,6 +183,7 @@
                 </div>
                 <button type="button" class="btn btn-white" data-dismiss="modal" id="btnCerrarActivar">No</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -194,3 +195,5 @@
 @section Styles {
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
 }
+
+
