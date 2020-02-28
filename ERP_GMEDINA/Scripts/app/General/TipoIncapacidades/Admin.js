@@ -12,6 +12,8 @@ function hablilitar(btn) {
     }
 }
 
+
+
 //Cambiar el controlador para ejecutar el UDP de restaurar
 $("#btnActivar").click(function () {
         var Id = $("#txtIdRestore").val();
@@ -27,4 +29,25 @@ $("#btnActivar").click(function () {
                 }
             });
         CierraPopups();
+});
+
+//Cambiar el controlador para ejecutar el UDP de inactivar
+$("#InActivar").click(function () {
+
+    var Id = $("#txtIdDelete").val();
+    data = JSON.stringify({ id: Id });
+    _ajax(data,
+        '/TipoIncapacidades/Delete',
+        'POST',
+        function (obj) {
+            if (obj != "-1" && obj != "-2" && obj != "-3") {
+                CierraPopups();
+                llenarTabla();
+                LimpiarControles(["ticn_Descripcion"]);
+                MsgSuccess("¡Éxito!", "El registro inactivó de forma exitosa.");
+            } else {
+                MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+            }
+        });
+
 });
