@@ -63,6 +63,8 @@ function cargarGridISR() {
                 //variable boton activar
                 var botonActivar = ListaISR[i].isr_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaISR[i].isr_Id + '" type="button" class="btn btn-default btn-xs"  id="btnActivarISRModal">Activar</button>' : '' : '';
 
+                //variable boton inactivar
+                var botonInactivar = ListaISR[i].isr_Activo == false ? esAdministrador == "1" ? '<button type="button" data-id="' + ListaISR[i].isr_Id + '" class="btn btn-danger btn-xs" id="btnModalInactivarISR">Inactivar</button>' : '' : '';
                 //agregar el row al datatable
                 $('#tblISR').dataTable().fnAddData([
                     ListaISR[i].isr_Id,
@@ -70,7 +72,7 @@ function cargarGridISR() {
                     (ListaISR[i].isr_RangoFinal % 1 == 0) ? ListaISR[i].isr_RangoFinal + ".00" : ListaISR[i].isr_RangoFinal,
                     (ListaISR[i].isr_Porcentaje % 1 == 0) ? ListaISR[i].isr_Porcentaje + ".00" : ListaISR[i].isr_Porcentaje,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonInactivar + botonActivar
                 ]);
             }
         }
@@ -309,62 +311,63 @@ $("#btnCerrarEditar").click(function () {
     $("#EditarISR").modal('hide');
 });
 
-
-//DESPLEGAR MODAL DE INACTIVACION
+//VARIABLE GLOBAL DE INACTIVAR
+var GB_Inactivar = 0;
+//Modal de Inactivar
 $(document).on("click", "#btnModalInactivarISR", function () {
+    //validar informacion del usuario
     var validacionPermiso = userModelState("ISR/Inactivar");
-
     if (validacionPermiso.status == true) {
-
-        //DESBLOQUEAR BOTON
+        //DESBLOQUEAR EL BOTON
         $("#btnInactivarISR").attr("disabled", false);
-        //OCULTAR EL MODAL DE EDICION
-        $("#EditarISR").modal('hide');
-        //MOSTRAR MODAL DE INACTIVACION
+        var ID = $(this).data('id');
+        GB_Inactivar = ID;
+        console.log(GB_Inactivar);
+        //Mostrar el Modal
         $("#InactivarISR").modal({ backdrop: 'static', keyboard: false });
     }
+
+
 });
 
-//CERRAR MODAL DE INACTIVACION
-$(document).on("click", "#btnBack", function () {
-    //OCULTAR MODAL DE INACTIVACION
-    $("#InactivarISR").modal('hide');
-    //MOSTRAR MODAL DE EDICION
-    $("#EditarISR").modal({ backdrop: 'static', keyboard: false });
-});
-
-//Inactivar registro Techos Deducciones
+//Funcionamiento del Modal Inactivar
+// ejecutar inactivar
 $("#btnInactivarISR").click(function () {
-    //BLOQUEAR BOTON
-    $("#btnInactivarISR").attr("disabled", true);
+    $("#btnInactivarISR").attr('disabled', true);
+    //SERIALIZAR EL FORMULARIO (QUE ESTÁ EN LA VISTA PARCIAL) DEL MODAL, SE PARSEA A FORMATO JSON
     var data = $("#frmInactivarISR").serializeArray();
+    var ID = GB_Inactivar;
     //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
     $.ajax({
-        url: "/ISR/Inactivar/" + InactivarID,
+        url: "/ISR/Inactivar/" + ID,
         method: "POST",
-        data: { id: InactivarID }
+        data: data
     }).done(function (data) {
         if (data == "error") {
-            //DESBLOQUEAR BOTON
-            $("#btnInactivarISR").attr("disabled", false);
-            //MOSTRAR MENSAJE DE ERROR
+            //Cuando traiga un error del backend al guardar la edicion
             iziToast.error({
                 title: 'Error',
-                message: 'No se inactivó el registro, contacte al administrador',
+                message: 'No se logró inactivar el registro, contacte al administrador',
             });
         }
         else {
             $("#InactivarISR").modal('hide');
             cargarGridISR();
+            window.location.reload();
             //Mensaje de exito de la edicion
             iziToast.success({
-                title: 'Éxito',
-                message: '¡El registro se inactivó de forma exitosa!',
+                title: 'Exito',
+                message: 'El registro se inactivó de forma exitosa!',
             });
         }
     });
-    InactivarID = 0;
 });
+//CERRAR MODAL DE INACTIVACION
+$(document).on("click", "#btnBack", function () {
+    //OCULTAR MODAL DE INACTIVACION
+    $("#InactivarISR").modal('hide');
+});
+
 
 //DECLARAR LA VARIABLE DE ACTIVACION
 var ActivarID = 0;
@@ -412,6 +415,7 @@ $("#btnActivarISR").click(function () {
         else {
             $("#ActivarISR").modal('hide');
             cargarGridISR();
+            window.location.reload();
             //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Éxito',
@@ -464,7 +468,7 @@ $(document).on("click", "#tblISR tbody tr td #btnDetalleISR", function () {
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({ ID })
-                    })
+                        })
                         .done(function (data) {
                             $("#Detalles #tde_IdTipoDedu").html(data[0].tde_IdTipoDedu);
                         });
