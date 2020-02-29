@@ -12,20 +12,7 @@ function hablilitar(btn) {
     }
 }
 
-function inactivar(btn) {
-    var validacionPermiso = userModelState("TipoIncapacidades/Delete");
-    if (validacionPermiso.status == true) {
-        var tr = $(btn).closest('tr');
-        var row = tabla.row(tr);
-        var id = row.data().ID;
-        $("#txtIdDelete").val(id);
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#ticn_Descripcion").val("");
-        $("#ModalInactivar").find("#ticn_Descripcion").focus();
 
-    }
-}
 
 //Cambiar el controlador para ejecutar el UDP de restaurar
 $("#btnActivar").click(function () {
