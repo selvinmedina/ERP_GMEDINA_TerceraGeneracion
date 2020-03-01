@@ -47,7 +47,7 @@ function cargarGridDeducciones() {
                     title: 'Error',
                     message: 'No se cargó la información, contacte al administrador',
                 });
-            }
+            } 
             //GUARDAR EN UNA VARIABLE LA DATA OBTENIDA
             var ListaDeducciones = data,
                 template = '';
@@ -64,7 +64,10 @@ function cargarGridDeducciones() {
                 var botonDetalles = '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" style= "margin-right:3px;" type="button" class="btn btn-primary btn-xs"  id="btnDetalleCatalogoDeducciones">Detalles</button>';
 
                 //variable boton editar
-                var botonEditar = ListaDeducciones[i].cde_Activo == true ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnEditarCatalogoDeducciones">Editar</button>' : '';
+                var botonEditar = ListaDeducciones[i].cde_Activo == true ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnEditarCatalogoDeducciones">Editar</button> ' : '';
+
+                //variable boton inactivar
+                var botonInactivar = ListaDeducciones[i].cde_Activo == true ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarCatalogoDeducciones">Inactivar</button>' : '';
 
                 //variable donde está el boton activar
                 var botonActivar = ListaDeducciones[i].cde_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnActivarCatalogoDeducciones">Activar</button>' : '' : '';
@@ -76,10 +79,10 @@ function cargarGridDeducciones() {
                     ListaDeducciones[i].cde_PorcentajeEmpresa,
                     ListaDeducciones[i].tde_Descripcion,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonInactivar + botonActivar  
                 ]);
             }
-        });
+        }); 
     FullBody();
 }
 
@@ -213,28 +216,33 @@ $('#btnCreateRegistroDeduccion').click(function () {
 
                 //ocultar el modal
                 $("#AgregarCatalogoDeducciones").modal('hide');
-
+               
                 // Mensaje de exito cuando un registro se ha guardado bien
                 iziToast.success({
                     title: 'Exito',
                     message: '¡El registro se agregó de forma exitosa!',
                 });
+              
             } else {
                 iziToast.error({
                     title: 'Error',
                     message: 'No se guardó el registro, contacte al administrador',
                 });
-            }
+            } 
         });
     }
     else {
         ValidarCrear(cde_DescripcionDeduccionA, tde_IdTipoDeduc, MontoporcentajecolFormateado, MontoporcentajeEmpFormateado);
     }
-});
+    window.location = "http://localhost:51144/CatalogoDeDeducciones";
+}); 
+
+
 
 // EVITAR POSTBACK DE FORMULARIOS
 $("#frmCatalogoDeduccionesCreate").submit(function (e) {
     return false;
+   
 });
 
 //VALIDAR EDIT//
@@ -261,7 +269,7 @@ $("#btnCerrarEditar").click(function () {
 });
 
 $('#btnCerrarInhabilitar, #confirmacionEditarNo').click(function () {
-    $('#EditarCatalogoDeducciones').modal();
+    $("#InactivarCatalogoDeducciones").modal('hide');
 });
 
 //FUNCION: OCULTAR DATA ANNOTATION CON BOTON SUPERIOR DE CERRAR (BOTON CON X).
@@ -482,6 +490,7 @@ $(document).on("click", "#btnmodalInactivarCatalogoDeducciones", function () {
 
     if (validacionPermiso.status == true) {
         //MOSTRAR EL MODAL DE INACTIVAR
+        InactivarID = $(this).data('id');
         $("#InactivarCatalogoDeducciones").modal({
             backdrop: 'static',
             keyboard: false
@@ -553,10 +562,7 @@ $(document).on("click", "#btnActivarCatalogoDeducciones", function () {
 //EJECUTAR ACTIVACION DEL REGISTRO EN EL MODAL
 $("#btnCerrarInhabilitar").click(function () {
     //Mostrar modal editar nuevamente
-    $("#EditarCatalogoDeducciones").modal({
-        backdrop: 'static',
-        keyboard: false
-    });
+   
     //$("html, body").css("overflow", "hidden");
     //$("html, body").css("overflow", "scroll");
     $("#InactivarCatalogoDeducciones").modal('hide');

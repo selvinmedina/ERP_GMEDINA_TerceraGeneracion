@@ -54,6 +54,8 @@ function cargarGridINFS() {
                 var botonDetalles = '<button data-id = "' + ListaINFS[i].insf_IdInstitucionFinanciera + '" type="button" style="margin-right:3px;" class="btn btn-primary btn-xs" id="btnModalDetallesINFS">Detalles</button>';
                 //variable boton editar
                 var botonEditar = ListaINFS[i].insf_Activo == true ? '<button data-id = "' + ListaINFS[i].insf_IdInstitucionFinanciera + '" type="button" class="btn btn-default btn-xs" id="btnModalEditarINFS">Editar</button>' : '';
+                //variable boton inactivar
+                var botonInactivar = ListaINFS[i].insf_Activo == true ? '<button data-id = "' + ListaINFS[i].insf_IdInstitucionFinanciera + '" type="button" class="btn btn-danger btn-xs" id="btnModalInactivarINFS">Inactivar</button>' : '';
                 //variable donde está el boton activar
                 var botonActivar = ListaINFS[i].insf_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaINFS[i].insf_IdInstitucionFinanciera + '" type="button" class="btn btn-default btn-xs"  id="btnModalActivarINFS">Activar</button>' : '' : '';
 
@@ -64,7 +66,7 @@ function cargarGridINFS() {
                     ListaINFS[i].insf_Telefono,
                     ListaINFS[i].insf_Correo,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonInactivar + botonActivar
                 ]);
             }
         });
@@ -348,20 +350,23 @@ $(document).on("click", "#btnCerrarDetailsInstitucion", function () {
 });
 
 // INACTIVAR 
-$(document).on("click", "#btnModalInactivarINFS", function () {
+$(document).on("click", "#IndexTabla tbody tr #btnModalInactivarINFS", function () {
 
     var validacionPermiso = userModelState("InstitucionesFinancieras/Inactivar");
 
     if (validacionPermiso.status == true) {
-
+        var ID = $(this).data('id');
+        //SETEAR LA VARIABLE GLOBAL DE INACTIVACION
+        IDInactivar = ID;
         //DESBLOQUEAR EL BOTON
         $("#btnInactivarINFS").attr("disabled", false);
-        //OCULTAR MODAL DE EDICION
-        $("#EditarInstitucion").modal('hide');
+
         //DESPLEGAR EL MODAL DE CONFIRMACION DE INACTIVACION
         $("#frmInactivarINFS").modal({ backdrop: 'static', keyboard: false });
     }
 });
+
+
 
 //CONFIRMAR INACTIVAR
 $("#btnInactivarINFS").click(function () {
@@ -399,8 +404,6 @@ $("#btnInactivarINFS").click(function () {
 $("#InactivarInstitucionCerrar").click(function () {
     //OCULTAR MODAL
     $("#frmInactivarINFS").modal("hide");
-    //MOSTRAR MODAL
-    $("#EditarInstitucion").modal({ backdrop: 'static', keyboard: false });
 });
 
 

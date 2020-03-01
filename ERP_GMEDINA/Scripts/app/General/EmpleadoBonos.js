@@ -80,6 +80,11 @@ function cargarGridBonos() {
                 //variable boton editar
                 var botonEditar = ListaBonos[i].cb_Activo == true ? '<button data-id = "' + ListaBonos[i].cb_Id + '" type="button" class="btn btn-default btn-xs"  id="btnEditarEmpleadoBonos">Editar</button>' : '';
 
+                //AQUI
+                //variable boton editar
+                var botonInactivar = ListaBonos[i].cb_Activo == true ? '<button data-id = "' + ListaBonos[i].cb_Id + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarEmpleadoBonos">Inactivar</button>' : '';
+
+
 
                 //variable donde está el boton activar
                 var botonActivar = ListaBonos[i].cb_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaBonos[i].cb_Id + '" type="button" style="margin right:3px;" class="btn btn-default btn-xs"  id="btnActivarEmpleadoBonos">Activar</button>' : '' : '';
@@ -101,7 +106,7 @@ function cargarGridBonos() {
                    FechaRegistro,
                    Check,
                    Estado,
-                   botonDetalles + botonEditar + botonActivar]
+                   botonDetalles + botonEditar + botonActivar + botonInactivar]
                    );
             }
         });
@@ -686,18 +691,22 @@ $(document).on("click", "#tblEmpleadoBonos tbody tr td #btnDetalleEmpleadoBonos"
                     });
                 }
             });
+        $("#DetallesEmpleadoBonos").modal({ backdrop: 'static', keyboard: false });
     }
 });
 
 
 //FUNCION: MOSTRAR EL MODAL DE INACTIVAR
-$(document).on("click", "#btnmodalInactivarEmpleadoBonos", function () {
+$(document).on("click", "#tblEmpleadoBonos tbody tr #btnmodalInactivarEmpleadoBonos", function () {
     var validacionPermiso = userModelState("EmpleadoBonos/Inactivar");
     if (validacionPermiso.status == true) {
+        var ID = $(this).data('id');
+        //SETEAR LA VARIABLE DE INACTIVACION
+        IDInactivar = ID;
         //INHABILITAR EL BOTON DE INACTIVACION
         $("#btnInactivarRegistroBono").attr("disabled", false);
-        //OCULTAR EL MODAL DE EDICION
-        $("#EditarEmpleadoBonos").modal('hide');
+        ////OCULTAR EL MODAL DE EDICION
+        //$("#EditarEmpleadoBonos").modal('hide');
         //MOSTRAR EL MODAL DE INACTIVAR
         $("#InactivarEmpleadoBonos").modal({ backdrop: 'static', keyboard: false });
     }
@@ -727,6 +736,7 @@ $("#btnInactivarRegistroBono").click(function () {
             //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
             $("#InactivarEmpleadoBonos").modal('hide');
             //Mensaje de exito de la edicion
+            window.location.reload(true);
             iziToast.success({
                 title: 'Éxito',
                 message: '¡El registro se inactivó de forma exitosa!!',
@@ -740,8 +750,8 @@ $("#btnInactivarRegistroBono").click(function () {
 $("#btCerrarNo").click(function () {
     //OCULTAR EL MODAL DE CONFIRMAR INACTIVACION
     $("#InactivarEmpleadoBonos").modal('hide');
-    //MOSTRAR EL MODAL DE ACTIVACION
-    $("#EditarEmpleadoBonos").modal();
+    ////MOSTRAR EL MODAL DE ACTIVACION
+    //$("#EditarEmpleadoBonos").modal();
 });
 
 

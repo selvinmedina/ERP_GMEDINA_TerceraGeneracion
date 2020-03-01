@@ -30,12 +30,15 @@ function cargarGridFormaPago() {
                 //variable donde está el boton activar
                 var botonActivar = ListaFormaPago[i].fpa_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaFormaPago[i].fpa_IdFormaPago + '" type="button" class="btn btn-default btn-xs"  id="btnActivarFormaPago">Activar</button>' : '' : '';
 
+                //variable boton inactivar
+                var botonInactivar = ListaFormaPago[i].fpa_Activo == false ? esAdministrador == "1" ? '<button data-id="' + ListaFormaPago[i].fpa_IdFormaPago + '" type="button" class="btn btn-danger btn-xs" id="btnInactivarFormaPago">Inactivar</button>' : '' : '';
+
                 //agregar fila
                 $('#tblFormaPago').dataTable().fnAddData([
                      ListaFormaPago[i].fpa_IdFormaPago,
                      ListaFormaPago[i].fpa_Descripcion,
                      estadoRegistro,
-                     botonDetalles + botonEditar + botonActivar]
+                     botonDetalles + botonEditar + botonInactivar + botonActivar]
                  );
             }
             FullBody();
@@ -393,24 +396,58 @@ $(document).on("click", "#btnCerrarConfirmarEditar", function () {
     $("#EditarFormaPago").modal({ backdrop: 'static', keyboard: false });
 });
 
-//
-//INACTIVAR
-
-var IDInactivar = 0;
-
-//DESPLEGAR EL MODAL DE INACTIVAR
+//VARIABLE GLOBAL DE INACTIVAR
+var GB_Inactivar = 0;
+//Modal de Inactivar
 $(document).on("click", "#btnInactivarFormaPago", function () {
-
-    // validar informacion del usuario
+    //validar informacion del usuario
     var validacionPermiso = userModelState("FormaPago/Inactivar");
-
     if (validacionPermiso.status == true) {
-        document.getElementById("btnInactivarFormaPagoConfirm").disabled = false;
-        //OCULTAR MODAL DE EDICION
-        $("#EditarFormaPago").modal('hide');
-        //MOSTRAR MODAL DE INACTIVACION
+        //DESBLOQUEAR EL BOTON
+        $("#btnInactivarFormaPagoConfirm").attr("disabled", false);
+        var ID = $(this).data('id');
+        GB_Inactivar = ID;
+        console.log(GB_Inactivar);
+        //Mostrar el Modal
         $("#InactivarFormaPago").modal({ backdrop: 'static', keyboard: false });
     }
+
+
+});
+
+//Funcionamiento del Modal Inactivar
+// ejecutar inactivar
+$("#btnInactivarFormaPagoConfirm").click(function () {
+
+    $("#btnInactivarFormaPagoConfirm").attr('disabled', true);
+
+    //SERIALIZAR EL FORMULARIO (QUE ESTÁ EN LA VISTA PARCIAL) DEL MODAL, SE PARSEA A FORMATO JSON
+    var data = $("#InactivarFormaPago").serializeArray();
+    var ID = GB_Inactivar;
+    //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
+    $.ajax({
+        url: "/FormaPago/Inactivar/" + ID,
+        method: "POST",
+        data: data
+    }).done(function (data) {
+        if (data == "error") {
+            //Cuando traiga un error del backend al guardar la edicion
+            iziToast.error({
+                title: 'Error',
+                message: 'No se logró inactivar el registro, contacte al administrador',
+            });
+        }
+        else {
+            $("#InactivarFormaPago").modal('hide');
+            cargarGridFormaPago();
+            window.location.reload();
+            //Mensaje de exito de la edicion
+            iziToast.success({
+                title: 'Exito',
+                message: 'El registro se inactivó de forma exitosa!',
+            });
+        }
+    });
 });
 
 //OCULTAR EL MODAL DE INACTIVAR
@@ -420,40 +457,8 @@ $(document).on("click", "#btnCerrarInactivar", function () {
     //DataAnnotations(true);
     //OCULTAR MODAL DE INACTIVACION
     $("#InactivarFormaPago").modal('hide');
-    //MOSTRAR MODAL DE EDICION
-    $("#EditarFormaPago").modal({ backdrop: 'static', keyboard: false });
 });
 
-//CONFORMAR INACTIVACION DEL REGISTRO
-$("#btnInactivarFormaPagoConfirm").click(function () {
-    document.getElementById("btnInactivarFormaPagoConfirm").disabled = true;
-    //SE OCULTA EL MODAL DE EDICION
-    $("#InactivarFormaPago").modal('hide');
-    //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
-    $.ajax({
-        url: "/FormaPago/Inactivar/" + IDInactivar,
-        method: "POST", dataType: "json",
-        contentType: "application/json; charset=utf-8"
-    }).done(function (data) {
-        if (data == "error") {
-            //Cuando traiga un error del backend al guardar la edicion
-            iziToast.error({
-                title: 'Error',
-                message: '¡No se inactivó el registro, contacte al administrador!',
-            });
-        }
-        else {
-            // REFRESCAR UNICAMENTE LA TABLA
-            cargarGridFormaPago();
-            //MENSAJE DE EXITO DE LA EDICIÓN
-            iziToast.success({
-                title: 'Éxito',
-                message: '¡El registro se inactivó de forma exitosa!',
-            });
-        }
-    });
-    IDInactivar = 0;
-});
 
 //
 //ACTIVAR
@@ -492,6 +497,7 @@ $("#btnActivarFormaPagoConfirm").click(function () {
         else {
             // REFRESCAR UNICAMENTE LA TABLA
             cargarGridFormaPago();
+            window.location.reload();
             //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
             $("#ActivarFormaPago").modal('hide');
             //MENSAJE DE EXITO DE LA EDICIÓN

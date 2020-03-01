@@ -103,6 +103,9 @@ function cargarGridDeducciones() {
                 //variable boton editar
                 var botonEditar = ListaDeduccionIndividual[i].dei_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnEditarDeduccionesIndividuales" data-id = "' + ListaDeduccionIndividual[i].dei_IdDeduccionesIndividuales + '">Editar</button>' : '';
 
+                //variable boton Inactivar
+                var botonInactivar = ListaDeduccionIndividual[i].dei_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-danger btn-xs" id="btnInactivarDeduccionesIndividuales" data-id = "' + ListaDeduccionIndividual[i].dei_IdDeduccionesIndividuales + '">Inactivar</button>' : '';
+
                 //variable donde está el boton activar
                 var botonActivar = ListaDeduccionIndividual[i].dei_Activo == false ? esAdministrador == "1" ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnActivarDeduccionesIndividuales" deiid="' + ListaDeduccionIndividual[i].dei_IdDeduccionesIndividuales + '" data-id = "' + ListaDeduccionIndividual[i].dei_IdDeduccionesIndividuales + '">Activar</button>' : '' : '';
 
@@ -115,7 +118,7 @@ function cargarGridDeducciones() {
                     ListaDeduccionIndividual[i].dei_NumeroCuotas,
                     ListaDeduccionIndividual[i].dei_MontoCuota,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonInactivar + botonActivar
                 ]);
             }
             //APLICAR EL MAX WIDTH
@@ -1134,20 +1137,23 @@ $(document).on("click", "#Tabla tbody tr td #btnDetalleDeduccionesIndividuales",
 //#region Inactivar
 //Inactivar//
 $(document).on("click", "#btnBack", function () {
+
+    
     document.getElementById("btnInactivarRegistroDeduccionIndividual").disabled = false;
     $("#InactivarDeduccionesIndividuales").modal('hide');
-    $("#EditarDeduccionesIndividuales").modal({ backdrop: 'static', keyboard: false });
 });
 
-$(document).on("click", "#btnBa", function () {
-    document.getElementById("btnInactivarRegistroDeduccionIndividual").disabled = false;
-    $("#InactivarDeduccionesIndividuales").modal('hide');
-    $("#EditarDeduccionesIndividuales").modal({ backdrop: 'static', keyboard: false });
-});
+//$(document).on("click", "#btnBa", function () {
+//    document.getElementById("btnInactivarRegistroDeduccionIndividual").disabled = false;
+//    $("#InactivarDeduccionesIndividuales").modal('hide');
+//    $("#EditarDeduccionesIndividuales").modal({ backdrop: 'static', keyboard: false });
+//});
 
-$(document).on("click", "#btnInactivarDeduccionesIndividuales", function () {
+$(document).on("click", "#Tabla tbody tr td #btnInactivarDeduccionesIndividuales", function () {
+
+    var id = $(this).data('id');
+    inactivarID = id;
     document.getElementById("btnInactivarRegistroDeduccionIndividual").disabled = false;
-    $("#EditarDeduccionesIndividuales").modal('hide');
     $("#InactivarDeduccionesIndividuales").modal({ backdrop: 'static', keyboard: false });
 });
 
