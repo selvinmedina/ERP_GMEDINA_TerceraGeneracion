@@ -1,4 +1,34 @@
-﻿var contador = 0;
+var contador = 0;
+
+
+function Inact(id) {
+    $("#Idcatel").val(id);
+    $("#ModalEstado").modal;   
+    return 1;
+}
+
+$("#PruebaInac").click(function () {
+    id = $("#Idcatel").val();
+    $.ajax({
+        url: "/ProductoCategoria/InactivarCateValidacion",
+        method: "POST",
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ id: id }),
+    })
+    .done(function (data) {
+        if (data.length > 0)
+        {
+            location.reload();
+        }
+       
+    })
+    
+});
+
+
+  
+
 
 
 

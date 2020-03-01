@@ -1,4 +1,5 @@
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -171,7 +172,8 @@ namespace ERP_GMEDINA.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Edit/" + tbDepartamento.dep_Codigo);
+                            return RedirectToAction("Index");
+                            //return RedirectToAction("Edit/" + tbDepartamento.dep_Codigo);
                         }
                     }
                     catch (Exception Ex)
