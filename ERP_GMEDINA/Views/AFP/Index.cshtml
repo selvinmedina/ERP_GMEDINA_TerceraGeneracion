@@ -74,6 +74,7 @@
                                             {
                                                 <button type="button" data-id="@item.afp_Id" class="btn btn-primary btn-xs" id="btnDetalleAFP">Detalles</button>
                                                 <button type="button" data-id="@item.afp_Id" class="btn btn-default btn-xs" id="btnEditarAFP">Editar</button>
+                                                <button type="button" data-id="@item.afp_Id" class="btn btn-danger btn-xs" id="btnInactivarAFP">Inactivar</button>
                                             }
                                             <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             if (oUsuario?.usu_EsAdministrador == true && item.afp_Activo == false)

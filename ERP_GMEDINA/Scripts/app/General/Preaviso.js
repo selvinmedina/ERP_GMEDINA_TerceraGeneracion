@@ -34,6 +34,8 @@ function cargarGridPreaviso() {
 
                 //variable boton editar
                 var botonEditar = ListaPreaviso[i].prea_Activo == true ? '<button data-id = "' + ListaPreaviso[i].prea_IdPreaviso + '" type="button" class="btn btn-default btn-xs"  id="btnEditarPreaviso">Editar</button>' : '';
+                //variable boton inactivar
+                var botonInactivar = ListaPreaviso[i].prea_Activo == true ? '<button data-id = "' + ListaPreaviso[i].prea_IdPreaviso + '" type="button" class="btn btn-danger btn-xs"  id="btnInactivarPreaviso">Inactivar</button>' : '';
 
                 //variable donde está el boton activar
                 var botonActivar = ListaPreaviso[i].prea_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaPreaviso[i].prea_IdPreaviso + '" type="button" class="btn btn-default btn-xs"  id="btnActivarPreaviso">Activar</button>' : '' : '';
@@ -45,7 +47,7 @@ function cargarGridPreaviso() {
                      ListaPreaviso[i].prea_RangoFinMeses,
                      ListaPreaviso[i].prea_DiasPreaviso,
                      estadoRegistro,
-                     botonDetalles + botonEditar + botonActivar]
+                     botonDetalles + botonEditar +botonInactivar+ botonActivar]
                  );
             }
         });
@@ -851,12 +853,14 @@ $(document).on("click", "#btnCerrarConfirmarEditar", function () {
 });
 
 //DESPLEGAR EL MODAL DE INACTIVAR
-$(document).on("click", "#btnInactivarPreaviso", function () {
+$(document).on("click", "#tblPreaviso tbody tr td #btnInactivarPreaviso", function () {
     //validar informacion del usuario
     var validacionPermiso = userModelState("Preaviso/Inactivar");
 
     if (validacionPermiso.status == true) {
         //OCULTAR EL MODAL DE EDICION
+        activarID = $(this).data('id');
+        IDInactivar = activarID;
         $("#EditarPreaviso").modal('hide');
         //MOSTRAR MODAL DE INACTIVACION
         $("#InactivarPreaviso").modal({ backdrop: 'static', keyboard: false });
@@ -869,8 +873,6 @@ $(document).on("click", "#btnInactivarPreaviso", function () {
 $(document).on("click", "#btnCerrarInactivar", function () {
     //OCULTAR EL MODAL DE INACTIVACION
     $("#InactivarPreaviso").modal('hide');
-    //MOSTRAR MODAL DE EDICION
-    $("#EditarPreaviso").modal({ backdrop: 'static', keyboard: false });
 });
 
 //CONFIRMAR INACTIVACION DEL REGISTRO

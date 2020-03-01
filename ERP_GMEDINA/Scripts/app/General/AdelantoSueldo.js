@@ -61,6 +61,7 @@ function cargarGridAdelantos() {
                 //variable boton editar
                 var botonEditar = ListaAdelantos[i].adsu_Activo == true ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-default btn-xs"  id="btnEditarAdelantoSueldo">Editar</button>' : '';
 
+                var botoninactivar = ListaAdelantos[i].adsu_Activo == true ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarAdelantoSueldo">Inactivar</button>' : '';
                 //variable donde está el boton activar
                 var botonActivar = ListaAdelantos[i].adsu_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-default btn-xs"  id="btnActivarRegistroAdelantos">Activar</button>' : '' : '';
                 var dataId = ListaAdelantos[i].adsu_IdAdelantoSueldo;
@@ -76,6 +77,7 @@ function cargarGridAdelantos() {
                     Activo,
                     botonDetalles +
                     botonEditar +
+                    botoninactivar +
                     botonActivar
                 ]);
             }
@@ -434,7 +436,7 @@ $('#btnCerrarCrearAdelanto').click(function () {
     $("#AgregarAdelantos").modal("hide");
 });
 
-
+//lolo
 //FUNCION: PRIMERA FASE DE EDICION DE REGISTROS, MOSTRAR MODAL CON LA INFORMACIÓN DEL REGISTRO SELECCIONADO
 $(document).on("click", "#tblAdelantoSueldo tbody tr td #btnEditarAdelantoSueldo", function () {
 
@@ -885,12 +887,14 @@ $(document).on("click", "#tblAdelantoSueldo tbody tr td #btnDetalleAdelantoSueld
 });
 
 //FUNCION: MOSTRAR EL MODAL DE INACTIVAR
-$(document).on("click", "#btnmodalInactivarAdelantoSueldo", function () {
+$(document).on("click", "#tblAdelantoSueldo tbody tr td #btnmodalInactivarAdelantoSueldo", function () {
 
     var validacionPermiso = userModelState("AdelantoSueldo/Inactivar");
     if (validacionPermiso.status == true) {
+        var validacionPermiso = $(this).data('id')
+        IDInactivar = validacionPermiso;
         //MOSTRAR EL MODAL DE INACTIVAR
-        $("#EditarAdelantoSueldo").modal('hide');
+        //$("#EditarAdelantoSueldo").modal('hide');
         $("#InactivarAdelantoSueldo").modal({ backdrop: 'static', keyboard: false });
     }
 });

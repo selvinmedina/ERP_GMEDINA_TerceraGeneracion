@@ -134,6 +134,7 @@ namespace ERP_GMEDINA.Controllers
         public ActionResult Create()
         {
             Session["tbRolesUsuario"] = null;
+
             ViewBag.Empleado = db.SDP_tbEmpleado_Select().ToList();
             ViewBag.Sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion");
             return View();
@@ -142,12 +143,16 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("Usuario/Create")]
-        public ActionResult Create([Bind(Include = "usu_NombreUsuario,usu_Nombres,usu_Apellidos,usu_Correo,ConfirmarPassword,suc_Id, emp_Id, usu_EsAdministrador")] tbUsuario tbUsuario, string usu_Password)
+        public ActionResult Create([Bind(Include = "usu_NombreUsuario,usu_Nombres,usu_Apellidos,usu_Correo,ConfirmarPassword,suc_Id, emp_Id,usu_EsAdministrador")] tbUsuario tbUsuario, string usu_Password)
         {
+            ViewBag.Empleado = db.SDP_tbEmpleado_Select().ToList();
+            ViewBag.Sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion");
+
             if (db.tbUsuario.Any(a => a.usu_NombreUsuario == tbUsuario.usu_NombreUsuario))
             {
                 ModelState.AddModelError("", "Ya existe un Usuario con ese nombre de usuario");
             }
+         
 
             IEnumerable<object> List = null;
             IEnumerable<object> Roles = null;
@@ -161,7 +166,7 @@ namespace ERP_GMEDINA.Controllers
                 {
                     try
                     {
-                        List = db.UDP_Acce_tbUsuario_Insert(tbUsuario.usu_NombreUsuario, usu_Password, tbUsuario.usu_Nombres, tbUsuario.usu_Apellidos, tbUsuario.usu_Correo,tbUsuario.usu_EsActivo, tbUsuario.usu_EsAdministrador ,tbUsuario.suc_Id, (short)tbUsuario.emp_Id);
+                        List = db.UDP_Acce_tbUsuario_Insert(tbUsuario.usu_NombreUsuario, tbUsuario.ConfirmarPassword, tbUsuario.usu_Nombres, tbUsuario.usu_Apellidos, tbUsuario.usu_Correo,tbUsuario.usu_EsActivo, tbUsuario.usu_EsAdministrador ,tbUsuario.suc_Id,(short)tbUsuario.emp_Id);
                         foreach (UDP_Acce_tbUsuario_Insert_Result Usuario in List)
                             MsjError = Usuario.MensajeError;
                         if (MsjError.StartsWith("-1"))
@@ -209,6 +214,7 @@ namespace ERP_GMEDINA.Controllers
             }
             else
             {
+
                 ModelState.AddModelError("ConfirmarPassword", "El campo Password es requerido");
                 ModelState.AddModelError("usu_Password", "El campo Password es requerido");
                 ViewBag.Empleado = db.SDP_tbEmpleado_Select().ToList();
@@ -489,12 +495,13 @@ namespace ERP_GMEDINA.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        //public JsonResult EstadoInactivar(string prod_Codigo, bool Activo, string Razon_Inactivacion)
-        //{
-        //    var list = db.UDP_Acce_tbUsuario_Estado(prod_Codigo, Activo, Razon_Inactivacion).ToList();
-        //    return Json(list, JsonRequestBehavior.AllowGet);
-        //}
+
+        [HttpPost]
+        public JsonResult EstadoInactivar(int usu_id, bool Activo, string Razon_Inactivacion)
+        {
+            var list = db.UDP_Acce_tbUsuario_Estado(usu_id, Activo, Razon_Inactivacion).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
 
         //[HttpPost]
         //public JsonResult Estadoactivar(string prod_Codigo, bool Activo, string Razon_Inactivacion)

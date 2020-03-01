@@ -67,6 +67,7 @@
                                             string Estado = item.cb_Activo == true ? (string)"Activo" : (string)"Inactivo";
                                         }
                                         @Html.DisplayFor(modelItem => @Estado)
+
                                     </td>
                                     <td>
                                         @{
@@ -75,6 +76,7 @@
                                             {
                                                 <button type="button" data-id="@item.cb_Id" class="btn btn-primary btn-xs" id="btnDetalleEmpleadoBonos">Detalles</button>
                                                 <button type="button" data-id="@item.cb_Id" class="btn btn-default btn-xs" id="btnEditarEmpleadoBonos">Editar</button>
+                                                <button type="button" data-id="@item.cb_Id" class="btn btn-danger btn-xs" id="btnmodalInactivarEmpleadoBonos">Inactivar</button>
                                             }
                                             <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             if (esAdmin == true && item.cb_Activo == false)

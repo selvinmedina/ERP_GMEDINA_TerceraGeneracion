@@ -62,11 +62,12 @@
                                     </td>
                                     <td>
                                         @{
-                                            <!-- validar si el estado es activo para mostrar los botones "detalles" y "editar" -->
+                                            <!-- validar si el estado es activo para mostrar los botones "detalles", "editar" y "Inactivar"  -->
                                             if (item.isr_Activo == true)
                                             {
                                                 <button type="button" data-id="@item.isr_Id" class="btn btn-primary btn-xs" id="btnDetalleISR">Detalles</button>
                                                 <button type="button" data-id="@item.isr_Id" class="btn btn-default btn-xs" id="btnModalEditarISR">Editar</button>
+                                                <button type="button" data-id="@item.isr_Id" class="btn btn-danger btn-xs" id="btnModalInactivarISR">Inactivar</button>
                                             }
                                             <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             if (oUsuario?.usu_EsAdministrador == true && item.isr_Activo == false)

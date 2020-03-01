@@ -264,7 +264,8 @@ $('#QuitarRol').click(function () {
 //////////////////////////////////////////////////////////
 function Seleccionar(emp_Id)
 {
-    $.ajax({
+
+   $.ajax({
         url: "/Usuario/getEmpleado",
         method: "POST",
         dataType: 'json',
