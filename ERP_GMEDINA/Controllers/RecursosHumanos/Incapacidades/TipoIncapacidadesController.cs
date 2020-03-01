@@ -171,15 +171,15 @@ namespace ERP_GMEDINA.Controllers
 
         [HttpPost]
         [SessionManager("TipoIncapacidades/Delete")]
-        public ActionResult Delete(tbTipoIncapacidades tbTipoIncapacidades)
+        public ActionResult Delete(int id)
         {
             string msj = "";
-
+            tbTipoIncapacidades inca = new tbTipoIncapacidades();
             string RazonInactivo = "Se ha Inhabilitado este Registro";
 
-            if (tbTipoIncapacidades.ticn_Id != 0)
+            if (id != 0)
             {
-                var id = (int)Session["id"];
+                
                 var usuario = (tbUsuario)Session["Usuario"];
                 try
                 {

@@ -99,15 +99,15 @@ $("#btnEditar").click(function () {
             }
         });
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("TipoHoras/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#habi_RazonInactivo").val("");
-        $("#ModalInactivar").find("#habi_RazonInactivo").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("TipoHoras/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#habi_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#habi_RazonInactivo").focus();
+//    }
+//});
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -126,24 +126,51 @@ $("#btnGuardar").click(function () {
         });
     }
 });
-$("#InActivar").click(function () {
-    var data = $("#FormInactivar").serializeArray();
-    data = serializar(data);
-    if (data != null) {
-        //data.tiho_Id = id;
-       // data = JSON.stringify({ tbTipoHoras: data });
-        $.post("/TipoHoras/Delete", data).done(function (obj) {
-            if (obj != "-1" && obj != "-2" && obj != "-3") {
-                CierraPopups();
-                MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                LimpiarControles(["tiho_Descripcion", "tiho_Recargo", "tiho_RazonInactivo"]);
-                llenarTabla();
-            } else {
-                MsgError("Error", "No se inactivó el registro, contacte al administrador.");
-            }
-        });
+
+function inactivar(btn) {
+    var validacionPermiso = userModelState("TipoHoras/hablilitar");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#habi_RazonInactivo").val("");
+        $("#ModalInactivar").find("#habi_RazonInactivo").focus();
     }
-});
+}
+
+
+
+
+//$("#InActivar").click(function () {
+//    var data = $("#FormInactivar").serializeArray();
+//    data = serializar(data);
+//    if (data != null) {
+//        data.tiho_Id = $("#txtIdDelete").val();
+//        data = JSON.stringify({ tbTipoHoras: data });
+//        _ajax(data,
+//            '/TipoHoras/Delete',
+//            'POST',
+//            function (obj) {
+//                if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                    CierraPopups();
+//                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+//                    LimpiarControles(["tiho_Descripcion", "tiho_Recargo", "tiho_RazonInactivo"]);
+//                    llenarTabla();
+//                } else {
+//                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+//                }
+//            });
+//    } else {
+//        MsgError("Error", "Por favor llene todas las cajas de texto.");
+//    }
+//});
+
+
+
+
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();
     //data = serializar(data);

@@ -34,13 +34,15 @@ $(document).ready(function () {
 
 
 
-        //Si la columa tiene el nombre de "Acciones", automaticamente insertara los botones de Detalles y Editar
+            //Si la columa tiene el nombre de "Acciones", automaticamente insertara los botones de Detalles, Editar e inactivar
+            //Luego hay que ir al js llamado admin y ahi se agregan las funciones que levantan el modal y que ejecuta el procedimiento
         else if (campo == "Acciones") {
             columnas.push({
                 data: campo,
                 defaultContent: "<div>" +
                     "<a class='btn btn-primary btn-xs ' onclick='CallDetalles(this)' >Detalles</a>" +
                     "<a class='btn btn-default btn-xs ' onclick='CallEditar(this)'>Editar</a>" +
+                    "<a class='btn btn-danger btn-xs' onclick='inactivar(this)'>Inactivar</a>" +
                     "</div>"
             });
         }
@@ -92,3 +94,4 @@ function CallEditar(btn) {
     var id = row.data().ID;
     tablaEditar(id);
 }
+
