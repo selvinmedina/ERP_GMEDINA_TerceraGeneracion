@@ -50,6 +50,8 @@ function cargarGridTipoDeducciones() {
 
                 //variable boton editar
                 var botonEditar = ListaTipoDeducciones[i].tde_Activo == true ? '<button data-id = "' + ListaTipoDeducciones[i].tde_IdTipoDedu + '" type="button" class="btn btn-default btn-xs"  id="btnEditarTipoDeducciones">Editar</button>' : '';
+                //variable boton inactivar
+                var botonInactivar = ListaTipoDeducciones[i].tde_Activo == true ? '<button data-id = "' + ListaTipoDeducciones[i].tde_IdTipoDedu + '" type="button" class="btn btn-danger btn-xs"  id="btnInactivarTipoDeducciones">Inactivar</button>' : '';
 
                 //variable donde está el boton activar
                 var botonActivar = ListaTipoDeducciones[i].tde_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaTipoDeducciones[i].tde_IdTipoDedu + '" type="button" class="btn btn-default btn-xs"  id="btnActivarTipoDeducciones">Activar</button>' : '' : '';
@@ -64,7 +66,7 @@ function cargarGridTipoDeducciones() {
                     ListaTipoDeducciones[i].tde_IdTipoDedu,
                     ListaTipoDeducciones[i].tde_Descripcion,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar]
+                    botonDetalles + botonEditar +botonInactivar+ botonActivar]
                 );
             }
         });
@@ -440,10 +442,13 @@ if (validacionPermiso.status == true) {
 });
 
 //FUNCION: PRIMERA FASE DE EDICION DE REGISTROS, MOSTRAR MODAL CON LA MENSAJE DE CONFIRMACION
-$("#btnInactivarTipoDeducciones").click(function () {
+
+$(document).on("click", "#tblTipoDeducciones tbody tr td #btnInactivarTipoDeducciones", function () {
     var validacionPermiso = userModelState("TipoDeducciones/Inactivar");
 
     if (validacionPermiso.status == true) {
+        var ID = $(this).data('id');
+        inactivar = ID;
         $("#EditarTipoDeducciones").modal('hide');
         //$("#InactivarTipoDeducciones").modal();
         $("#InactivarTipoDeducciones").modal({ backdrop: 'static', keyboard: false });
@@ -503,8 +508,7 @@ $("#IconCerrarEditar").click(function () {
 
 //FUNCION: HABILITAR EL DATAANNOTATION AL DESPLEGAR EL MODAL
 $("#btnCerrar").click(function () {
-    $("#EditarTipoDeducciones").modal({ backdrop: 'static', keyboard: false });
-
+    $("#InactivarTipoDeducciones").modal('hide');
 });
 
 

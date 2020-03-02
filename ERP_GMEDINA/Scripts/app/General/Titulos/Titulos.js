@@ -110,15 +110,15 @@ $("#btnEditar").click(function () {
     }
 });
 
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Titulos/Delete");
-    if (validacionPermiso.status == true) {
-    CierraPopups();
-    $('#ModalInactivar').modal('show');
-    $("#ModalInactivar").find("#titu_Descripcion").val("");
-    $("#ModalInactivar").find("titu_Descripcion").focus();
-         }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("Titulos/Delete");
+//    if (validacionPermiso.status == true) {
+//    CierraPopups();
+//    $('#ModalInactivar').modal('show');
+//    $("#ModalInactivar").find("#titu_Descripcion").val("");
+//    $("#ModalInactivar").find("titu_Descripcion").focus();
+//         }
+//});
 
 
 $("#btnGuardar").click(function () {
@@ -150,7 +150,7 @@ $("#InActivar").click(function () {
     var data = $("#FormInactivar").serializeArray();
     data = serializar(data);
     if (data != null) {
-        data.titu_Id = id;
+        data.titu_Id = $("#txtIdDelete").val();
         data = JSON.stringify({ tbTitulos: data });
         _ajax(data,
             '/Titulos/Delete',

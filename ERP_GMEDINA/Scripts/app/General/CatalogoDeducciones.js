@@ -47,7 +47,7 @@ function cargarGridDeducciones() {
                     title: 'Error',
                     message: 'No se cargó la información, contacte al administrador',
                 });
-            }
+            } 
             //GUARDAR EN UNA VARIABLE LA DATA OBTENIDA
             var ListaDeducciones = data,
                 template = '';
@@ -64,17 +64,13 @@ function cargarGridDeducciones() {
                 var botonDetalles = '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" style= "margin-right:3px;" type="button" class="btn btn-primary btn-xs"  id="btnDetalleCatalogoDeducciones">Detalles</button>';
 
                 //variable boton editar
-                var botonEditar = ListaDeducciones[i].cde_Activo == true ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnEditarCatalogoDeducciones">Editar</button>' : '';
+                var botonEditar = ListaDeducciones[i].cde_Activo == true ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnEditarCatalogoDeducciones">Editar</button> ' : '';
+
+                //variable boton inactivar
+                var botonInactivar = ListaDeducciones[i].cde_Activo == true ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarCatalogoDeducciones">Inactivar</button>' : '';
 
                 //variable donde está el boton activar
                 var botonActivar = ListaDeducciones[i].cde_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-default btn-xs"  id="btnActivarCatalogoDeducciones">Activar</button>' : '' : '';
-
-               //AQUIIIIIIIIIIIIIIIIIIIIIIIII
-
-                //variable donde está el boton Inactivar
-                var botonInactivar = ListaDeducciones[i].cde_Activo == true ? esAdministrador == "1" ? '<button data-id = "' + ListaDeducciones[i].cde_IdDeducciones + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarCatalogoDeducciones">Inactivar</button>' : '' : '';
-
-            
 
                 $('#tblCatalogoDeducciones').dataTable().fnAddData([
                     ListaDeducciones[i].cde_IdDeducciones,
@@ -83,10 +79,10 @@ function cargarGridDeducciones() {
                     ListaDeducciones[i].cde_PorcentajeEmpresa,
                     ListaDeducciones[i].tde_Descripcion,
                     estadoRegistro,
-                    botonDetalles + botonEditar  + botonInactivar
+                    botonDetalles + botonEditar + botonInactivar + botonActivar  
                 ]);
             }
-        });
+        }); 
     FullBody();
 }
 
@@ -220,28 +216,33 @@ $('#btnCreateRegistroDeduccion').click(function () {
 
                 //ocultar el modal
                 $("#AgregarCatalogoDeducciones").modal('hide');
-
+               
                 // Mensaje de exito cuando un registro se ha guardado bien
                 iziToast.success({
                     title: 'Exito',
                     message: '¡El registro se agregó de forma exitosa!',
                 });
+              
             } else {
                 iziToast.error({
                     title: 'Error',
                     message: 'No se guardó el registro, contacte al administrador',
                 });
-            }
+            } 
         });
     }
     else {
         ValidarCrear(cde_DescripcionDeduccionA, tde_IdTipoDeduc, MontoporcentajecolFormateado, MontoporcentajeEmpFormateado);
     }
-});
+    window.location = "http://localhost:51144/CatalogoDeDeducciones";
+}); 
+
+
 
 // EVITAR POSTBACK DE FORMULARIOS
 $("#frmCatalogoDeduccionesCreate").submit(function (e) {
     return false;
+   
 });
 
 //VALIDAR EDIT//
@@ -268,7 +269,7 @@ $("#btnCerrarEditar").click(function () {
 });
 
 $('#btnCerrarInhabilitar, #confirmacionEditarNo').click(function () {
-    $('#EditarCatalogoDeducciones').modal();
+    $("#InactivarCatalogoDeducciones").modal('hide');
 });
 
 //FUNCION: OCULTAR DATA ANNOTATION CON BOTON SUPERIOR DE CERRAR (BOTON CON X).
@@ -484,13 +485,12 @@ $(document).on("click", "#tblCatalogoDeducciones tbody tr td #btnDetalleCatalogo
 });
 
 //MOSTRAR MODAL INACTIVAR
-$(document).on("click", "#tblCatalogoDeducciones tbody tr td #btnmodalInactivarCatalogoDeducciones ", function () {
+$(document).on("click", "#btnmodalInactivarCatalogoDeducciones", function () {
     var validacionPermiso = userModelState("CatalogoDeDeducciones/Inactivar");
 
     if (validacionPermiso.status == true) {
-        var ID = $(this).data('id');
-        GB_Inactivar = ID;
         //MOSTRAR EL MODAL DE INACTIVAR
+        InactivarID = $(this).data('id');
         $("#InactivarCatalogoDeducciones").modal({
             backdrop: 'static',
             keyboard: false
@@ -506,186 +506,45 @@ $("#btnCerrarInhabilitar").click(function () {
     $("#InactivarCatalogoDeducciones").modal('hide');
 });
 
-////EJECUTAR INACTIVACION DEL REGISTRO EN EL MODAL
-//$("#btnInactivarRegistroDeduccion").click(function () {
-//    document.getElementById('btnInactivarRegistroDeduccion').disabled = true;
-//    var data = $("#frmCatalogoDeduccionesInactivar").serializeArray();
-//    //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
-//    $.ajax({
-//        url: "/CatalogoDeDeducciones/Inactivar/" + InactivarID,
-//        method: "POST",
-//        data: data
-//    }).done(function (data) {
-//        if (data == "error") {
-//            $("#InactivarCatalogoDeducciones").modal('hide');
-//            $("#EditarCatalogoDeducciones").modal('hide');
-
-//            document.getElementById('btnInactivarRegistroDeduccion').disabled = false;
-
-//            //Cuando traiga un error del backend al guardar la edicion
-//            iziToast.error({
-//                title: 'Error',
-//                message: 'No se inactivó el registro, contacte al administrador',
-//            });
-//        } else {
-//            // REFRESCAR UNICAMENTE LA TABLA
-//            cargarGridDeducciones();
-//            //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
-//            $("#InactivarCatalogoDeducciones").modal('hide');
-//            $("#EditarCatalogoDeducciones").modal('hide');
-//            // OcultarValidacionesEditar();
-//            document.getElementById('btnInactivarRegistroDeduccion').disabled = false;
-//            //Mensaje de exito de la edicion
-//            iziToast.success({
-//                title: 'Éxito',
-//                message: '¡El registro se inactivó de forma exitosa!',
-//            });
-//        }
-//    });
-//});
-
-//VARIABLE GLOBAL DE INACTIVAR
-var GB_Inactivar = 0;
-//Modal de Inactivar
-$(document).on("click", "#btnInactivarCatalagoDeducciones", function () {
-    //validar informacion del usuario
-    var validacionPermiso = userModelState("CatalogoDeDeducciones/Inactivar");
-    if (validacionPermiso.status == true) {
-        //DESBLOQUEAR EL BOTON
-        $("#btnInactivar").attr("disabled", false);
-        var ID = $(this).data('id');
-        GB_Inactivar = ID;
-        //Mostrar el Modal
-        $("#btnInactivarCatalagoDeducciones").modal({ backdrop: 'static', keyboard: false });
-    }
-
-
-});
-
-
-//Funcionamiento del Modal Inactivar
-$("#btnInactivar").click(function () {
-
-    //BLOQUEAR EL BOTON
-    $("#btnInactivar").attr("disabled", true);
-
-    //Se envia el Formato Json al Controlador para realizar la Inactivación
+//EJECUTAR INACTIVACION DEL REGISTRO EN EL MODAL
+$("#btnInactivarRegistroDeduccion").click(function () {
+    document.getElementById('btnInactivarRegistroDeduccion').disabled = true;
+    var data = $("#frmCatalogoDeduccionesInactivar").serializeArray();
+    //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
     $.ajax({
-        url: "/CatalogoDeDeducciones/Inactivar/" + GB_Inactivar,
-        method: "GET"
+        url: "/CatalogoDeDeducciones/Inactivar/" + InactivarID,
+        method: "POST",
+        data: data
     }).done(function (data) {
-        if (data == "Error") {
-            //DESBLOQUEAR EL BOTON
-            $("#btnInactivar").attr("disabled", false);
-            //Cuando trae un error en el BackEnd al realizar la Inactivación
+        if (data == "error") {
+            $("#InactivarCatalogoDeducciones").modal('hide');
+            $("#EditarCatalogoDeducciones").modal('hide');
+
+            document.getElementById('btnInactivarRegistroDeduccion').disabled = false;
+
+            //Cuando traiga un error del backend al guardar la edicion
             iziToast.error({
                 title: 'Error',
-                message: '¡No se inactivó el registro, contacte al administrador!',
+                message: 'No se inactivó el registro, contacte al administrador',
             });
-        }
-        else {
-            // Actualizar el Index para ver los cambios
-            $("#btnInactivarCatalagoDeducciones").modal('hide');
-            //REFRESCAR LA DATA DEL DATATABLE
+        } else {
+            // REFRESCAR UNICAMENTE LA TABLA
             cargarGridDeducciones();
-            //Mensaje de Éxito de la Inactivación
+            //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
+            $("#InactivarCatalogoDeducciones").modal('hide');
+            $("#EditarCatalogoDeducciones").modal('hide');
+            // OcultarValidacionesEditar();
+            document.getElementById('btnInactivarRegistroDeduccion').disabled = false;
+            //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Éxito',
                 message: '¡El registro se inactivó de forma exitosa!',
             });
         }
     });
-    GB_Inactivar = 0;
-});
-
-// Evitar PostBack en los Formularios de las Vistas Parciales de Modal
-$("#btnInactivarCatalagoDeducciones").submit(function (e) {
-    return false;
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////VARIABLE GLOBAL DE INACTIVAR
-//var GB_Inactivar = 0;
-////Modal de Inactivar
-//$(document).on("click", "#btnmodalInactivarCatalogoDeducciones", function () {
-//    //validar informacion del usuario
-//    var validacionPermiso = userModelState("CatalogoDeDeducciones/Inactivar");
-//    if (validacionPermiso.status == true) {
-//        //DESBLOQUEAR EL BOTON
-//        $("#btnInactivar").attr("disabled", false);
-//        var ID = $(this).data('id');
-//        GB_Inactivar = ID;
-//        //Mostrar el Modal
-//        $("#btnmodalInactivarCatalogoDeducciones").modal({ backdrop: 'static', keyboard: false });
-//    }
-
-
-//});
-
-
-////Funcionamiento del Modal Inactivar
-//$("#btnInactivar").click(function () {
-
-//    //BLOQUEAR EL BOTON
-//    $("#btnInactivar").attr("disabled", true);
-
-//    //Se envia el Formato Json al Controlador para realizar la Inactivación
-//    $.ajax({
-//        url: "/DeduccionesExtraordinarias/Inactivar/" + GB_Inactivar,
-//        method: "GET"
-//    }).done(function (data) {
-//        if (data == "Error") {
-//            //DESBLOQUEAR EL BOTON
-//            $("#btnInactivar").attr("disabled", false);
-//            //Cuando trae un error en el BackEnd al realizar la Inactivación
-//            iziToast.error({
-//                title: 'Error',
-//                message: '¡No se inactivó el registro, contacte al administrador!',
-//            });
-//        }
-//        else {
-//            // Actualizar el Index para ver los cambios
-//            $("#InactivarDeduccionesExtraordinarias").modal('hide');
-//            //REFRESCAR LA DATA DEL DATATABLE
-//            cargarGridDeducciones();
-//            //Mensaje de Éxito de la Inactivación
-//            iziToast.success({
-//                title: 'Éxito',
-//                message: '¡El registro se inactivó de forma exitosa!',
-//            });
-//        }
-//    });
-//    GB_Inactivar = 0;
-//});
-
-// Evitar PostBack en los Formularios de las Vistas Parciales de Modal
-$("#InactivarDeduccionesExtraordinarias").submit(function (e) {
-    return false;
-});
 //MOSTRAR MODAL ACTIVAR
 $(document).on("click", "#btnActivarCatalogoDeducciones", function () {
     var validacionPermiso = userModelState("CatalogoDeDeducciones/Activar");
@@ -701,16 +560,13 @@ $(document).on("click", "#btnActivarCatalogoDeducciones", function () {
 
 
 //EJECUTAR ACTIVACION DEL REGISTRO EN EL MODAL
-//$("#btnCerrarInhabilitar").click(function () {
-//    //Mostrar modal editar nuevamente
-//    $("#EditarCatalogoDeducciones").modal({ 
-//        backdrop: 'static',
-//        keyboard: false
-//    });
-//    //$("html, body").css("overflow", "hidden");
-//    //$("html, body").css("overflow", "scroll");
-//    $("#InactivarCatalogoDeducciones").modal('hide');
-//});
+$("#btnCerrarInhabilitar").click(function () {
+    //Mostrar modal editar nuevamente
+   
+    //$("html, body").css("overflow", "hidden");
+    //$("html, body").css("overflow", "scroll");
+    $("#InactivarCatalogoDeducciones").modal('hide');
+});
 
 $(document).on("click", "#tblCatalogoDeducciones tbody tr td #btnActivarCatalogoDeducciones", function () {
     var ID = $(this).data('id');

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ERP_GMEDINA.Models.tbParametro>
+@model IEnumerable<ERP_GMEDINA.Models.tbParametro>
 
 @{
     ViewBag.Title = "Index";
@@ -58,28 +58,28 @@
         <th>
             @Html.DisplayNameFor(model => model.par_SucursalPrincipal)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.par_FechaCrea)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.par_FechaModifica)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.par_PorcentajeDescuentoTE)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.par_IdConsumidorFinal)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.tbUsuario.usu_NombreUsuario)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.tbUsuario1.usu_NombreUsuario)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.tbMoneda.mnda_Abreviatura)
         </th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -111,31 +111,31 @@
         <td>
             @Html.DisplayFor(modelItem => item.par_SucursalPrincipal)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.par_FechaCrea)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.par_FechaModifica)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.par_PorcentajeDescuentoTE)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.par_IdConsumidorFinal)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.tbUsuario.usu_NombreUsuario)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.tbUsuario1.usu_NombreUsuario)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.tbMoneda.mnda_Abreviatura)
         </td>
         <td>
-			@Html.ActionLink("Details", "Details", new { id=item.par_Id }, new { @class = "btn btn-primary btn-sm"})
-            @Html.ActionLink("Edit", "Edit", new { id=item.par_Id }, new { @class = "btn btn-white btn-sm"})
-            @Html.ActionLink("Delete", "Delete", new { id=item.par_Id }, new { @class = "btn btn-white btn-sm"})
+			@Html.ActionLink("Detalle", "Details", new { id=item.par_Id }, new { @class = "btn btn-primary btn-xs" })
+            @Html.ActionLink("Editar", "Edit", new { id=item.par_Id }, new { @class = "btn btn-white btn-xs" })
+            <input type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ModalEstado" value="Inactivar" />
         </td>
     </tr>
 }

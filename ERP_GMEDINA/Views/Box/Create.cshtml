@@ -74,14 +74,16 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.bod_Id, "Nombre de Bodega", new { @class = "control-label col-md-2 required" })
                                 <div style="display:block" class="col-md-4">
-                                    @Html.DropDownList("bod_Id", (IEnumerable<SelectListItem>)ViewBag.bod_Id, new { @class = "form-control" })
-                                    <p style="color:red">@Html.ValidationMessageFor(model => model.bod_Id)</p>
+                          
+                                    @Html.DropDownList("bod_Id", (IEnumerable<SelectListItem>)ViewBag.bod_Id, "Seleccione", new { @class = "form-control" })
+                                    <p style="color:red">@Html.ValidationMessageFor(model => model.tbBodega.bod_Id)</p>
                                 </div>
                                 @Html.LabelFor(model => model.box_Estado, "Estado", new { @class = "control-label col-md-2" })
                                 <div style="display:block" class="col-md-4">
                                     @Html.EditorFor(model => model.box_Descripcion, new { htmlAttributes = new { @class = "form-control", Value = "Abierta" , @readonly = "readonly" } })
                                     <p style="color:red">@Html.ValidationMessageFor(model => model.bod_Id)</p>
                                 </div>
+                                    
                             </div>
                             <div class="box-border, col-md-offset-10 col-md-12">
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#Crear">Registrar Detalle</button>
@@ -96,7 +98,7 @@
                             <div class="form-group">
                                 <div class="col-md-offset-5 col-md-10">
                                     <input type="submit" value="Registrar" class="btn btn-primary" />
-                                   @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white", onclick = "return ConfirmationDialog()" })
+                                   @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white", @*onclick = "return ConfirmationDialog()"*@ })
                                 </div>
                             </div>
                         </div>
@@ -135,17 +137,17 @@
 
 <script type="text/javascript">
 
-function ConfirmationDialog() {
+//function ConfirmationDialog() {
 
-    if (confirm("Esta Seguro de Cancelar, se perderán los Cambios."))
+//    if (confirm("Esta Seguro de Cancelar, se perderán los Cambios."))
 
-return true;
+//return true;
 
-else
+//else
 
-return false;
+//return false;
 
-}
+//}
 
 </script>
 

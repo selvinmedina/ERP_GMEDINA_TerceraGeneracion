@@ -300,17 +300,16 @@ $('#btnRegresarIV').click(function () {
 var InactivarID = 0;
 
 // inactivar 1 modal
-$(document).on("click", "#btnModalInactivarIV", function () {
+$(document).on("click", "#tblIV tbody tr td #btnModalInactivarIV", function () {
 
     //validar informacion del usuario
     var validacionPermiso = userModelState("TechoImpuestoVecinal/Inactivar");
 
     if (validacionPermiso.status == true) {
-
+        var ID = $(this).data('id');
+        InactivarID = ID;
         //DESBLOQUEAR BOTON
         $("#btnInactivarIV").attr("disabled", false);
-        //OCULTAR EL MODAL DE EDICION
-        $("#EditarIV").modal('hide');
         //MOSTRAR MODAL DE INACTIVACION
         $("#InactivarIV").modal({ backdrop: 'static', keyboard: false });
     }
@@ -352,11 +351,9 @@ $("#btnInactivarIV").click(function () {
 });
 
 // inactivar cerrar modal de confirmacion
-$(document).on("click", "#btnBackIV", function () {
+$(document).on("click", "#btnBack", function () {
     //OCULTAR MODAL DE INACTIVACION
     $("#InactivarIV").modal('hide');
-    //MOSTRAR MODAL DE EDICION
-    $("#EditarIV").modal({ backdrop: 'static', keyboard: false });
 });
 
 
@@ -991,6 +988,8 @@ function cargarGridIV() {
 
                 //variable boton editar
                 var botonEditar = LitaIV[i].timv_Activo == true ? '<button data-id = "' + LitaIV[i].timv_IdTechoImpuestoVecinal + '" type="button" class="btn btn-default btn-xs"  id="btnModalEditarIV">Editar</button>' : '';
+                //variable boton inactivar
+                var botonInactivar = LitaIV[i].timv_Activo == true ? '<button data-id = "' + LitaIV[i].timv_IdTechoImpuestoVecinal + '" type="button" class="btn btn-danger btn-xs"  id="btnModalInactivarIV">Inactivar</button>' : '';
 
                 //variable boton activar
                 var botonActivar = LitaIV[i].timv_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + LitaIV[i].timv_IdTechoImpuestoVecinal + '" type="button" class="btn btn-default btn-xs"  id="btnActivarIVModal">Activar</button>' : '' : '';
@@ -1005,7 +1004,7 @@ function cargarGridIV() {
                     (LitaIV[i].timv_Rango % 1 == 0) ? LitaIV[i].timv_Rango + ".00" : LitaIV[i].timv_Rango,
                     (LitaIV[i].timv_Impuesto % 1 == 0) ? LitaIV[i].timv_Impuesto + ".00" : LitaIV[i].timv_Impuesto,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonInactivar +  botonActivar
                 ]);
             }
         }

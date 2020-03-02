@@ -186,16 +186,17 @@ namespace ERP_GMEDINA.Controllers
         // POST: TipoAmonestaciones/Delete/5
         [HttpPost]
         [SessionManager("TipoAmonestaciones/Delete")]
-        public ActionResult Delete(tbTipoAmonestaciones tbTipoAmonestaciones)
+        public ActionResult Delete(int id)
         {
+            tbTipoAmonestaciones tbTipoAmonestaciones = new tbTipoAmonestaciones();
             string msj = "";
 
 
             string RazonInactivo = "Se ha Inhabilitado este Registro";
 
-            if (tbTipoAmonestaciones.tamo_Id != 0)
+            if (id != 0)
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {

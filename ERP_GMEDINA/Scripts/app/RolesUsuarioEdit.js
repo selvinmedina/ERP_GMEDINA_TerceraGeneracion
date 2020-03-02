@@ -233,9 +233,17 @@ $('#usu_Apellidos').on("keypress", function () {
 
 });
 
+function inactivar(id, t) {
+    $('#conten').val(id);
+    $('#TruFals').val(t);
+
+    console.log(id)
+}
+
 $('#Inactivar').click(function () {
-    var usu_id = $('#usu_Id').val();
-    var Activo = 0
+    var usu_id = $('#conten').val();
+    var Activo = $('#TruFals').val();
+    if (Activo == 1) { Activo = 1; } else if (Activo == 0) { Activo = 0; }
     var Razon_Inactivacion = $('#razonInac').val();
     console.log(usu_id)
     console.log(Activo)
@@ -255,13 +263,7 @@ $('#Inactivar').click(function () {
 
         })
     .done(function (data) {
-        if (data.length > 0) {
-            var url = $("#RedirectTo").val();
-            location.href = url;
-        }
-        else {
-            alert("Registro No Actualizado");
-        }
+        window.location.href = 'Usuario';
     });
     }
 

@@ -58,9 +58,13 @@ function llenarTabla() {
             }
             $.each(Lista, function (index, value) {
                 var Acciones = value.fare_Estado == 1
-                    ? null :
+                    ? "<div>" +
+                       "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a> " +
+                       "<a class='btn btn-dafault btn-xs' onclick='CallEditar(this)' >Editar</a> " +
+                       "<a class='btn btn-danger btn-xs ' onclick='CallInactivar(this)' id='InActivar' >Inactivar</a> " +
+                   "</div>" :
                      "<div>" +
-                       "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a>" +
+                       "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a> " +
                        "<a class='btn btn-default btn-xs ' onclick='hablilitar(this)' >Activar</a>" +
                    "</div>";
                 if (value.fare_Estado > fill) {
@@ -76,7 +80,20 @@ function llenarTabla() {
             });
         });
 }
-
+function CallInactivar(btn) {
+    //tablaDetalles(id);
+    var validacionPermiso = userModelState("FasesReclutamiento/Delete");
+    if (validacionPermiso.status == true) {
+        CierraPopups();
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#fare_Id").val(id);
+        $("#ModalInactivar").find("#fare_RazonInactivo").val("");
+        $("#ModalInactivar").find("#fare_RazonInactivo").focus();
+    }
+}
 //Botones GET
 $("#btnAgregar").click(function () {
     var validacionPermiso = userModelState("FasesReclutamiento/Create");
@@ -139,7 +156,7 @@ $("#InActivar").click(function () {
     var data = $("#FormInactivar").serializeArray();
     data = serializar(data);
     if (data != null) {
-        data.habi_Id = id;
+        data.fare_Id = $("#ModalInactivar").find("#fare_Id").val();
         data = JSON.stringify({ tbFasesReclutamiento: data });
         _ajax(data,
             '/FasesReclutamiento/Delete',

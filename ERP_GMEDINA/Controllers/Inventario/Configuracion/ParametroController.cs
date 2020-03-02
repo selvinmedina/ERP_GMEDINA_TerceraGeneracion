@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,7 +18,7 @@ namespace ERP_GMEDINA.Controllers
         private ERP_GMEDINAEntities db = new ERP_GMEDINAEntities();
         Models.Helpers Function = new Models.Helpers();
         // GET: /Parametro/
-        [SessionManager("Parametro/Index")]
+        //[SessionManager("Parametro/Index")]
         public ActionResult Index()
         {
             var conteo = db.ConteoParametro(1).ToList();
@@ -32,18 +32,20 @@ namespace ERP_GMEDINA.Controllers
             }
             else
             {
-                foreach (ERP_GMEDINA.Models.ConteoParametro_Result contarparametro in conteo)
-                    par = contarparametro.Conteo;
-                foreach (tbParametro id in parametro)
-                    idparametro = id.par_Id;
-                if(par > 0)
-                {
-                    return RedirectToAction("Details/" + idparametro, "Parametro");
-                }
-                else
-                {
-                    return RedirectToAction("Create" , "Parametro");
-                }
+                //foreach (ERP_GMEDINA.Models.ConteoParametro_Result contarparametro in conteo)
+                //    par = contarparametro.Conteo;
+                //foreach (tbParametro id in parametro)
+                //    idparametro = id.par_Id;
+                //if(par > 0)
+                //{
+                //    //return RedirectToAction("Details/" + idparametro, "Parametro");
+                //    return RedirectToAction("Index");
+                //}
+                //else
+                //{
+                //    return RedirectToAction("Create" , "Parametro");
+                //}
+                return View(parametro);
             }
         }
 
