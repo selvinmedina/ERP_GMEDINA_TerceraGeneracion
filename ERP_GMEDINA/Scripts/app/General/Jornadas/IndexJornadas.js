@@ -1,4 +1,6 @@
-﻿var jor_Id = 0;
+﻿/// <reference path="../../../plugins/dataTables/DatatablesConfigurations.js" />
+/// <reference path="../../../plugins/dataTables/DatatablesConfigurations.js" />
+var jor_Id = 0;
 var fill = 0;
 $(document).ready(function () {
     fill = Admin == undefined ? 0 : -1;
@@ -36,6 +38,8 @@ function llenarTabla() {
 
        });
 }
+
+
 function tablaEditar(ID) {
     id = ID;
     _ajax(null,
@@ -48,6 +52,7 @@ function tablaEditar(ID) {
             }
         });
 }
+
 function tablaDetalles(ID) {
     var validacionPermiso = userModelState("Jornadas/Detalles");
     if (validacionPermiso.status == true) {
@@ -67,6 +72,10 @@ function tablaDetalles(ID) {
             });
     }    
 }
+
+function tableinactivar(ID) {
+}
+
 function format(obj, jor_Id, estado) {
     var emerson = estado == 'Inactivo' ? '' : '<button id = "btnAgregarHorarios" data-id="' + jor_Id + '" data-toggle="ModalNuevoHorarios" class="btn btn-outline btn-primary btn-xs" onClick = "showmodal(this)">Agregar horario</button>';
     var div = '<div class="ibox"><div class="ibox-title"><strong class="mr-auto m-l-sm">Horarios</strong><div class="btn-group pull-right">' +
@@ -387,7 +396,7 @@ $("#InActivar").click(function () {
         var data = $("#FormInactivar").serializeArray();
         data = serializar(data);
         if (data != null) {
-            data.jor_Id = id;
+            data.jor_Id = $("#txtIdDelete").val();
             data = JSON.stringify({ tbJornadas: data });
             _ajax(data,
                 '/Jornadas/Delete',
