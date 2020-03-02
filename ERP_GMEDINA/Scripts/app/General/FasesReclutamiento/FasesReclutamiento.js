@@ -156,7 +156,7 @@ $("#InActivar").click(function () {
     var data = $("#FormInactivar").serializeArray();
     data = serializar(data);
     if (data != null) {
-        //data.habi_Id = id;
+        data.fare_Id = $("#ModalInactivar").find("#fare_Id").val();
         data = JSON.stringify({ tbFasesReclutamiento: data });
         _ajax(data,
             '/FasesReclutamiento/Delete',
