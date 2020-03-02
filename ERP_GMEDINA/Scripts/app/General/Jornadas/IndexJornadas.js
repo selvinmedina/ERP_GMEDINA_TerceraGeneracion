@@ -392,7 +392,7 @@ $("#InActivar").click(function () {
         var data = $("#FormInactivar").serializeArray();
         data = serializar(data);
         if (data != null) {
-            data.jor_Id = id;
+            data.jor_Id = $("#txtIdDelete").val();
             data = JSON.stringify({ tbJornadas: data });
             _ajax(data,
                 '/Jornadas/Delete',

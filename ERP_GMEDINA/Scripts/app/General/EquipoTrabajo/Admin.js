@@ -19,7 +19,7 @@ function inactivar(btn) {
         var tr = $(btn).closest('tr');
         var row = tabla.row(tr);
         var id = row.data().ID;
-        $("#txtIdDelete").val(id);
+        $("#txtIdRestore").val(id);
         CierraPopups();
         $('#ModalInactivar').modal('show');
         $("#ModalInactivar").find("#eqtr_RazonInactivo").val("");
