@@ -12,6 +12,22 @@ function tablaEditar(id) {
         $(location).attr('href', "/Areas/Edit/" + id);
     }
 }
+var ID
+function tablainactivar(btn) {
+    var validacionPermiso = userModelState("Areas/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+        $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+
+    }
+}
+
 function format(obj) {
     var div = '<div class="ibox">' +
                 '<div class="ibox-title"><h5>Departamentos</h5>' +
