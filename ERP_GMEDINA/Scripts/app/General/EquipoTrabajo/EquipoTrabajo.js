@@ -31,7 +31,7 @@ function tablaDetalles(id) {
     if (validacionPermiso.status == true) {
         _ajax(null,
             '/EquipoTrabajo/Edit/' + id,
-            'GET',
+            'GET',  
             function (obj) {
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
                     $("#ModalDetalles").find("#eqtra_Codigo")["0"].innerText = obj.eqtra_Codigo;

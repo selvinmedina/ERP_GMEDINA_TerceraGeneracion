@@ -152,7 +152,8 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.dep_Codigo, new { @class = "control-label col-md-2 , required" })
                                 <div class="col-md-4">
-                                    @Html.DropDownList("dep_Codigo", (IEnumerable<SelectListItem>)ViewBag.deparatamento_Edit, new { @class = "form-control" })
+                                    @Html.DropDownList("dep_Codigo", (IEnumerable<SelectListItem>)ViewBag.deparatamento_Edit, new { @class = "form-control" , @Id="ddlDepartamentos"})
+
                                     <p id="Departamento" style="color:red">@Html.ValidationMessageFor(muni => ListadoDepartamento.dep_Codigo)</p>
                                 </div>
                                 @Html.LabelFor(model => model.mun_Codigo, new { @class = "control-label col-md-2 , required" })
@@ -160,7 +161,7 @@
                                     @Html.DropDownList("mun_Codigo",@*null, "Seleccione Municipio",*@                              /**/
                                                                                                                                                                        /**/
                                                                                                                                                                        /**/
-                                                                                                                                                                       (IEnumerable<SelectListItem>)ViewBag.municipio_Edit, new { @class = "form-control" })
+                                    (IEnumerable<SelectListItem>)ViewBag.municipio_Edit, new { @class = "form-control" })
                                     <p id="Municipio" style="color:red">@Html.ValidationMessageFor(model => model.mun_Codigo)</p>
                                 </div>
                                 @*<div class="form-group">
@@ -243,22 +244,8 @@
                             </div>
                             <div class="form-group ">
                                 <div class="col-md-offset-4 col-md-10">
-
-                                    @{if (Model.bod_EsActiva == 1)
-                                        {
-
-                                            <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" />
-                                            <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado" value="Inactivar" />
-
-                                        }
-                                        else
-                                        {
-                                            <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" disabled />
-                                            @Html.ActionLink("Activar", "Estadoactivar", new { id = Model.bod_Id }, new { @class = "btn btn-primary" })
-                                        }
-                                    }
+                                    <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" />
                                     @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
-
                                 </div>
                             </div>
                         </div>
@@ -302,25 +289,7 @@
 @*MODALES*@
 
 
-<div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Inactivar Bodega</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro que quiere Inactivar esta Bodega?
-            </div>
-            <div class="modal-footer">
-                @Html.ActionLink("Sí", "EstadoInactivar", new { id = Model.bod_Id }, new { @class = "btn btn-danger" })
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 
@@ -332,6 +301,7 @@
 <script src="~/Scripts/app/BodegaDetalle.js"></script>
 <script src="~/Scripts/app/EditBodegaDetalle.js"></script>
 <script src="~/Scripts/app/ValidationErrorsBodega.js"></script>
+
 @*<script src="~/Scripts/app/disableSubmits.js"></script>*@
 @*<script language="javascript" type="text/javascript" src="disableSubmits.js"></script>*@
 @*<script src="~/Scripts/jquery.validate.min.js"></script>
@@ -343,7 +313,7 @@
 <script>
     $("#bod_Nombre").focus();
     $(document).ready(function () {
-        var Mun = $('#mun_Codigo').val();
+        var Mun = $('#dep_Codigo').val();
 
         console.log(Mun);
         if (Mun != '') {
@@ -352,6 +322,7 @@
         }
 
     });
+
 
     function GetDepartamento() {
         var CodMunicipio = $('#mun_Codigo').val();
@@ -362,14 +333,31 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ CodMunicipio: CodMunicipio }),
         })
+            
             .done(function (data) {
+                console.log("Verificar la data",data)
                 if (data.length > 0) {
                     $('#dep_Codigo').empty();
                     //$('#dep_Codigo').append("<option value=''>Seleccione Municipio</option>");
                     $.each(data, function (key, val) {
                         $('#dep_Codigo').append("<option value=" + val.dep_Codigo + ">" + val.dep_Nombre + "</option>");
                     });
-                    $('#dep_Codigo').trigger("chosen:updated");
+                    $('#mun_Codigo').trigger("chosen:updated");
+
+                    console.log(data)
+                    console.log(data[0].dep_Codigo)
+
+
+                    //var elemento = document.getElementById("ddDepartamentos");
+                    
+
+                    //var prueba = strUser = elemento.options[elemento.selectedIndex].value;
+                    var prueba = $('#ddlDepartamentos option[value='+data[0].dep_Codigo+']')
+                    console.log('Esta es una prueba', prueba)
+                    
+                    var departamento = document.getElementById("ddlDepartamentos")  
+                    departamento.selectedIndex = prueba.index();
+                    console.log(departamento)
                 }
                 else {
                     $('#dep_Codigo').empty();

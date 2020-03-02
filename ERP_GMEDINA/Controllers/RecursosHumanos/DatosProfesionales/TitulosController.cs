@@ -175,17 +175,18 @@ namespace ERP_GMEDINA.Controllers
         [SessionManager("Titulos/Delete")]
         public ActionResult Delete(tbTitulos tbtitulos)
         {
+            tbTitulos t = new tbTitulos();
             string msj = "";
             string RazonInactivo = "Se ha Inhabilitado este Registro";
 
             if (tbtitulos.titu_Id != 0)
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
                     db = new ERP_GMEDINAEntities();
-                    var list = db.UDP_RRHH_tbTitulos_Delete(id, RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
+                    var list = db.UDP_RRHH_tbTitulos_Delete(tbtitulos.titu_Id, RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
                     foreach (UDP_RRHH_tbTitulos_Delete_Result item in list)
                     {
                         msj = item.MensajeError + " ";

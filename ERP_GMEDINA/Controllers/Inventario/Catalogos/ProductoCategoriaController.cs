@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -388,7 +388,7 @@ namespace ERP_GMEDINA.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Edit/" + id);
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception Ex)
@@ -469,8 +469,42 @@ namespace ERP_GMEDINA.Controllers
         }
 
 
-        public ActionResult InactivarCateValidacion(int? id)
+        public JsonResult InactivarCateValidacion(int id)
         {
+            try
+            {
+                tbProductoCategoria obj = db.tbProductoCategoria.Find(id);
+                IEnumerable<object> list = null;
+                var MsjError = "";
+                list = db.UDP_Inv_tbProductoCategoria_Update_Estado_Validacion(id, Function.GetUser(), Function.DatetimeNow(), Models.Helpers.CategoriaInactivo);
+                foreach (UDP_Inv_tbProductoCategoria_Update_Estado_Validacion_Result obje in list)
+                    MsjError = obje.MensajeError;
+
+                if (MsjError.StartsWith("-2"))
+                {
+                    TempData["smserror"] = "No se puede cambiar el estado del dato porque está en uso.";
+                    ViewBag.smserror = TempData["smserror"];
+
+                    ModelState.AddModelError("", "No se Actualizo el registro");
+                  //  return RedirectToAction("Edit/" + id);
+                }
+                else
+                {
+                   // return RedirectToAction("Index");
+                }
+            }
+            catch (Exception Ex)
+            {
+                Ex.Message.ToString();
+                ModelState.AddModelError("", "No se Actualizo el registro");
+                //return RedirectToAction("Edit/" + id);
+            }
+            return Json("Hola", JsonRequestBehavior.AllowGet);
+            
+        }
+        public ActionResult InactivarCateValidacion1(int? id)
+        {
+           // var s = Response.Write("<script>localStorage.getItem('IdCat');</script>");
 
             try
             {
@@ -491,7 +525,7 @@ namespace ERP_GMEDINA.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Edit/" + id);
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception Ex)

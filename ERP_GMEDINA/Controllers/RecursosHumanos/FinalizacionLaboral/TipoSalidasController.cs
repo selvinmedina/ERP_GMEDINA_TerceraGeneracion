@@ -207,14 +207,15 @@ namespace ERP_GMEDINA.Controllers
         // GET: Habilidades/Delete/5
         [HttpPost]
         [SessionManager("TipoSalidas/Delete")]
-        public ActionResult Delete(tbTipoSalidas tbTipoSalidas)
+        public ActionResult Delete(int id)
         {
+            tbTipoSalidas tbTipoSalidas = new tbTipoSalidas();
             string msj = "";
             string RazonInactivo = "Se ha Inhabilitado este Registro";
 
-            if (tbTipoSalidas.tsal_Id != 0)
+            if (id != 0)
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {

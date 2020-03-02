@@ -31,6 +31,7 @@ function cargarGridAuxilioCesantia() {
                 //variable boton editar
                 var botonEditar = ListaAuxCes[i].aces_Activo == true ? '<button data-id = "' + ListaAuxCes[i].aces_IdAuxilioCesantia + '" type="button" class="btn btn-default btn-xs"  id="btnModalEdit">Editar</button>' : '';
 
+                var btnModalEliminar = ListaAuxCes[i].aces_Activo == true ? '<button data-id = "' + ListaAuxCes[i].aces_IdAuxilioCesantia + '" type="button" class="btn btn-danger btn-xs"  id="btnModalEliminar">Inactivar</button>' : '';
                 //variable donde está el boton activar
                 var botonActivar = ListaAuxCes[i].aces_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaAuxCes[i].aces_IdAuxilioCesantia + '" type="button" class="btn btn-default btn-xs"  id="btnModalActivarAuxCes">Activar</button>' : '' : '';
 
@@ -41,8 +42,8 @@ function cargarGridAuxilioCesantia() {
                     ListaAuxCes[i].aces_RangoFinMeses,
                     ListaAuxCes[i].aces_DiasAuxilioCesantia,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar]
-                );
+                    botonDetalles + botonEditar + botonActivar + btnModalEliminar
+                ]);
             }
         });
     FullBody();
@@ -892,34 +893,34 @@ $("#btnCerrarConfirmarEditar").click(function () {
 // no inactivar
 $("#btnCerrarInactivar").click(function () {
 
-    $("#frmEditarAuxCes").modal({ backdrop: 'static', keyboard: false });
+    window.location.reload(true);
 
 
 });
 
-// modal confirmar inactivar 
-$("#btnModalEliminar").click(function () {
 
-    //validar informacion del usuario
-    var validacionPermiso = userModelState("AuxilioDeCesantias/Inactivar");
 
-    if (validacionPermiso.status == true) {
-        $('#btnEliminarAuxCes').attr('disabled', false);
-        $("#frmEditarAuxCes").modal('hide');
-        $("#frmEliminarAuxCes").modal({ backdrop: 'static', keyboard: false });
-    }
+function InactivarBodega(id)
+{
+    $("#frmEliminarAuxCes").modal();
+    localStorage.setItem("IdAux", id);
+}
+
+$("#btnActivarAuxCes").click(function () {
+    $("#frmEliminarAuxCes").modal();
 
 });
+
+
 
 // ejecutar inactivar
 $("#btnEliminarAuxCes").click(function () {
     $("#btnEliminarAuxCes").attr('disabled', true);
     //SERIALIZAR EL FORMULARIO (QUE ESTÁ EN LA VISTA PARCIAL) DEL MODAL, SE PARSEA A FORMATO JSON
     var data = $("#frmEliminarAuxCes").serializeArray();
-    var ID = EliminarID;
     //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
     $.ajax({
-        url: "/AuxilioDeCesantias/Inactivar/" + ID,
+        url: "/AuxilioDeCesantias/Inactivar/" + localStorage.getItem("IdAux"),
         method: "POST",
         data: data
     }).done(function (data) {
@@ -934,6 +935,7 @@ $("#btnEliminarAuxCes").click(function () {
             $("#frmEliminarAuxCes").modal('hide');
             $("#frmEditarAuxCes").modal('hide');
             cargarGridAuxilioCesantia();
+            window.location.reload(true);
             //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Exito',
@@ -979,7 +981,7 @@ $("#btnActivarAuxCes").click(function () {
             cargarGridAuxilioCesantia();
 
             $("#frmActivarAuxCes").modal('hide');
-
+            window.location.reload(true);
             iziToast.success({
                 title: 'Éxito',
                 message: '¡El registro se activó de forma exitosa!',

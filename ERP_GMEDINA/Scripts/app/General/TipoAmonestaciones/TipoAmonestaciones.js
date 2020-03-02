@@ -107,15 +107,15 @@ $("#btnEditar").click(function () {
             }
         });
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("TipoAmonestaciones/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#tamo_RazonInactivo").val("");
-        $("#ModalInactivar").find("#tamo_RazonInactivo").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("TipoAmonestaciones/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#tamo_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#tamo_RazonInactivo").focus();
+//    }
+//});
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -138,12 +138,49 @@ $("#btnGuardar").click(function () {
         MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
 });
+//$("#InActivar").click(function () {
+//    var data = $("#FormInactivar").serializeArray();
+//    data = serializar(data);
+//    if (data != null) {
+//        data.tamo_Id = id;
+//        data = JSON.stringify({ tbTipoAmonestaciones: data });
+//        _ajax(data,
+//            '/TipoAmonestaciones/Delete',
+//            'POST',
+//            function (obj) {
+//                if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                    CierraPopups();
+//                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+//                    LimpiarControles(["tamo_Descripcion"]);
+//                    llenarTabla();
+//                } else {
+//                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+//                }
+//            });
+//    } else {
+//        MsgError("Error", "Por favor llene todas las cajas de texto.");
+//    }
+//});
+function inactivar(btn) {
+    var validacionPermiso = userModelState("TipoAmonestaciones/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#tamo_RazonInactivo").val("");
+        $("#ModalInactivar").find("#tamo_RazonInactivo").focus();
+
+    }
+}
 $("#InActivar").click(function () {
-    var data = $("#FormInactivar").serializeArray();
-    data = serializar(data);
-    if (data != null) {
-        data.tamo_Id = id;
-        data = JSON.stringify({ tbTipoAmonestaciones: data });
+    //var data = $("#FormInactivar").serializeArray();
+    //data = serializar(data);
+    Id = $("#txtIdDelete").val();;
+    if (Id != null) {
+        data = JSON.stringify({ id: Id });
         _ajax(data,
             '/TipoAmonestaciones/Delete',
             'POST',
@@ -151,7 +188,7 @@ $("#InActivar").click(function () {
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
                     CierraPopups();
                     MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                    LimpiarControles(["tamo_Descripcion"]);
+                    //LimpiarControles(["tamo_Descripcion"]);
                     llenarTabla();
                 } else {
                     MsgError("Error", "No se inactivó el registro, contacte al administrador.");

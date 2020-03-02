@@ -16,6 +16,21 @@ function tablaEditar(ID) {
             });
     }
 }
+
+function inactivar(btn) {
+    var validacionPermiso = userModelState("EquipoTrabajo/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#tsal_RazonInactivo").val("");
+        $("#ModalInactivar").find("#tsal_RazonInactivo").focus();
+    }
+}
+
 function tablaDetalles(ID) {
     //id = ID;
     var validacionPermiso = userModelState("TipoSalidas/Details");
@@ -96,15 +111,17 @@ $("#btnEditar").click(function () {
             });
     }
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("TipoSalidas/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#tsal_RazonInactivo").val("");
-        $("#ModalInactivar").find("#tsal_RazonInactivo").focus();
-    }
-});
+
+//este onclick, luego lo utilizas como funcion para poder jalar el id. por eso lo comento aqui por si luego se ocupa el onclick
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("TipoSalidas/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#tsal_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#tsal_RazonInactivo").focus();
+//    }
+//});
 //botones POST
 $("#btnGuardar").click(function () {
  var data = $("#FormNuevo").serializeArray();
@@ -128,29 +145,35 @@ $("#btnGuardar").click(function () {
   MsgError("Error", "Por favor llene todas las cajas de texto.");
  }
 });
-$("#InActivar").click(function () {
- var data = $("#FormInactivar").serializeArray();
- data = serializar(data);
- if (data != null) {
-  data.tsal_Id = id;
-  data = JSON.stringify({ tbTipoSalidas: data });
-  _ajax(data,
-      '/TipoSalidas/Delete',
-      'POST',
-      function (obj) {
-       if (obj != "-1" && obj != "-2" && obj != "-3") {
-        CierraPopups();
-        MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-        LimpiarControles(["tsal_Descripcion", "tsal_RazonInactivo"]);
-        llenarTabla();
-       } else {
-           MsgError("Error","No se inactivó el registro, contacte al administrador.");
-       }
-      });
- } else {
-  MsgError("Error", "Por favor llene todas las cajas de texto.");
- }
-});
+
+//Este es el boton que dice "si" en el modal... tenemos que buscar el id por medio de la textbox hidden, pero creo que
+//este va en el admin :v no me acuerdo jsjsjs
+
+//$("#InActivar").click(function () {
+// var data = $("#FormInactivar").serializeArray();
+// data = serializar(data);
+// if (data != null) {
+//  data.tsal_Id = id;
+//  data = JSON.stringify({ tbTipoSalidas: data });
+//  _ajax(data,
+//      '/TipoSalidas/Delete',
+//      'POST',
+//      function (obj) {
+//       if (obj != "-1" && obj != "-2" && obj != "-3") {
+//        CierraPopups();
+//        MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+//        LimpiarControles(["tsal_Descripcion", "tsal_RazonInactivo"]);
+//        llenarTabla();
+//       } else {
+//           MsgError("Error","No se inactivó el registro, contacte al administrador.");
+//       }
+//      });
+// } else {
+//  MsgError("Error", "Por favor llene todas las cajas de texto.");
+// }
+//});
+
+
 $("#btnActualizar").click(function () {
  var data = $("#FormEditar").serializeArray();
  data = serializar(data);

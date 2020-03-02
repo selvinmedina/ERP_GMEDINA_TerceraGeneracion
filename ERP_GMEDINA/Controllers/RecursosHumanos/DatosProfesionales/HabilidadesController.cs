@@ -157,14 +157,14 @@ namespace ERP_GMEDINA.Controllers
         // GET: Habilidades/Delete/5
         [HttpPost]
         [SessionManager("Habilidades/Delete")]
-        public ActionResult Delete(tbHabilidades tbHabilidades)
+        public ActionResult Delete(int id)
         {
+            tbHabilidades hab = new tbHabilidades();
             string msj = "";
-
-            string RazonInactivo = "Se ha Inhabilitado este Registro";
-            if (tbHabilidades.habi_Id != 0 && tbHabilidades.habi_RazonInactivo != "")
+            if (/*tbHabilidades.habi_Id != 0*/ id!=0 && hab.habi_RazonInactivo != "")
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
+                string RazonInactivo = "Se ha Inhabilitado este Registro";
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
@@ -180,7 +180,7 @@ namespace ERP_GMEDINA.Controllers
                     msj = "-2";
                     ex.Message.ToString();
                 }
-                //Session.Remove("id");
+                Session.Remove("id");
             }
             else
             {

@@ -33,7 +33,7 @@
                                 <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 128px;">@Html.DisplayNameFor(model => model.tddu_PorcentajeEmpresa)</th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 128px;">@Html.DisplayNameFor(model => model.tddu_Techo)</th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 128px;">@Html.DisplayNameFor(model => model.tbCatalogoDeDeducciones.cde_DescripcionDeduccion)</th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 128px;">Estado</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 100px;">Estado</th>
                                 <th tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 128px;">Acciones</th>
                             </tr>
                         </thead>
@@ -72,6 +72,8 @@
                                             {
                                                 <button type="button" data-id="@item.tddu_IdTechosDeducciones" class="btn btn-primary btn-xs" id="btnDetalleTechosDeducciones">Detalles</button>
                                                 <button type="button" data-id="@item.tddu_IdTechosDeducciones" class="btn btn-default btn-xs" id="btnEditarTechosDeducciones">Editar</button>
+                                                 <!-- INACTIVAR -->
+                                                <button type="button" data-id="@item.tddu_IdTechosDeducciones" class="btn btn-danger btn-xs" id="btnInactivarTechoDeducciones">Inactivar</button>
                                             }
                                             <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             @* if (rol_Usuario == 1 && item.tddu_Activo == false) *@
