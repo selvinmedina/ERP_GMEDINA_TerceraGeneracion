@@ -315,13 +315,14 @@ namespace ERP_GMEDINA.Controllers
         // GET: Jornadas/Delete/5
         [HttpPost]
         [SessionManager("Jornadas/Delete")]
-        public ActionResult Delete(tbJornadas tbJornadas)
+        public ActionResult Delete(int id)
         {
+            tbJornadas tbJornadas = new tbJornadas();
             string msj = "...";
             string RazonInactivo = "Se ha Inhabilitado este Registro";
-            if (tbJornadas.jor_Id != 0 )
+            if (id != 0 )
             {
-                var id = (int)Session["id"];                
+                //var id = (int)Session["id"];                
                 try
                 {
                     db = new ERP_GMEDINAEntities();
