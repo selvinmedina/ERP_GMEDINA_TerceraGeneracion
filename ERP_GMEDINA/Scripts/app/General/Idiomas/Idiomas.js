@@ -69,6 +69,24 @@ function llenarTabla() {
             });
         });
 }
+
+
+//Esta funcion llama al modal de inHabilitar
+function inactivar(btn) {
+    var validacionPermiso = userModelState("Idiomas/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#idi_RazonInactivo").val("");
+        $("#ModalInactivar").find("#idi_RazonInactivo").focus();
+    }
+}
+
+
 //function ClearTables() {
 //    $('#IndexTable').dataTable().clear().draw();
 //}
@@ -95,15 +113,16 @@ $("#btnEditar").click(function () {
             }
         });
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Idiomas/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#idi_RazonInactivo").val("");
-        $("#ModalInactivar").find("#idi_RazonInactivo").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("Idiomas/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#idi_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#idi_RazonInactivo").focus();
+//    }
+//});
+
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -128,29 +147,29 @@ $("#btnGuardar").click(function () {
         MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
 });
-$("#InActivar").click(function () {
-    var data = $("#FormInactivar").serializeArray();
-    data = serializar(data);
-    if (data != null) {
-        data.idi_Id = id;
-        data = JSON.stringify({ tbIdiomas: data });
-        _ajax(data,
-            '/Idiomas/Delete',
-            'POST',
-            function (obj) {
-                if (obj != "-1" && obj != "-2" && obj != "-3") {
-                    CierraPopups();
-                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                    LimpiarControles(["idi_Descripcion", "idi_RazonInactivo"]);
-                    llenarTabla();
-                } else {
-                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
-                }
-            });
-    } else {
-        MsgError("Error", "Por favor llene todas las cajas de texto.");
-    }
-});
+//$("#InActivar").click(function () {
+//    var data = $("#FormInactivar").serializeArray();
+//    data = serializar(data);
+//    if (data != null) {
+//        data.idi_Id = id;
+//        data = JSON.stringify({ tbIdiomas: data });
+//        _ajax(data,
+//            '/Idiomas/Delete',
+//            'POST',
+//            function (obj) {
+//                if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                    CierraPopups();
+//                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+//                    LimpiarControles(["idi_Descripcion", "idi_RazonInactivo"]);
+//                    llenarTabla();
+//                } else {
+//                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+//                }
+//            });
+//    } else {
+//        MsgError("Error", "Por favor llene todas las cajas de texto.");
+//    }
+//});
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();
     data = serializar(data);
