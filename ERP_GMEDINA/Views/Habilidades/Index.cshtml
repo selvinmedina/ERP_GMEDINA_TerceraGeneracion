@@ -31,6 +31,27 @@
         </div>
     </div>
 </div>
+
+@*Modal Activar*@
+<div class="modal fade" id="ModalHabilitar" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Activar</h4>
+            </div>
+            <div class="modal-body" id="Activar">
+                ¿Está seguro que desea Activar este registro?
+            </div>
+            <input type="hidden" value="" id="txtIdRestore">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white pull-right" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary pull-right" id="btnActivar" data-dismiss="modal">Si</button>
+                <div style="display:none" class="btn pull-right" id="cargandoActivar"></div>
+            </div>
+        </div>
+    </div>
+</div>
 @Html.Partial("_Activar")
 @Html.Partial("_Create", new ERP_GMEDINA.Models.tbHabilidades())
 @Html.Partial("_Delete", new ERP_GMEDINA.Models.tbHabilidades())

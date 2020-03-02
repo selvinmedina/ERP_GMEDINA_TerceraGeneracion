@@ -44,6 +44,7 @@
                 
                 <h4 class="modal-title">Activar</h4>
             </div>
+@section Styles {
             <div class="modal-body" id="Activar">
                 ¿Está seguro que desea Activar este registro?
             </div>
@@ -59,13 +60,12 @@
 
 
 
-
+@Html.Partial("_Activar")
 @Html.Partial("_Create", new ERP_GMEDINA.Models.tbEquipoTrabajo())
 @Html.Partial("_Delete", new ERP_GMEDINA.Models.tbEquipoTrabajo())
 @Html.Partial("_Edit", new ERP_GMEDINA.Models.tbEquipoTrabajo())
 @Html.Partial("_Detalles", new ERP_GMEDINA.Models.tbEquipoTrabajo())
     
-@section Styles {
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
 @Styles.Render("~/Content/plugins/izitoast/iziToast")
 @Styles.Render("~/Content/plugins/izitoast/iziToast.min")
