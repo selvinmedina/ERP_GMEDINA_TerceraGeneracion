@@ -24,6 +24,7 @@ function inactivar(btn) {
     }
 }
 
+
 //Cambiar el controlador para ejecutar el UDP de restaurar
 $("#btnActivar").click(function () {
     var Id = $("#txtIdRestore").val();
