@@ -12,6 +12,22 @@ function hablilitar(btn) {
     }
 }
 
+//Esta funcion llama al modal de inHabilitar
+function inactivar(btn) {
+    var validacionPermiso = userModelState("Titulos/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#eqtr_RazonInactivo").val("");
+        $("#ModalInactivar").find("#eqtr_RazonInactivo").focus();
+    }
+}
+
 //Cambiar el controlador para ejecutar el UDP de restaurar
 $("#btnActivar").click(function () {
     var Id = $("#txtIdRestore").val();

@@ -10,7 +10,7 @@ function Remove(Id, lista) {
     return list;
 }
 function Add(Empleados, Razon, ver) {
-    //debugger
+    debugger
     if (Empleados.trim().length != 0 || Razon.trim().length != 0) {
         for (var i = 0; i < ChildTable.data().length; i++) {
             var Fila = ChildTable.rows().data()[i];
@@ -174,38 +174,16 @@ $(document).ready(function () {
 });
 $("#add").click(function () {
     var Id = $("#FormEmpleados").find("#DDOWNEmpleados").val();
-    var Razon = $("#FormEmpleados").find("#Razon").val();
-
-    //var Observaciones = $("#hsal_Observacion").val();
-    
-    
-
     if (Id == 0) {
         var span = $("#FormEmpleados").find("#errorDDOWNEmpleados");
-      
         $(span).addClass("text-warning");
         $(span).closest("div").addClass("has-warning");
-       
         span.text('Seleccione otra opción');
         $("#FormEmpleados").find("#select2-DDOWNEmpleados-container").focus();
     }
-    else if (Razon == "") {
-        var alert = $("#FormEmpleados").find("#erroremp_RazonInactivo");
-        $(alert).addClass("text-warning");
-        $(alert).closest("div").addClass("has-danger");
-        alert.text('Este campo es requerido');
-       
-    }
-    //else if (Observaciones == "") {
-    //    var alerta = $("#hsal_Observacion").find("#");
-    //    $(alert).addClass("text-warning");
-    //    $(alert).closest("div").addClass("has-danger");
-    //    alert.text('Este campo es requerido');
-
-    //}
     else {
     var Id = $("#FormEmpleados").find("#DDOWNEmpleados").val();
-    
+    var Razon = $("#FormEmpleados").find("#Razon").val();
     var ver = $('#DDOWNEmpleados option:selected').html();
     var valores = Id + Razon + ver;
     for (var i = 0; i < valores.length; i++) {

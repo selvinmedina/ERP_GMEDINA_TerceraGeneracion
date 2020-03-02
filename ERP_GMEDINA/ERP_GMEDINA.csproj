@@ -5604,7 +5604,9 @@
     <Content Include="Views\Home\Inventario.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\plugins\bootstrap-rtl\bootstrap-rtl.css.map" />
     <Content Include="Content\plugins\footable\fonts\footable.eot" />
     <Content Include="Content\plugins\footable\fonts\footable.ttf" />

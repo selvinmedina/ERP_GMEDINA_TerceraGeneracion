@@ -95,10 +95,3 @@ function CallEditar(btn) {
     tablaEditar(id);
 }
 
-function inactivar(btn) {
-    var tr = $(btn).closest('tr');
-    var row = tabla.row(tr);
-    var id = row.data().ID;
-    tableinactivar(id);
-}
-

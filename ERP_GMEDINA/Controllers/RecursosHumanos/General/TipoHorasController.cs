@@ -171,18 +171,18 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [SessionManager("TipoHoras/Delete")]
 
-        public ActionResult Delete(string tiho_RazonInactivo)
+        public ActionResult Delete(int id)
         {
             string msj = "";
             string RazonInactivo = "Se ha Inhabilitado este Registro";
 
             tbTipoHoras tbTipoHoras = new tbTipoHoras();
-            //tbTipoHoras.tiho_Id = id;
-            tbTipoHoras.tiho_RazonInactivo = tiho_RazonInactivo;
+            ////tbTipoHoras.tiho_Id = id;
+            //tbTipoHoras.tiho_RazonInactivo = tiho_RazonInactivo;
 
             if ( tbTipoHoras.tiho_RazonInactivo != "")
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
