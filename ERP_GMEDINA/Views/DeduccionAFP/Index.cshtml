@@ -65,6 +65,7 @@
                                             {
                                                 <button type="button" data-id="@item.dafp_Id" class="btn btn-primary btn-xs" id="btnDetalleDeduccionAFP">Detalles</button>
                                                 <button type="button" data-id="@item.dafp_Id" class="btn btn-default btn-xs" id="btnEditarDeduccionAFP">Editar</button>
+                                                <button type="button" data-id="@item.dafp_Id" class="btn btn-danger  btn-xs" id="btnInactivarDeduccionAFP">Inactivar</button>
 
                                             }
                                             <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
@@ -72,7 +73,7 @@
                                             {
                                                 <button type="button" data-id="@item.dafp_Id" class="btn btn-primary btn-xs" id="btnDetalleDeduccionAFP">Detalles</button>
                                                  <!-- ACTIVAR -->
-                                                <button type="button" dafpid="@item.dafp_Id" data-id="@item.afp_Id" class="btn btn-default btn-xs" id="btnActivarDeduccionAFP">Activar</button>
+                                                <button type="button" dafp-id="@item.dafp_Id" data-id="@item.afp_Id" class="btn btn-default btn-xs" id="btnActivarDeduccionAFP">Activar</button>
                                             }
                                         }
                                     </td>
@@ -114,7 +115,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-white pull-right"  id="btnCerrarEditar">Cerrar</button>
                 <button type="submit" class="btn btn-primary pull-left" id="btnEditDeduccionAFP">Actualizar</button>
-                <button type="button" class="btn btn-danger pull-left" id="btnInactivarDeduccionAFP">Inactivar</button>
+                @*<button type="button" class="btn btn-danger pull-left" id="btnInactivarDeduccionAFP">Inactivar</button>*@
             </div>
         </div>
     </div>

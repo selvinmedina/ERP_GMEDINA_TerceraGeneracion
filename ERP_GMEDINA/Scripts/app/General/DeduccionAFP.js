@@ -91,15 +91,16 @@ function cargarGridDeducciones() {
 
                 //variable donde está el boton activar
                 var botonActivar = ListaDeduccionAFP[i].dafp_Activo == false ? esAdministrador == "1" ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnActivarDeduccionAFP" dafpid="' + ListaDeduccionAFP[i].dafp_Id + '" data-id = "' + ListaDeduccionAFP[i].dafp_Id + '">Activar</button>' : '' : '';
-
-                //AGREGAR EL ROW AL DATATABLE
+                //variable donde esta el boton desactivar
+                var botonInactivar = ListaDeduccionAFP[i].dafp_Activo == true ? esAdministrador == "1" ? '<button type="button" style="margin-right:3px;" class="btn btn-danger  btn-xs" id="btnInactivarDeduccionAFP" dafpid="' + ListaDeduccionAFP[i].dafp_Id + '" data-id = "' + ListaDeduccionAFP[i].dafp_Id + '">Inactivar</button>' : '' : '';
+                //AGREGAR EL ROW AL DATATABLE                                                              
                 $('#tblDeduccionAFP').dataTable().fnAddData([
                     ListaDeduccionAFP[i].dafp_Id,
                     ListaDeduccionAFP[i].per_Nombres + ' ' + ListaDeduccionAFP[i].per_Apellidos,
                     (ListaDeduccionAFP[i].dafp_AporteLps % 1 == 0) ? ListaDeduccionAFP[i].dafp_AporteLps + ".00" : ListaDeduccionAFP[i].dafp_AporteLps,
                     ListaDeduccionAFP[i].afp_Descripcion,
                     estadoRegistro,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonActivar + botonInactivar
                 ]);
             }
             //APLICAR EL MAX WIDTH
