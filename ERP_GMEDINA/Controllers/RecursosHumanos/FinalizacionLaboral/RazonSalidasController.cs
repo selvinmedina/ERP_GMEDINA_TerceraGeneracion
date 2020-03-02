@@ -154,15 +154,16 @@ namespace ERP_GMEDINA.Controllers
         // GET: RazonSalidas/Delete/5
         [SessionManager("RazonSalidas/Delete")]
         [HttpPost]
-        public ActionResult Delete(tbRazonSalidas tbRazonSalidas)
+        public ActionResult Delete(int id)
         {
+            tbRazonSalidas tbRazonSalidas = new tbRazonSalidas();
             string msj = "";
 
 
             string RazonInactivo = "Se ha Inhabilitado este Registro";
-            if (tbRazonSalidas.rsal_Id != 0 && tbRazonSalidas.rsal_RazonInactivo != "")
+            if (id != 0 && tbRazonSalidas.rsal_RazonInactivo != "")
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
