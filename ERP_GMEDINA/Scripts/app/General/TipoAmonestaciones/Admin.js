@@ -28,4 +28,20 @@ function hablilitar(btn) {
             });
    
         CierraPopups();
-});
+    });
+    //function inactivar(btn) {
+    //    var validacionPermiso = userModelState("TipoAmonestaciones/Delete");
+    //    if (validacionPermiso.status == true) {
+    //        var tr = $(btn).closest('tr');
+    //        var row = tabla.row(tr);
+    //        var id = row.data().ID;
+    //        $("#txtIdDelete").val(id);
+    //        CierraPopups();
+    //        $('#ModalInactivar').modal('show');
+    //        $("#ModalInactivar").find("#tamo_RazonInactivo").val("");
+    //        $("#ModalInactivar").find("#tamo_RazonInactivo").focus();
+
+    //    }
+    //}
+
+ 
