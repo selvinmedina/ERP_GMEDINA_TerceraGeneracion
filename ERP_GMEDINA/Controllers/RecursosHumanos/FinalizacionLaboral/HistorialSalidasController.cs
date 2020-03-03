@@ -333,20 +333,19 @@ namespace ERP_GMEDINA.Controllers
         // GET: Habilidades/Delete/5
         [HttpPost]
         [SessionManager("HistorialSalidas/Delete")]
-        public ActionResult Delete(string hsal_RazonInactivo)
+        public ActionResult Delete(tbHistorialSalidas tbHistorialSalidas)
         {
-            string msj = "";
+            
+           
             db = new ERP_GMEDINAEntities();
-            tbHistorialSalidas tbHistorialSalidas = new tbHistorialSalidas();
+            string msj = "";
             //tbTipoHoras.tiho_Id = id;
-            tbHistorialSalidas.hsal_RazonInactivo = hsal_RazonInactivo;
-
-            if (tbHistorialSalidas.hsal_RazonInactivo != "")
+            if (tbHistorialSalidas.hsal_Id != 0 && tbHistorialSalidas.hsal_RazonInactivo != "")
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 try
                 {
-                    var list = db.UDP_RRHH_tbHistorialSalidas_Delete(id, tbHistorialSalidas.hsal_RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
+                    var list = db.UDP_RRHH_tbHistorialSalidas_Delete(tbHistorialSalidas.hsal_Id, tbHistorialSalidas.hsal_RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
                     foreach (UDP_RRHH_tbHistorialSalidas_Delete_Result item in list)
                     {
                         msj = item.MensajeError + " ";
