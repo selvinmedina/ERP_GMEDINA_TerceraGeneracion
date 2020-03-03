@@ -713,8 +713,10 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         public ActionResult Delete(Personas tbPersonas)
         {
+            db = new ERP_GMEDINAEntities();
             string msj = "";
-            using (db = new ERP_GMEDINAEntities())
+            var Usuario = (tbUsuario)Session["Usuario"];
+            //using (db = new ERP_GMEDINAEntities())
             {
                 try
                 {
