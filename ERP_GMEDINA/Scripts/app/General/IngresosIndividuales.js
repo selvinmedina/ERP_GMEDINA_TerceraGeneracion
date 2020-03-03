@@ -102,6 +102,8 @@ function cargarGridDeducciones() {
                 //variable donde está el boton activar
                 //var botonActivar = (ListaIngresoIndividual[i].ini_Activo) == false ? (esAdministrador) == "1" ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnActivarIngresosIndividuales" data-id = "' + ListaIngresoIndividual[i].ini_IdIngresosIndividuales + '">Activar</button>' : '' : '';
                 var botonActivar = ListaIngresoIndividual[i].ini_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaIngresoIndividual[i].ini_IdIngresosIndividuales + '" type="button" class="btn btn-default btn-xs"  id="btnActivarIngresosIndividuales">Activar</button>' : '' : '';
+                //variable donde está el boton inactivar
+                var botonInactivar = ListaIngresoIndividual[i].ini_Activo == true ? esAdministrador == "1" ? '<button data-id = "' + ListaIngresoIndividual[i].ini_IdIngresosIndividuales + '" type="button" class="btn btn-danger btn-xs"  id="btnInactivarIngresoIndividual">Inacivar</button>' : '' : '';
 
                 //AGREGAR EL ROW AL DATATABLE
                 $('#IndexTabla').dataTable().fnAddData([
@@ -111,7 +113,7 @@ function cargarGridDeducciones() {
                     (ListaIngresoIndividual[i].ini_Monto % 1 == 0) ? ListaIngresoIndividual[i].ini_Monto + ".00" : ListaIngresoIndividual[i].ini_Monto,
                     estadoRegistro,
                     ListaIngresoIndividual[i].ini_comentario,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonActivar + botonInactivar
                 ]);
                 }
             //APLICAR EL MAX WIDTH
@@ -759,7 +761,7 @@ $(document).on("click", "#IndexTabla tbody tr td #btnDetalleIngresosIndividuales
 //Inactivar//
 $(document).on("click", "#btnBack", function () {
     $("#InactivarIngresosIndividuales").modal('hide');
-    $("#EditarIngresosIndividuales").modal({ backdrop: 'static', keyboard: false });
+    //$("#EditarIngresosIndividuales").modal({ backdrop: 'static', keyboard: false });
     
     
 });
@@ -770,10 +772,14 @@ $(document).on("click", "#btnBa", function () {
     
     
 });
-
+//VARIABLE GLOBAL DE INACTIVACION
+var GB_Inactivar = 0;
 $(document).on("click", "#btnInactivarIngresoIndividual", function () {
     var validacionPermiso = userModelState("IngresosIndividuales/Inactivar");
-
+    //OBTENER EL ID DEL BOTON
+    var id = $(this).data('id');
+    //SETEO DE LA VARIABLE GLOABAL DE ACTIVACION
+    GB_Inactivar = id;
     if (validacionPermiso.status == true) {
         $("#EditarIngresosIndividuales").modal('hide');
         $("#InactivarIngresosIndividuales").modal({ backdrop: 'static', keyboard: false });
@@ -782,13 +788,10 @@ $(document).on("click", "#btnInactivarIngresoIndividual", function () {
     }
 });
 
-//VARIABLE GLOBAL DE INACTIVACION
-var GB_Inactivar = 0;
 //EJECUTAR INACTIVACION DEL REGISTRO EN EL MODAL
 $("#btnInactivarRegistroIngresoIndividual").click(function () {
     //BLOQUEAR EL BOTON
     $("#btnInactivarRegistroIngresoIndividual").attr("disabled", true);
-
     //var data = $("#frmInactivarIngresoIndividual").serializeArray();
     //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
     $.ajax({
