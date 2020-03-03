@@ -764,12 +764,14 @@ namespace ERP_GMEDINA.Controllers
         public ActionResult Delete(tbRequisiciones Requisicion)
         {
             string msj = "";
-            try
+			int id = Requisicion.req_Id;
+
+			try
             {
                 using (db = new ERP_GMEDINAEntities())
                 {
 
-                    var _list = db.UDP_RRHH_tbRequisiciones_Delete(Requisicion.req_Id, Requisicion.req_RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
+                    var _list = db.UDP_RRHH_tbRequisiciones_Delete(id, Requisicion.req_RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
                     foreach (UDP_RRHH_tbRequisiciones_Delete_Result item in _list)
                     {
                         msj = item.MensajeError + "";
