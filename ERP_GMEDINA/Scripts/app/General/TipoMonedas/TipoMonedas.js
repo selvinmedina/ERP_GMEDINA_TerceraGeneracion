@@ -23,6 +23,21 @@ function tablaEditar(ID) {
             });
     }
 }
+
+function inactivar(btn) {
+    var validacionPermiso = userModelState("TipoMonedas/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#tmon_RazonInactivo").val("");
+        $("#ModalInactivar").find("#tmon_RazonInactivo").focus();
+    }
+}
+
 function tablaDetalles(ID) {
     var validacionPermiso = userModelState("TipoMonedas/Edit");
     if (validacionPermiso.status == true) {
@@ -45,6 +60,9 @@ function tablaDetalles(ID) {
             });
     }
 }
+
+
+
 function llenarTabla() {
     _ajax(null,
         '/TipoMonedas/llenarTabla',
@@ -57,8 +75,10 @@ function llenarTabla() {
             }
             $.each(Lista, function (index, value) {
                 var Acciones = value.tmon_Estado == 1
-                    ? "<a class='btn btn-primary btn-xs ' onclick='tablaDetalles(" + value.tmon_Id + ")'>Detalles</a><a class='btn btn-default btn-xs ' onclick='tablaEditar(" + value.tmon_Id + ")'>Editar</a>"
-                    : Admin ?
+                    ? null
+                    
+                    :Admin 
+                    ?
                       "<div>" +
                        "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a>" +
                        "<a class='btn btn-default btn-xs ' onclick='hablilitar(this)' >Activar</a>" +
@@ -79,6 +99,10 @@ function llenarTabla() {
 
         });
 }
+
+
+
+
 $("#btnAgregar").click(function () {
     var validacionPermiso = userModelState("TipoMonedas/Create");
     if (validacionPermiso.status == true) {
@@ -104,15 +128,15 @@ $("#btnEditar").click(function () {
             });
     }
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("TipoMonedas/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#tmon_RazonInactivo").val("");
-        $("#ModalInactivar").find("#tmon_RazonInactivo").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("TipoMonedas/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#tmon_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#tmon_RazonInactivo").focus();
+//    }
+//});
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -136,32 +160,33 @@ $("#btnGuardar").click(function () {
         MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
 });
-$("#InActivar").click(function () {
-    //var validacionPermiso = userModelState("TipoMonedas/Edit");
-    //if (validacionPermiso.status == true) {
-        var data = $("#FormInactivar").serializeArray();
-        data = serializar(data);
-        if (data != null) {
-            data.tmon_Id = id;
-            data = JSON.stringify({ tbTipoMonedas: data });
-            _ajax(data,
-                '/TipoMonedas/Delete',
-                'POST',
-                function (obj) {
-                    if (obj != "-1" && obj != "-2" && obj != "-3") {
-                        CierraPopups();
-                        MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                        LimpiarControles(["tmon_Descripcion"]);
-                        llenarTabla();
-                    } else {
-                        MsgError("Error", "No se inactivó el registro, contacte al administrador.");
-                    }
-                });
-        } else {
-            MsgError("Error", "Por favor llene todas las cajas de texto.");
-        }
-    //}
-});
+
+//$("#InActivar").click(function () {
+//    //var validacionPermiso = userModelState("TipoMonedas/Edit");
+//    //if (validacionPermiso.status == true) {
+//        var data = $("#FormInactivar").serializeArray();
+//        data = serializar(data);
+//        if (data != null) {
+//            data.tmon_Id = id;
+//            data = JSON.stringify({ tbTipoMonedas: data });
+//            _ajax(data,
+//                '/TipoMonedas/Delete',
+//                'POST',
+//                function (obj) {
+//                    if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                        CierraPopups();
+//                        MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+//                        LimpiarControles(["tmon_Descripcion"]);
+//                        llenarTabla();
+//                    } else {
+//                        MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+//                    }
+//                });
+//        } else {
+//            MsgError("Error", "Por favor llene todas las cajas de texto.");
+//        }
+//    //}
+//});
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();
     data = serializar(data);

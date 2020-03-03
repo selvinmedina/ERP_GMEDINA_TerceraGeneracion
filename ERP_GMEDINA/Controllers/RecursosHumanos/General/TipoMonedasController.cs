@@ -168,14 +168,15 @@ namespace ERP_GMEDINA.Controllers
         // GET: TipoMonedas/Delete/5
         [HttpPost]
         [SessionManager("TipoMonedas/Delete")]
-        public ActionResult Delete(tbTipoMonedas tbTipoMonedas)
+        public ActionResult Delete(int id)
         {
+            tbTipoMonedas tbTipoMonedas = new tbTipoMonedas();
             string msj = "...";
             string RazonInactivo = "Se ha Inhabilitado este Registro";
 
-            if (tbTipoMonedas.tmon_Id != 0)
+            if (id != 0)
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
