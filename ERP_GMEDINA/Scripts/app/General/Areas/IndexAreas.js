@@ -13,7 +13,21 @@ function tablaEditar(id) {
     }
 }
 var ID
-function tablainactivar(btn) {
+//function tablainactivar(btn) {
+//    var validacionPermiso = userModelState("Areas/Delete");
+//    if (validacionPermiso.status == true) {
+//        var tr = $(btn).closest('tr');
+//        var row = tabla.row(tr);
+//        var id = row.data().ID;
+//        $("#txtIdDelete").val(id);
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+
+//    }
+//}
+function inactivar(btn) {
     var validacionPermiso = userModelState("Areas/Delete");
     if (validacionPermiso.status == true) {
         var tr = $(btn).closest('tr');
@@ -22,12 +36,35 @@ function tablainactivar(btn) {
         $("#txtIdDelete").val(id);
         CierraPopups();
         $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#jor_RazonInactivo").val("");
-        $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+        $("#ModalInactivar").find("#depto_RazonInactivo").val("");
+        $("#ModalInactivar").find("#depto_RazonInactivo").focus();
 
     }
 }
-
+$("#InActivar").click(function () {
+    //Id = $("#txtIdDelete").val();
+    var data = $("#FormInactivar").serializeArray();
+    data = serializar(data);
+    if (data != null) {
+        data.area_Id = $("#txtIdDelete").val();
+        data = JSON.stringify({ tbAreas: data });
+        _ajax(data,
+            '/Areas/Delete',
+            'POST',
+            function (obj) {
+                if (obj != "-1" && obj != "-2" && obj != "-3") {
+                    CierraPopups();
+                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+                    //LimpiarControles(["tamo_Descripcion"]);
+                    llenarTabla();
+                } else {
+                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+                }
+            });
+    } else {
+        MsgError("Error", "Por favor llene todas las cajas de texto.");
+    }
+});
 function format(obj) {
     var div = '<div class="ibox">' +
                 '<div class="ibox-title"><h5>Departamentos</h5>' +

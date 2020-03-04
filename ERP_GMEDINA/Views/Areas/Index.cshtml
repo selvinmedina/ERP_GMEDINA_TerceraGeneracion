@@ -35,7 +35,9 @@
   </div>
  </div>
 </div>
+@Html.Partial("_DeleteDepartamento", new ERP_GMEDINA.Models.cDepartamentos())
 @Html.Partial("_Activar")
+
 
 @section Styles {
  @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
@@ -54,6 +56,7 @@
  @Scripts.Render("~/Scripts/plugins/iziToast/iziToast")
  @Scripts.Render("~/Scripts/app/general/IndexArea")
 
- @Scripts.Render("~/Scripts/app/general/Admin")
+ 
+<script src="~/Scripts/app/General/Areas/Admin.js"></script>
 
 }
