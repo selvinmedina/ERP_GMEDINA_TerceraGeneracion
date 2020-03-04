@@ -136,7 +136,7 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("CuentasBanco/Edit")]
-        public ActionResult Edit([Bind(Include = "bcta_Id,ban_Id,mnda_Id,bcta_TipoCuenta,bcta_TotalCredito,bcta_TotalDebito,bcta_FechaApertura,bcta_Numero,bcta_UsuarioCrea,bcta_FechaCrea,bcta_UsuarioModifica,bcta_FechaModifica, tbUsuario, tbUsuario1")] tbCuentasBanco CuentasBanco)
+        public ActionResult Edit([Bind(Include = "bcta_Id,ban_Id,mnda_Id,bcta_TipoCuenta,bcta_TotalCredito,bcta_TotalDebito,bcta_FechaApertura,bcta_Numero,bcta_UsuarioCrea,bcta_FechaCrea,bcta_UsuarioModifica,bcta_FechaModifica")] tbCuentasBanco CuentasBanco)
         {
             var Lista = Function.TipoCuentaList();
             if (ModelState.IsValid)
