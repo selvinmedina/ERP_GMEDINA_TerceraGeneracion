@@ -39,6 +39,16 @@ function llenarTabla() {
        });
 }
 
+function inactivar(btn) {
+    var tr = $(btn).closest('tr');
+    var row = tabla.row(tr);
+    var id = row.data().ID;
+    tableinactivar(id);
+    CierraPopups();
+    $('#ModalInactivar').modal('show');
+    $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+    $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+}
 
 function tablaEditar(ID) {
     id = ID;
@@ -252,15 +262,15 @@ $("#btnEditar").click(function () {
         });
     }    
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Jornadas/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#jor_RazonInactivo").val("");
-        $("#ModalInactivar").find("#jor_RazonInactivo").focus();
-    }    
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("Jornadas/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+//    }    
+//});
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
     console.log(data);

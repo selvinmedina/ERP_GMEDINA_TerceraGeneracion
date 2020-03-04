@@ -14,6 +14,13 @@ function tablaEditar(btn) {
     id = row.data().Id;
     $(location).attr('href', "/Areas/Edit/" + id);
 }
+function inactivar(btn) {
+    var tr = $(btn).closest('tr');
+    var row = tabla.row(tr);
+    var id = row.data().ID;
+    tableinactivar(id);
+}
+
 var ide;
 function inactivar(btn) {
     var validacionPermiso = userModelState("Requisiciones/Delete");
