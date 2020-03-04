@@ -109,33 +109,41 @@ function cargarGridDeducciones() {
 }
 
 //Activar
+var GB_Activar = 0;
 $(document).on("click", "#tblDeduccionAFP tbody tr td #btnActivarDeduccionAFP", function () {
-
-    // validar informacion del usuario
     var validacionPermiso = userModelState("DeduccionesAFP/Activar");
-
+    var id = $(this).data('id');
+ //   GB_Activar = id;
     if (validacionPermiso.status == true) {
         document.getElementById("btnActivarRegistroDeduccionAFP").disabled = false;
-        var ID = $(this).closest('tr').data('id');
-
+       // var ID = $(this).closest('tr').data('id');
+       
         var ID = $(this).attr('dafpid');
-
-        localStorage.setItem('id', ID);
-
+        GB_Activar = id;
+       
+        console.log(id);
+        $('#txtD').val(GB_Activar);
         $("#ActivarDeduccionAFP").modal({ backdrop: 'static', keyboard: false });
     }
    
-})
+});
+
+
+
+
 
 $("#btnActivarRegistroDeduccionAFP").click(function () {
     document.getElementById("btnActivarRegistroDeduccionAFP").disabled = true;
 
-    let ID = localStorage.getItem('id')
-
+    var id = GB_Activar;
+    console.log(GB_Activar);
     $.ajax({
         url: "/DeduccionAFP/Activar",
         method: "POST",
-        data: { id: ID }
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ id: id })
+        
     }).done(function (data) {
         $("#ActivarDeduccionAFP").modal('hide');
         //VALIDAR RESPUESTA OBETNIDA DEL SERVIDOR, SI LA INSERCIÓN FUE EXITOSA O HUBO ALGÚN ERROR
@@ -646,70 +654,145 @@ $(document).on("click", "#btnBack", function () {
     $("#InactivarDeduccionAFP").modal('hide');
 });
 
-$(document).on("click", "#btnInactivarDeduccionAFP", function () {
-    // validar informacion del usuario
-    var validacionPermiso = userModelState("DeduccionesAFP/Inactivar");
 
-    if (validacionPermiso.status == true) {
-        $("#EditarDeduccionAFP").modal('hide');
-        document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = false;
-        $("#InactivarDeduccionAFP").modal({ backdrop: 'static', keyboard: false });
-    }
+
+//VARIABLE GLOBAL DE INACTIVACION
+//var GB_Inactivar = 0;
+//$(document).on("click", "#btnInactivarDeduccionAFP", function () {
+//    // validar informacion del usuario
+//    var validacionPermiso = userModelState("DeduccionesAFP/Inactivar/");
+//   var id = $(this).data('id');
+//    GB_Inactivar = id;
+//    $('#txtdelete').val(GB_Inactivar);
+//    //SETEO DE LA VARIABLE GLOABAL DE ACTIVACION
+
+//    if (validacionPermiso.status == true) {
+//        $("#InactivarDeduccionAFP").modal();
+//       //$("#EditarDeduccionAFP").modal('hide');
+//       // $("#InactivarDeduccionAFP").modal({ backdrop: 'static', keyboard: false });
+
+//       // document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = false;
+//    }
   
+//});
+var GB_Inactivar = 0;
+$("#btnInactivarDeduccionAFP").click(function () {
+   
+        var validacionPermiso = userModelState("DeduccionesAFP/Inactivar/");
+       var id = $(this).data('id');
+        GB_Inactivar = id;
+        $('#txtdelete').val(GB_Inactivar);
+        //SETEO DE LA VARIABLE GLOABAL DE ACTIVACION
+
+        if (validacionPermiso.status == true) {
+            $("#InactivarDeduccionAFP").modal();
+           $("#EditarDeduccionAFP").modal('hide');
+            $("#InactivarDeduccionAFP").modal({ backdrop: 'static', keyboard: false });
+
+           document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = false;
+        }
 });
 
-
-
-//EJECUTAR INACTIVACION DEL REGISTRO EN EL MODAL
 $("#btnInactivarRegistroDeduccionAFP").click(function () {
-    document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
-    var data = $("#frmDeduccionAFPInactivar").serializeArray();
-    var id = $("#dafp_Id").val();
-    //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
+    var dafp_Id = GB_Inactivar;
     $.ajax({
         url: "/DeduccionAFP/Inactivar",
         method: "POST",
-        data: data
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ dafp_Id: dafp_Id })
     }).done(function (data) {
+        // 
         if (data == "error") {
-            $("#InactivarDeduccionAFP").modal('hide');
-            document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
-            //Cuando traiga un error del backend al guardar la edicion
-            iziToast.error({
-                title: 'Error',
-                message: 'No se inactivó el registro, contacte al administrador',
-            });
-        }
-        else {
-            // REFRESCAR UNICAMENTE LA TABLA
-            cargarGridDeducciones();
-            //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
-            $("#InactivarDeduccionAFP").modal('hide');
-            document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
-            //Mensaje de exito de la edicion
-            iziToast.success({
-                title: 'Éxito',
-                message: '¡El registro se inactivó de forma exitosa!',
-            });
-        }
-    });
+                        $("#InactivarDeduccionAFP").modal('hide');
+                        document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
+                        //Cuando traiga un error del backend al guardar la edicion
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'No se inactivó el registro, contacte al administrador',
+                        });
+                    }
+                    else {
+                        // REFRESCAR UNICAMENTE LA TABLA
+                        cargarGridDeducciones();
+                        //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
+                        $("#InactivarDeduccionAFP").modal('hide');
+                        document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
 
-    // Evitar PostBack en los Formularios de las Vistas Parciales de Modal
-    $("#frmDeduccionAFPInactivar").submit(function (e) {
-        return false;
+                        //Mensaje de exito de la edicion
+                        iziToast.success({
+                            title: 'Éxito',
+                            message: '¡El registro se inactivó de forma exitosa!',
+                        });
+        }
+        location.reload();
     });
+   
 });
+//$.ajax({        
+//    //url: "/DeduccionAFP/Inactivar/" + 1,
+//    //method: "POST",
+//    url: "/DeduccionAFP/Inactivar/1",
+//    method: "POST",
+//    dataType: 'json',
+//    contentType: "application/json; charset=utf-8",
+//    data: JSON.stringify({ dafp_Id: dafp_Id }),
 
-function FormatearDecimal(StringValue) {
-    //SEGMENTAR LA CADENA DE MONTO
-    var indices = StringValue.split(",");
-    //VARIABLE CONTENEDORA DEL MONTO
-    var MontoFormateado = "";
-    //ITERAR LOS INDICES DEL ARRAY MONTO
-    for (var i = 0; i <= indices.length; i++) {
-        //SETEAR LA VARIABLE DE MONTO
-        MontoFormateado += indices[i];
-    }
-    //FORMATEAR A DECIMAL
-    return MontoFormateado = parseFloat(MontoFormateado);
-}
+//})
+
+
+
+////EJECUTAR INACTIVACION DEL REGISTRO EN EL MODAL
+//$("#btnInactivarRegistroDeduccionAFP").click(function () {
+//    document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
+//    //$("#btnInactivarRegistroDeduccionAFP").attr("disabled", true);
+//    //var data = $("#frmDeduccionAFPInactivar").serializeArray();
+//    //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
+    
+//    $.ajax({        
+//        url: "/DeduccionAFP/Inactivar/" + 1,
+//        method: "POST",
+//    }).done(function (data) {
+//        if (data == "error") {
+//            $("#InactivarDeduccionAFP").modal('hide');
+//            document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
+//            //Cuando traiga un error del backend al guardar la edicion
+//            iziToast.error({
+//                title: 'Error',
+//                message: 'No se inactivó el registro, contacte al administrador',
+//            });
+//        }
+//        else {
+//            // REFRESCAR UNICAMENTE LA TABLA
+//            cargarGridDeducciones();
+//            //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
+//            $("#InactivarDeduccionAFP").modal('hide');
+//            document.getElementById("btnInactivarRegistroDeduccionAFP").disabled = true;
+
+//            //Mensaje de exito de la edicion
+//            iziToast.success({
+//                title: 'Éxito',
+//                message: '¡El registro se inactivó de forma exitosa!',
+//            });
+//        }
+//    });
+
+//    // Evitar PostBack en los Formularios de las Vistas Parciales de Modal
+//    $("#frmDeduccionAFPInactivar").submit(function (e) {
+//        return false;
+//    });
+//});
+
+//function FormatearDecimal(StringValue) {
+//    //SEGMENTAR LA CADENA DE MONTO 
+//    var indices = StringValue.split(",");
+//    //VARIABLE CONTENEDORA DEL MONTO
+//    var MontoFormateado = "";
+//    //ITERAR LOS INDICES DEL ARRAY MONTO
+//    for (var i = 0; i <= indices.length; i++) {
+//        //SETEAR LA VARIABLE DE MONTO
+//        MontoFormateado += indices[i];
+//    }
+//    //FORMATEAR A DECIMAL
+//    return MontoFormateado = parseFloat(MontoFormateado);
+//}

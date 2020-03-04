@@ -72,8 +72,9 @@
                                             if (oUsuario?.usu_EsAdministrador == true && item.dafp_Activo == false)
                                             {
                                                 <button type="button" data-id="@item.dafp_Id" class="btn btn-primary btn-xs" id="btnDetalleDeduccionAFP">Detalles</button>
+                                                <button type="button" data-id="@item.dafp_Id" class="btn btn-default  btn-xs" id="btnActivarDeduccionAFP">Activar</button>
                                                  <!-- ACTIVAR -->
-                                                <button type="button" dafp-id="@item.dafp_Id" data-id="@item.afp_Id" class="btn btn-default btn-xs" id="btnActivarDeduccionAFP">Activar</button>
+                                                @*<button type="button" dafp-id="@item.dafp_Id" data-id="@item.afp_Id" class="btn btn-default btn-xs" id="btnActivarDeduccionAFP1">Activar</button>*@
                                             }
                                         }
                                     </td>
@@ -166,6 +167,7 @@
                 <h4 class="modal-title">Inactivar</h4>
             </div>
             <div class="modal-body" id="Inactivar">
+                <input id="txtdelete"/>
                 ¿Está seguro que desea inactivar este registro?
             </div>
             <div class="modal-footer">
@@ -185,6 +187,7 @@
                 <h4 class="modal-title">Activar</h4>
             </div>
             <div class="modal-body" id="Activar">
+                <input id="txtD" />
                 ¿Está seguro que desea activar este registro?
             </div>
             <div class="modal-footer">
@@ -196,9 +199,10 @@
     </div>
 </div>
 @section Scripts {
+
     @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/plugins/iCheck")
-    @Scripts.Render("~/Scripts/app/general/DeduccionAFP")
+     @Scripts.Render("~/Scripts/app/general/DeduccionAFP")
     @Scripts.Render("~/plugins/select2")
 }
 

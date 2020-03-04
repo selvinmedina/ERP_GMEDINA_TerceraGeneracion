@@ -819,8 +819,8 @@ $("#btnInactivarRegistroIngresoIndividual").click(function () {
                 message: '¡El registro se inactivó de forma exitosa!',
             });
         }
-        //SETEAR LA VARIABLE GLOBAL DE INACTIVAR
-        GB_Inactivar = 0;
+            //SETEAR LA VARIABLE GLOBAL DE INACTIVAR
+            GB_Inactivar = 0;
     });
 
     // Evitar PostBack en los Formularios de las Vistas Parciales de Modal
