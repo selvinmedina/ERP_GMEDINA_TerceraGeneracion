@@ -1,5 +1,14 @@
 ﻿Admin = true;
-
+function inactivar(btn) {
+    var tr = $(btn).closest('tr');
+    var row = tabla.row(tr);
+    var id = row.data().ID;
+    tableinactivar(id);
+    CierraPopups();
+    $('#ModalInactivar').modal('show');
+    $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+    $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+}
 //Esta funcion llama al modal de Habilitar
 function hablilitar(btn) {
     var tr = $(btn).closest('tr');

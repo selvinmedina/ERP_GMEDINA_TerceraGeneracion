@@ -39,6 +39,16 @@ function llenarTabla() {
        });
 }
 
+function inactivar(btn) {
+    var tr = $(btn).closest('tr');
+    var row = tabla.row(tr);
+    var id = row.data().ID;
+    tableinactivar(id);
+    CierraPopups();
+    $('#ModalInactivar').modal('show');
+    $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+    $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+}
 
 function tablaEditar(ID) {
     id = ID;
@@ -73,9 +83,6 @@ function tablaDetalles(ID) {
     }    
 }
 
-function tableinactivar(ID) {
-}
-
 function format(obj, jor_Id, estado) {
     var emerson = estado == 'Inactivo' ? '' : '<button id = "btnAgregarHorarios" data-id="' + jor_Id + '" data-toggle="ModalNuevoHorarios" class="btn btn-outline btn-primary btn-xs" onClick = "showmodal(this)">Agregar horario</button>';
     var div = '<div class="ibox"><div class="ibox-title"><strong class="mr-auto m-l-sm">Horarios</strong><div class="btn-group pull-right">' +
@@ -84,7 +91,8 @@ function format(obj, jor_Id, estado) {
     obj.forEach(function (index, value) {
         var Acciones = index.hor_Estado == 1
             ? '<button id = "btnDetalleHorarios" data-id="' + index.hor_Id + '" data-toggle="ModalDetallesHorario" class="btn btn-primary btn-xs pull-right" onClick = "showmodalDetalle(this)"> Detalle </button>' +
-            '<button id = "btnEditarHorarios" data-id="' + index.hor_Id + '" data-toggle="ModalEditarHorarios" class="btn btn-defaults btn-xs pull-right" onClick = "showmodaledit(this)"> Editar </button>' : Admin ?
+            '<button id = "btnEditarHorarios" data-id="' + index.hor_Id + '" data-toggle="ModalEditarHorarios" class="btn btn-defaults btn-xs pull-right" onClick = "showmodaledit(this)"> Editar </button>' +
+            '<button type="button" class="btn btn-danger btn-xs pull-right" data-id="' + index.hor_Id + '" id="btnInactivarHoraio" data-toggle="ModalInactivarHorario" onclick="showmodalDelete(this)">Inactivar</button>' : Admin ?
             "<div>" + "<a class='btn btn-primary btn-xs ' onclick='hablilitarhorario(" + index.hor_Id + ")' >Activar</a>" + "</div>" : "";
         div = div +
             '<div class="col-md-3">' +
@@ -183,6 +191,7 @@ function showmodalDelete(btn) {
     var validacionPermiso = userModelState("Jornadas/DeleteHorario");
     if (validacionPermiso.status == true) {
         jor_Id = $(btn).data('id');
+        $("#txtIdDelete").val(jor_Id);
         var modalnuevo = $('#ModalInactivarHorario');
         modalnuevo.modal('show');
         $("#ModalEditarHorarios").modal('hide');//ocultamos el modal
@@ -253,15 +262,15 @@ $("#btnEditar").click(function () {
         });
     }    
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Jornadas/Delete");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#jor_RazonInactivo").val("");
-        $("#ModalInactivar").find("#jor_RazonInactivo").focus();
-    }    
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("Jornadas/Delete");
+//    if (validacionPermiso.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+//    }    
+//});
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
     console.log(data);
@@ -421,7 +430,7 @@ $("#InActivarHorario").click(function () {
         var data = $("#FormInactivarHorario").serializeArray();
         data = serializar(data);
         if (data != null) {
-            data.hor_Id = id;
+            data.hor_Id = $("#txtIdDelete").val();
             data = JSON.stringify({ tbHorarios: data });
             _ajax(data,
                 '/Jornadas/DeleteHorario',
