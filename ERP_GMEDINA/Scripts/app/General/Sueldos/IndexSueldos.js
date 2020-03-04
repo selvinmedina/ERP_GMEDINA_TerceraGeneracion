@@ -1,7 +1,23 @@
 ﻿
 $(document).ready(function () {
     llenarTabla();
+   
+    //setTimeout(function() {
+        
+    //    $(".fuera").remove()
+    //}, 1000);
+    
 });
+
+//$(window).load(function () {
+    
+//});
+
+//$(window).on("load", function () {
+//    $(".fuera").remove()
+//});
+
+
 var id = 0;
 
 
@@ -70,6 +86,7 @@ function llenarTabla() {
        function (Lista) {
            tabla.clear();
            tabla.draw();
+
            if (validarDT(Lista)) {
                return null;
            }
@@ -100,8 +117,13 @@ function llenarTabla() {
                })
                .draw();
 
+               
+
            });
+           //$(".fuera").remove()
        });
+    
+
 }
 
 
@@ -131,8 +153,17 @@ function tablaDetalles(ID) {
 
 $(document).ready(function () {
     llenarTabla();
+    setTimeout(function () {
+
+        $(".fuera").remove()
+    }, 1000);
 });
 
+
+
+$("body").on("click", function () {
+    $(".fuera").remove()
+});
 
 $('#IndexTable tbody').on('click', 'td.details-control', function () {
     var tr = $(this).closest('tr');
