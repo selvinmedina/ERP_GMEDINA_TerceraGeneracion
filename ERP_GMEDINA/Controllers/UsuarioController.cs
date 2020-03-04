@@ -166,7 +166,7 @@ namespace ERP_GMEDINA.Controllers
                 {
                     try
                     {
-                        List = db.UDP_Acce_tbUsuario_Insert(tbUsuario.usu_NombreUsuario, tbUsuario.ConfirmarPassword, tbUsuario.usu_Nombres, tbUsuario.usu_Apellidos, tbUsuario.usu_Correo,tbUsuario.usu_EsActivo, tbUsuario.usu_EsAdministrador ,tbUsuario.suc_Id,(short)tbUsuario.emp_Id);
+                        List = db.UDP_Acce_tbUsuario_Insert(tbUsuario.usu_NombreUsuario, tbUsuario.ConfirmarPassword, tbUsuario.usu_Nombres, tbUsuario.usu_Apellidos, tbUsuario.usu_Correo,true, tbUsuario.usu_EsAdministrador ,tbUsuario.suc_Id,(short)tbUsuario.emp_Id);
                         foreach (UDP_Acce_tbUsuario_Insert_Result Usuario in List)
                             MsjError = Usuario.MensajeError;
                         if (MsjError.StartsWith("-1"))
