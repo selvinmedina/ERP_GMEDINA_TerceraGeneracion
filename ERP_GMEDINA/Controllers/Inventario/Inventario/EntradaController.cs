@@ -343,7 +343,7 @@ namespace ERP_GMEDINA.Controllers
                                                             , Editardetalle.ent_Id
                                                            , Editardetalle.prod_Codigo
                                                            , Editardetalle.entd_Cantidad
-                                                           , Editardetalle.box_Codigo
+                                                           , "0"/*Editardetalle.box_Codigo*/
                                                            , Editardetalle.entd_UsuarioCrea,
                                                            entr.entd_FechaCrea,
                                                            Function.GetUser(), Function.DatetimeNow()
@@ -553,11 +553,14 @@ namespace ERP_GMEDINA.Controllers
                                     {
                                         entd.entd_UsuarioCrea = 1;
                                         entd.entd_FechaCrea = DateTime.Now;
-
+                                        if (entd.box_Codigo == null)
+                                        {
+                                            entd.box_Codigo = "0";
+                                        }
                                         DETALLE = db.UDP_Inv_tbEntradaDetalle_Insert(Convert.ToInt16(MsjError)
                                                                                     , entd.prod_Codigo
-                                                                                    , entd.entd_Cantidad,
-                                                                                    entd.box_Codigo,
+                                                                                    , entd.entd_Cantidad
+                                                                                    ,entd.box_Codigo,
                                                                                     Function.GetUser(), Function.DatetimeNow());
                                         foreach (UDP_Inv_tbEntradaDetalle_Insert_Result B_detalle in DETALLE)
                                             MensajeError = B_detalle.MensajeError;
