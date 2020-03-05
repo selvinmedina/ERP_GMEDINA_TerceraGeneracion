@@ -261,10 +261,7 @@ namespace ERP_GMEDINA.Controllers
 
         #region Inactivar Deducción AFP
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [SessionManager("DeduccionesAFP/Inactivar")]
-
-       
         public ActionResult Inactivar(int dafp_Id)
         {
             //LLENAR DATA DE AUDITORIA
