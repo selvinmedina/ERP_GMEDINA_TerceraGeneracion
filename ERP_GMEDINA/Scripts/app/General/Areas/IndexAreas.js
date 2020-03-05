@@ -62,12 +62,12 @@ function llenarTabla() {
                 return null;
             }
             $.each(Lista, function (index, value) {
-                var Acciones = value.area_Estado==1
-                    ? null : Admin ?
+                var Acciones = value.area_Estado == 1
+                    ? null:
                    "<div>" +
                        "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a>" +
                        "<a class='btn btn-default btn-xs ' onclick='hablilitar(this)' >Activar</a>" +
-                   "</div>" : '';
+                   "</div>";
                 tabla.row.add({
                     Estado:value.area_Estado?'Activo':'Inactivo',
                     "Número":value.area_Id,
