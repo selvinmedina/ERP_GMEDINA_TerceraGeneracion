@@ -122,7 +122,7 @@ $(document).on("click", "#tblDeduccionAFP tbody tr td #btnActivarDeduccionAFP", 
         GB_Activar = id;
        
         console.log(id);
-        $('#txtD').val(GB_Activar);
+     
         $("#ActivarDeduccionAFP").modal({ backdrop: 'static', keyboard: false });
     }
    
@@ -683,7 +683,7 @@ $(document).on("click", "#tblDeduccionAFP tbody tr td  #btnInactivarDeduccionAFP
     var validacionPermiso = userModelState("DeduccionesAFP/Inactivar/");
     var id = $(this).data('id');
     GB_Inactivar = id;
-    $('#txtdelete').val(GB_Inactivar);
+   
     //SETEO DE LA VARIABLE GLOABAL DE ACTIVACION
 
     if (validacionPermiso.status == true) {
