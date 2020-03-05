@@ -37,7 +37,7 @@ namespace ERP_GMEDINA.Models
         public decimal bcta_TotalDebito { get; set; }
         [Display(Name = "Fecha Apertura")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo {0} es requerido")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}", HtmlEncode = false)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}", HtmlEncode = false)]
         public System.DateTime bcta_FechaApertura { get; set; }
         [Display(Name = "Número Cuenta")]
         [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres")]
