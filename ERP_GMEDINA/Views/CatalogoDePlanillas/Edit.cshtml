@@ -115,7 +115,7 @@
 								<div class="col-md-offset-4 col-md-10">
 									<input type="button" id="btnEditarCatalogoDePlanillasIngresosDeducciones" value="Guardar" class="btn btn-primary" />
 									@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
-									<button type="button" class="btn btn-danger" @((Model.cpla_DescripcionPlanilla == "Decimo Cuarto Mes" || Model.cpla_DescripcionPlanilla == "Decimo Tercer Mes") ? "disabled" : "" ) id="inactivar">Inactivar</button>
+									@*<button type="button" class="btn btn-danger" @((Model.cpla_DescripcionPlanilla == "Decimo Cuarto Mes" || Model.cpla_DescripcionPlanilla == "Decimo Tercer Mes") ? "disabled" : "" ) id="inactivar">Inactivar</button>*@
 								</div>
 							</div>
 						</div>
@@ -125,24 +125,7 @@
 			</div>
 		</div>
 		<br />
-		<div class="modal fade" id="InactivarCatalogoDeducciones" tabindex="-1" role="dialog" aria-hidden="false">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Inactivar</h4>
-					</div>
-					<div class="modal-body" id="Inactivar">
-						¿Está seguro que desea inactivar este registro?
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" id="btnInactivarPlanilla">Si</button>
-						<div class="btn" style="display:none;" id="cargandoEliminar">
-						</div>
-						<button type="button" class="btn btn-white" data-dismiss="modal">No</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		<div class="modal fade" id="modalConfirmacionEdit" tabindex="-1" role="dialog" aria-hidden="false">
 			<div class="modal-dialog">
 				<div class="modal-content">
