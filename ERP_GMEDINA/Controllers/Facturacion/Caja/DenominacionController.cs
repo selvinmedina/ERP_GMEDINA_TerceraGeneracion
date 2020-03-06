@@ -137,7 +137,7 @@ namespace ERP_GMEDINA.Controllers
             {
                 ModelState.AddModelError("", "Este valor ya esta registrado para esta moneda.");
             }
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
