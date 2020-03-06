@@ -109,15 +109,15 @@ $("#btnEditar").click(function () {
         });
     }
 });
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Nacionalidades/Delete");
-    if (validacionPermiso.status == true) {
-    CierraPopups();
-    $('#ModalInactivar').modal('show');
-    $("#ModalInactivar").find("#nac_RazonInactivo").val("");
-    $("#ModalInactivar").find("#nac_RazonInactivo").focus();
-    }
-});
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("Nacionalidades/Delete");
+//    if (validacionPermiso.status == true) {
+//    CierraPopups();
+//    $('#ModalInactivar').modal('show');
+//    $("#ModalInactivar").find("#nac_RazonInactivo").val("");
+//    $("#ModalInactivar").find("#nac_RazonInactivo").focus();
+//    }
+//});
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -141,30 +141,30 @@ $("#btnGuardar").click(function () {
         MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
 });
-$("#InActivar").click(function () {
+//$("#InActivar").click(function () {
 
-    var data = $("#FormInactivar").serializeArray();
-    data = serializar(data);
-    if (data != null) {
-        data.nac_Id = id;
-        data = JSON.stringify({ tbNacionalidades: data });
-        _ajax(data,
-            '/Nacionalidades/Delete',
-            'POST',
-            function (obj) {
-                if (obj != "-1" && obj != "-2" && obj != "-3") {
-                    CierraPopups();
-                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                    LimpiarControles(["nac_Descripcion"]);
-                    llenarTabla();
-                } else {
-                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
-                }
-            });
-    } else {
-        MsgError("Error", "Por favor llene todas las cajas de texto.");
-    }
-});
+//    var data = $("#FormInactivar").serializeArray();
+//    data = serializar(data);
+//    if (data != null) {
+//        data.nac_Id = id;
+//        data = JSON.stringify({ tbNacionalidades: data });
+//        _ajax(data,
+//            '/Nacionalidades/Delete',
+//            'POST',
+//            function (obj) {
+//                if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                    CierraPopups();
+//                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+//                    LimpiarControles(["nac_Descripcion"]);
+//                    llenarTabla();
+//                } else {
+//                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
+//                }
+//            });
+//    } else {
+//        MsgError("Error", "Por favor llene todas las cajas de texto.");
+//    }
+//});
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();
     data = serializar(data);

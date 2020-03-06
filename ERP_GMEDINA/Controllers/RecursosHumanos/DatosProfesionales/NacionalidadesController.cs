@@ -193,15 +193,16 @@ namespace ERP_GMEDINA.Controllers
         // GET: Nacionalidades/Delete/5
         [HttpPost]
         [SessionManager("Nacionalidades/Delete")]
-        public ActionResult Delete(tbNacionalidades tbNacionalidades)
+        public ActionResult Delete(int id)
         {
             string msj = "";
+            tbNacionalidades tbNacionalidades = new tbNacionalidades();
             string RazonInactivo = "Se ha Inhabilitado este Registro";
 
 
-            if (tbNacionalidades.nac_Id != 0)
+            if (id!= 0)
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
 
                 try

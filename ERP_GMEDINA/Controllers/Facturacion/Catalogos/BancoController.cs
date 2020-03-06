@@ -109,7 +109,7 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("Banco/Edit")]
-        public ActionResult Edit([Bind(Include = "ban_Id,ban_Nombre,ban_NombreContacto,ban_TelefonoContacto,ban_UsuarioCrea,ban_FechaCrea,ban_UsuarioModifica,ban_FechaModifica,tbUsuario, tbUsuario1")] tbBanco tbBanco)
+        public ActionResult Edit([Bind(Include = "ban_Id,ban_Nombre,ban_NombreContacto,ban_TelefonoContacto,ban_UsuarioCrea,ban_FechaCrea,ban_UsuarioModifica,ban_FechaModifica")] tbBanco tbBanco)
         {
             if (ModelState.IsValid)
             {

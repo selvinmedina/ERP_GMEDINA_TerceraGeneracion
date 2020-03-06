@@ -332,12 +332,12 @@ $("#btnInactivar").on("click", function () {
  $("#ModalInactivar").find("#depto_RazonInactivo").focus();
  Entidad = "Depto";
 });
-$("#btnInactivarArea").on("click", function () {
- $('#ModalInactivar').modal('toggle');
- $('#ModalInactivar').modal('show');
- $("#ModalInactivar").find("#depto_RazonInactivo").focus();
- Entidad = "Area";
-});
+//$("#btnInactivarArea").on("click", function () {
+// $('#ModalInactivar').modal('toggle');
+// $('#ModalInactivar').modal('show');
+// $("#ModalInactivar").find("#depto_RazonInactivo").focus();
+// Entidad = "Area";
+//});
 function limpiarSpan(id, form) {
  var span = $(form).find("#error" + id);
  $(span).closest("div").removeClass("has-error has-warning");

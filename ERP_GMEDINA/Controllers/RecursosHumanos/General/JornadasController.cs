@@ -321,11 +321,11 @@ namespace ERP_GMEDINA.Controllers
             string RazonInactivo = "Se ha Inhabilitado este Registro";
             if (tbJornadas.jor_Id != 0 )
             {
-                var id = (int)Session["id"];                
+                //var id = (int)Session["id"];                
                 try
                 {
                     db = new ERP_GMEDINAEntities();
-                    var list = db.UDP_RRHH_tbJornadas_Delete(id, RazonInactivo, (int)Session["UserLogin"], Fuction.DatetimeNow());
+                    var list = db.UDP_RRHH_tbJornadas_Delete(tbJornadas.jor_Id, RazonInactivo, (int)Session["UserLogin"], Fuction.DatetimeNow());
                     foreach (UDP_RRHH_tbJornadas_Delete_Result item in list)
                     {
                         msj = item.MensajeError + " ";
@@ -353,7 +353,7 @@ namespace ERP_GMEDINA.Controllers
             string RazonInactivo = "Se ha Inhabilitado este Registro";
             if (tbHorarios.hor_Id != 0 && tbHorarios.hor_RazonInactivo != "")
             {
-                var id = (int)Session["id"];
+                var id = tbHorarios.hor_Id;
                 try
                 {
                     db = new ERP_GMEDINAEntities();

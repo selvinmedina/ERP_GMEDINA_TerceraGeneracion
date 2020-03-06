@@ -130,29 +130,7 @@ $("#btnGuardar").click(function () {
         MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
 });
-$("#InActivar").click(function () {
-    var data = $("#FormInactivar").serializeArray();
-    data = serializar(data);
-    if (data != null) {
-        data.habi_Id = id;
-        data = JSON.stringify({ tbRequerimientosEspeciales: data });
-        _ajax(data,
-            '/RequerimientosEspeciales/Delete',
-            'POST',
-            function (obj) {
-                if (obj != "-1" && obj != "-2" && obj != "-3") {
-                    CierraPopups();
-                    llenarTabla();
-                    LimpiarControles(["resp_Descripcion", "resp_RazonInactivo"]);
-                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                } else {
-                    MsgError("Error", "No se inactivó el registro, contacte al administrador.");
-                }
-            });
-    } else {
-        MsgError("Error", "Por Pavor llene todas las cajas de texto.");
-    }
-});
+
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();
     data = serializar(data);

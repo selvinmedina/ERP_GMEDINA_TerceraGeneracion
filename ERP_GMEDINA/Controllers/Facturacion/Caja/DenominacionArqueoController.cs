@@ -118,7 +118,7 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("DenominacionArqueo/Edit")]
-        public ActionResult Edit([Bind(Include = "arqde_Id,mocja_Id,deno_Id,arqde_CantidadDenominacion,arqde_MontoDenominacion,arqde_UsuarioCrea,arqde_FechaCrea,arqde_UsuarioModifica,arqde_FechaModifica,tbUsuario,tbUsuario1")] tbDenominacionArqueo tbDenominacionArqueo)
+        public ActionResult Edit([Bind(Include = "arqde_Id,mocja_Id,deno_Id,arqde_CantidadDenominacion,arqde_MontoDenominacion,arqde_UsuarioCrea,arqde_FechaCrea,arqde_UsuarioModifica,arqde_FechaModifica")] tbDenominacionArqueo tbDenominacionArqueo)
         {
             if (ModelState.IsValid)
             {

@@ -216,15 +216,16 @@ namespace ERP_GMEDINA.Controllers
         // Idiomas/Delete
         [HttpPost]
         [SessionManager("Idiomas/Delete")]
-        public ActionResult Delete(tbIdiomas tbIdiomas)
+        public ActionResult Delete(int id)
         {
 
+            tbIdiomas tbIdiomas = new tbIdiomas();
             string msj = "...";
 
             string RazonInactivo = "Se ha Inhabilitado este Registro";
-            if (tbIdiomas.idi_Id != 0)
+            if (id != 0)
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {

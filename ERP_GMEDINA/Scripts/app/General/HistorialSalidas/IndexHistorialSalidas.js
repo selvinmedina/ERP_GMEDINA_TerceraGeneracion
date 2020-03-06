@@ -57,7 +57,7 @@ function llenarTabla() {
             }
             $.each(Lista, function (index, value) {
                 var Acciones = value.hsal_Estado == 1
-                    ? "<a class='btn btn-primary btn-xs ' onclick='tablaDetalles(" + value.hsal_Id + ")'>Detalles</a><a class='btn btn-default btn-xs ' onclick='tablaEditar(" + value.hsal_Id + ")'>Editar</a>"
+                    ? "<a class='btn btn-primary btn-xs ' onclick='tablaDetalles(" + value.hsal_Id + ")'>Detalles</a><a class='btn btn-default btn-xs ' onclick='tablaEditar(" + value.hsal_Id + ")'>Editar</a><button class='btn btn-danger btn-xs ' onclick='btnInactivar(" + value.hsal_Id + ")'>Inactivar</button>"
                     : Admin ?
                         "<div>" +
                        "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a>" +
@@ -107,40 +107,44 @@ $("#btnEditar").click(function () {
     }
 });
 
-$("#btnInactivar").click(function () {
-    var validacionHistorialsalidas = userModelState("HistorialSalidas/Edit");
+function btnInactivar(id) {
+   
+    var validacionHistorialsalidas = userModelState("HistorialSalidas/Delete");
     if (validacionHistorialsalidas.status == true) {
+        var tr = $(id).closest('tr');
+        var row = tabla.row(tr);
+        //var id = row.data().ID;
+        $('#txtIdDelete').val(id);
     CierraPopups();
     $('#ModalInactivar').modal('show');
     $("#ModalInactivar").find("#hsal_RazonInactivo").val("");
     $("#ModalInactivar").find("#hsal_RazonInactivo").focus();
     }
-});
-
+};
 $("#InActivar").click(function () {
     var validacionHistorialsalidas = userModelState("HistorialSalidas/Delete");
-    if (validacionHistorialsalidas.status == true) {
-        var data = $("#FormInactivar").serializeArray();
-        data = serializar(data);
-        if (data != null) {
-            //data.tiho_Id = id;
-            // data = JSON.stringify({ tbTipoHoras: data });
-            $.post("/HistorialSalidas/Delete", data).done(function (obj) {
+    var data = $("#FormInactivar").serializeArray();
+    data = serializar(data);
+    if (data != null) {
+        data.hsal_Id = $("#txtIdDelete").val();
+        data = JSON.stringify({ tbHistorialSalidas: data });
+        _ajax(data,
+            '/HistorialSalidas/Delete',
+            'POST',
+            function (obj) {
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
                     CierraPopups();
                     MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                    LimpiarControles(["hsal_Observacion", "hsal_RazonInactivo"]);
+                    LimpiarControles(["empr_Nombre", "empr_RazonInactivo"]);
                     llenarTabla();
                 } else {
                     MsgError("Error", "No se inactivó el registro, contacte al administrador.");
                 }
             });
-        } else {
-            MsgError(" ", "La eliminación de información debe ser justificada.");
-        }
+    } else {
+        MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
 });
-
 $("#btnActualizar").click(function () {
     var validacionHistorialsalidas = userModelState("HistorialSalidas/Edit");
     if (validacionHistorialsalidas.status == true) {
