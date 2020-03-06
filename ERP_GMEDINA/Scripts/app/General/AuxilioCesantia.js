@@ -935,7 +935,6 @@ $("#btnEliminarAuxCes").click(function () {
             $("#frmEliminarAuxCes").modal('hide');
             $("#frmEditarAuxCes").modal('hide');
             cargarGridAuxilioCesantia();
-            window.location.reload(true);
             //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Exito',
@@ -978,10 +977,9 @@ $("#btnActivarAuxCes").click(function () {
             });
         }
         else {
-            cargarGridAuxilioCesantia();
-
             $("#frmActivarAuxCes").modal('hide');
-            window.location.reload(true);
+            $("#frmActivarAuxCes").modal('hide');
+            cargarGridAuxilioCesantia();
             iziToast.success({
                 title: 'Éxito',
                 message: '¡El registro se activó de forma exitosa!',

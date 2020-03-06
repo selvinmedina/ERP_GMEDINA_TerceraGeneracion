@@ -103,7 +103,6 @@ $("#btnActivarRegistroAFP").click(function () {
             else {
                 // refrescar datatable
                 cargarGridDeducciones();
-                window.location.reload(true);
                 // mensaje de exito
                 iziToast.success({
                     title: 'Exito',
