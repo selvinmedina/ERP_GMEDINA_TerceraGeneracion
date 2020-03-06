@@ -125,7 +125,7 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("ActividadEconomica/Edit")]
-        public ActionResult Edit([Bind(Include = "acte_Id,acte_Descripcion,acte_UsuarioCrea,acte_FechaCrea,acte_UsuarioModifica,acte_FechaModifica, tbUsuario, tbUsuario1")] tbActividadEconomica tbActividadEconomica)
+        public ActionResult Edit([Bind(Include = "acte_Id,acte_Descripcion,acte_UsuarioCrea,acte_FechaCrea,acte_UsuarioModifica,acte_FechaModifica")] tbActividadEconomica tbActividadEconomica)
         {
             try
             {

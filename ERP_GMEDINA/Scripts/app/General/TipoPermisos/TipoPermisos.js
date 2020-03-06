@@ -56,7 +56,7 @@ function llenarTabla() {
             }
             $.each(Lista, function (index, value) {
                 var Acciones = value.tper_Estado == 1
-                    ? "<a class='btn btn-primary btn-xs ' onclick='tablaDetalles(" + value.tper_Id + ")'>Detalles</a><a class='btn btn-default btn-xs ' onclick='tablaEditar(" + value.tper_Id + ")'>Editar</a>"
+                    ? "<a class='btn btn-primary btn-xs ' onclick='tablaDetalles(" + value.tper_Id + ")'>Detalles</a><a class='btn btn-default btn-xs ' onclick='tablaEditar(" + value.tper_Id + ")'>Editar</a><button class='btn btn-danger btn-xs ' onclick='btnInactivar(" + value.tper_Id + ")'>Inactivar</button>"
                     : Admin ?
                        "<div>" +
                        "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a>" +
@@ -103,8 +103,18 @@ $("#btnEditar").click(function () {
             });
     }
 });
-$("#btnInactivar").click(function () {
+//$("#btnInactivar").click(function () {
     
+//    var validacionTipopermisos = userModelState("TipoPermisos/Edit");
+//    if (validacionTipopermisos.status == true) {
+//        CierraPopups();
+//        $('#ModalInactivar').modal('show');
+//        $("#ModalInactivar").find("#tper_RazonInactivo").val("");
+//        $("#ModalInactivar").find("#tper_RazonInactivo").focus();
+//    }
+//});
+function btnInactivar(id) {
+    $('#txtInput').val(id);
     var validacionTipopermisos = userModelState("TipoPermisos/Edit");
     if (validacionTipopermisos.status == true) {
         CierraPopups();
@@ -112,7 +122,7 @@ $("#btnInactivar").click(function () {
         $("#ModalInactivar").find("#tper_RazonInactivo").val("");
         $("#ModalInactivar").find("#tper_RazonInactivo").focus();
     }
-});
+};
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -143,7 +153,7 @@ $("#InActivar").click(function () {
         var data = $("#FormInactivar").serializeArray();
         data = serializar(data);
         if (data != null) {
-            data.tper_Id = id;
+            data.tper_Id = $('#txtInput').val();
             data = JSON.stringify({ tbTipoPermisos: data });
             _ajax(data,
                 '/TipoPermisos/Delete',

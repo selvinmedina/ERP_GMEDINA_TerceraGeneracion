@@ -55,7 +55,7 @@
                                         @Html.DisplayFor(modelItem => item.cc_Id)
                                     </td>
                                     <td>
-                                        @{ 
+                                        @{
                                             string Nombre = item.tbEmpleados.tbPersonas.per_Nombres + " " + item.tbEmpleados.tbPersonas.per_Apellidos;
                                             decimal PorcentajeDecimal = Convert.ToDecimal(item.cc_TotalComision);
                                         }
@@ -64,7 +64,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.tbCatalogoDeIngresos.cin_DescripcionIngreso)
                                     </td>
-                                    
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.cc_TotalVenta)
                                     </td>
@@ -76,20 +76,20 @@
                                     </td>
                                     <td>
                                         @Estado
-                                    </td> 
-                                    <td>
-                                              @Html.DisplayFor(modelItem => item.cc_Pagado)
                                     </td>
-                                   
-                                    
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cc_Pagado)
+                                    </td>
+
+
                                     <td>
                                         @{
                                             <!-- validar si el estado es activo para mostrar los botones "detalles" y "editar" -->
                                             if (item.cc_Activo == true)
                                             {
-                                                <button type="button" data-id="@item.cc_Id"  class="btn btn-primary btn-xs" id="btnDetalleEmpleadoComisiones">Detalles</button>
-                                                <button type="button" data-id="@item.cc_Id"  class="btn btn-default btn-xs" id="btnEditarEmpleadoComisiones">Editar</button>
-                                               
+                                                <button type="button" data-id="@item.cc_Id" class="btn btn-primary btn-xs" id="btnDetalleEmpleadoComisiones">Detalles</button>
+                                                <button type="button" data-id="@item.cc_Id" class="btn btn-default btn-xs" id="btnEditarEmpleadoComisiones">Editar</button>
+                                                <button type="button" data-id="@item.cc_Id" class="btn btn-danger btn-xs" id="btnInactivarEmpleadoComisiones">Inactivar</button>
                                             }
                                             <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             if (oUsuario.usu_EsAdministrador == true && item.cc_Activo == false)
@@ -97,17 +97,18 @@
                                                 <button type="button" data-id="@item.cc_Id" class="btn btn-primary btn-xs" id="btnDetalleEmpleadoComisiones">Detalles</button>
                                                  <!-- ACTIVAR -->
                                                 <button type="button" data-id="@item.cc_Id" class="btn btn-default btn-xs" id="btnActivarRegistroComisiones">Activar</button>
-                                               
+
                                             }
                                         }
                                     </td>
                                 </tr>
-                            }
+                                            }
                         </tbody>
                         <tfoot>
 
                         </tfoot>
                     </table>
+
                 </div>
             </div>
         </div>
@@ -189,7 +190,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btnInactivarRegistroComisiones">Si</button>
-                <button type="button" class="btn btn-white"  id="btnInactivarRegistroComisionesNo">No</button>
+                <button type="button" class="btn btn-white" href="~/Views/EmpleadoComisiones/Index.cshtml" data-dismiss="modal">No</button>
             </div>
         </div>
     </div>
@@ -206,8 +207,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="btnActivarRegistroComisionesEjecutar">Si</button>
-                <button type="button" class="btn btn-white" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-white" href="~/Views/EmpleadoComisiones/Index.cshtml" data-dismiss="modal">No</button>
             </div>
+
         </div>
     </div>
 </div>

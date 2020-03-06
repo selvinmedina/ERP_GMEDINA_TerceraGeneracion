@@ -48,6 +48,7 @@ function cargarGridComisiones() {
                 //variable boton editar
                 var botonEditar = ListaComisiones[i].cc_Activo == true ? '<button data-id = "' + ListaComisiones[i].cc_Id + '" type="button" style="margin rigth:3px;" class="btn btn-default btn-xs"  id="btnEditarEmpleadoComisiones">Editar</button>' : '';
 
+                var botonInactivar = ListaComisiones[i].cc_Activo == true ? '<button data-id = "' + ListaComisiones[i].cc_Id + '" type="button" style="margin rigth:3px;" class="btn btn-danger btn-xs"  id="btnInactivarEmpleadoComisiones">Inactivar</button>' : '';
                 //variable donde está el boton activar
                 var botonActivar = ListaComisiones[i].cc_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaComisiones[i].cc_Id + '" type="button" style="margin rigth:3px;" class="btn btn-default btn-xs"  id="btnActivarRegistroComisiones">Activar</button>' : '' : '';
 
@@ -59,7 +60,7 @@ function cargarGridComisiones() {
                     Check = '<input type="checkbox" id="cc_Pagado" name="cc_Pagado" checked disabled>'; //SE LLENA LA VARIABLE CON UN INPUT CHEQUEADO
                 } else {
                     Check = '<input type="checkbox" id="cc_Pagado" name="cc_Pagado" disabled>'; //SE LLENA LA VARIABLE CON UN INPUT QUE NO ESTA CHEQUEADO
-                }
+                }http://localhost:51144/../../../Models/Planillas/Ingresos
 
                 $('#tblEmpleadoComisiones').dataTable().fnAddData([
                     ListaComisiones[i].cc_Id,
@@ -70,7 +71,7 @@ function cargarGridComisiones() {
                     FechaRegistro,
                     estadoRegistro,
                     Check,
-                    botonDetalles + botonEditar + botonActivar]
+                    botonDetalles + botonEditar + botonInactivar  + botonActivar]
                 );
             }
         });
@@ -495,18 +496,21 @@ $(document).on("click", "#tblEmpleadoComisiones tbody tr td #btnDetalleEmpleadoC
 });
 
 //EVENTOS DE INACTIVACION
-$(document).on("click", "#btnInactivarEmpleadoComisiones", function () {
+$(document).on("click", "#tblEmpleadoComisiones tbody tr td  #btnInactivarEmpleadoComisiones", function () {
     var validacionPermiso = userModelState("EmpleadoComisiones/Inactivar");
 
     if (validacionPermiso.status == true) {
+        var ID = $(this).data('id');
+        Idinactivar = ID;
         //MOSTRAR EL MODAL DE INACTIVAR
-        $("#EditarEmpleadoComisiones").modal('hide');
+        //$("#EditarEmpleadoComisiones").modal('hide'); borre!
         $("#InactivarEmpleadoComisiones").modal({ backdrop: 'static', keyboard: false });
 
         document.getElementById("btnInactivarRegistroComisiones").disabled = false;
         document.getElementById("btnInactivarRegistroComisionesNo").disabled = false;
     }
 });
+
 
 //EJECUTAR INACTIVACION DEL REGISTRO EN EL MODAL
 $("#btnInactivarRegistroComisiones").click(function () {

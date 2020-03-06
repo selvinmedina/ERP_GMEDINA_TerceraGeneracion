@@ -95,12 +95,12 @@ $("#btnEditar").click(function () {
       }
      });
 });
-$("#btnInactivar").click(function () {
- CierraPopups();
- $('#ModalInactivar').modal('show');
- $("#ModalInactivar").find("#habi_RazonInactivo").val("");
- $("#ModalInactivar").find("#habi_RazonInactivo").focus();
-});
+//$("#btnInactivar").click(function () {
+// CierraPopups();
+// $('#ModalInactivar').modal('show');
+// $("#ModalInactivar").find("#habi_RazonInactivo").val("");
+// $("#ModalInactivar").find("#habi_RazonInactivo").focus();
+//});
 //botones POST
 
 $("#btnGuardar").click(function () {
@@ -127,12 +127,13 @@ $("#btnGuardar").click(function () {
 });
 
 $("#InActivar").click(function () {
- var data = $("#FormInactivar").serializeArray();
- data = serializar(data);
- if (data != null) {
-  data.habi_Id = ID;
-  data = JSON.stringify({ tbHabilidades: data });
-  _ajax(data,
+    //var data = $("#FormInactivar").serializeArray();
+    var id = $("#txtIdDelete").val();
+ //data = serializar(data);
+ if (id != null) {
+     //data.habi_Id = $("#txtIdDelete").val();
+  //data = JSON.stringify({ tbHabilidades: data });
+     _ajax(JSON.stringify({ id: id }),
       '/Habilidades/Delete',
       'POST',
       function (obj) {

@@ -20,7 +20,7 @@ namespace ERP_GMEDINA.Models
         public string ent_NumeroFormato { get; set; }
 
         [Display(Name = "Fecha Elaboración")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public System.DateTime ent_FechaElaboracion { get; set; }
 
         [Display(Name = "Nombre Bodega")]

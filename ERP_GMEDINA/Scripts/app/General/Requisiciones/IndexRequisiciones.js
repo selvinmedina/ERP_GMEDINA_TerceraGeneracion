@@ -1,7 +1,6 @@
 ﻿var fill = 0;
 var id = 0;
 var Admin = false;
-
 //Funciones GET
 function tablaDetalles(btn) {
     var tr = $(btn).closest("tr");
@@ -15,6 +14,27 @@ function tablaEditar(btn) {
     id = row.data().Id;
     $(location).attr('href', "/Areas/Edit/" + id);
 }
+function inactivar(btn) {
+    var tr = $(btn).closest('tr');
+    var row = tabla.row(tr);
+    var id = row.data().ID;
+    tableinactivar(id);
+}
+
+var ide;
+function inactivar(btn) {
+    var validacionPermiso = userModelState("Requisiciones/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        ide = row.data().ID;
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#eqtr_RazonInactivo").val("");
+        $("#ModalInactivar").find("#eqtr_RazonInactivo").focus();
+    }
+}
+
 function format(obj) {
     var div = '<div class="ibox-title">'
 + '<h5>Datos del perfil</h5>'
@@ -270,7 +290,7 @@ $("#InActivar").click(function () {
     var data = $("#FormInactivar").serializeArray();
     data = serializar(data);
     if (data != null) {
-        data.req_Id = id;
+        data.req_Id = ide;
         data = JSON.stringify({ Requisicion: data });
         _ajax(data,
             '/Requisiciones/Delete',
@@ -285,10 +305,10 @@ $("#InActivar").click(function () {
                     MsgError("Error", "No se inactivó el registro, contacte al administrador.");
                 }
             });
+        document.getElementById('req_RazonInactivo').value = "";
     } else {
         MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
-    $("#req_RazonInactivo").val = "";
 });
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();

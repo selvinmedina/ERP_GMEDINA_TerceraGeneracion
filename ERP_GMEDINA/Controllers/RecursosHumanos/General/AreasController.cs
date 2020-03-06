@@ -440,23 +440,24 @@ namespace ERP_GMEDINA.Controllers
          //POST: Areas/Delete/5
         [HttpPost]
         [SessionManager("Areas/Delete")]
-        public ActionResult Delete(string area_Razoninactivo)
+        public ActionResult Delete(tbAreas tbAreas)
         {
             //declaramos la variable de coneccion solo para recuperar los datos necesarios.
             //posteriormente es destruida.
             string result = "";
-            var cAreas =
-                new cAreas
-                {
-                    area_Id = (int)Session["area_Id"],
-                    area_Razoninactivo = area_Razoninactivo
-                };
+            //var cAreas =
+            //    new cAreas
+            //    {
+            //        //area_Id = (int)Session["area_Id"],
+            //        area_Razoninactivo = area_Razoninactivo
+            //    };
+            db = new ERP_GMEDINAEntities();
             var Usuario = (tbUsuario)Session["Usuario"];
             try
             {
                 using (db = new ERP_GMEDINAEntities())
                 {
-                    var list = db.UDP_RRHH_tbAreas_Delete(cAreas.area_Id, cAreas.area_Razoninactivo,
+                    var list = db.UDP_RRHH_tbAreas_Delete(tbAreas.area_Id, tbAreas.area_Razoninactivo,
                                                                          (int)Session["UserLogin"],
                                                                          Function.DatetimeNow());
                     foreach (UDP_RRHH_tbAreas_Delete_Result item in list)

@@ -117,7 +117,7 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("EstadoSolicitudCredito/Edit")]
-        public ActionResult Edit([Bind(Include = "escre_Id,escre_Descripcion,escre_UsuarioCrea,escre_UsuarioModifica,escre_FechaAgrego,escre_FechaModifica,tbUsuario,tbUsuario1")] tbEstadoSolicitudCredito tbEstadoSolicitudCredito)
+        public ActionResult Edit([Bind(Include = "escre_Id,escre_Descripcion,escre_UsuarioCrea,escre_UsuarioModifica,escre_FechaAgrego,escre_FechaModifica")] tbEstadoSolicitudCredito tbEstadoSolicitudCredito)
         {
             try
             {

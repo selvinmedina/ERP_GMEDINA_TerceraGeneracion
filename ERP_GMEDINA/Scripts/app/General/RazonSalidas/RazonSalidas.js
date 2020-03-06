@@ -45,6 +45,21 @@ function tablaDetalles(ID) {
     }
 }
 
+function inactivar(btn) {
+    var validacionPermiso = userModelState("RazonSalidas/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#rsal_RazonInactivo").val("");
+        $("#ModalInactivar").find("#rsal_RazonInactivo").focus();
+    }
+}
+
+
 function llenarTabla() {
     _ajax(null,
         '/RazonSalidas/llenarTabla',
@@ -102,17 +117,21 @@ $("#btnAgregar").click(function () {
             }
         });
         }
-});
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("RazonSalidas/Delete")
-    if (validacionPermiso.status == true)
-    {
-    CierraPopups();
-    $('#ModalInactivar').modal('show');
-    $("#ModalInactivar").find("#rsal_RazonInactivo").val("");
-    $("#ModalInactivar").find("#rsal_RazonInactivo").focus();
-    }
-});
+    });
+
+
+//$("#btnInactivar").click(function () {
+//    var validacionPermiso = userModelState("RazonSalidas/Delete")
+//    if (validacionPermiso.status == true)
+//    {
+//    CierraPopups();
+//    $('#ModalInactivar').modal('show');
+//    $("#ModalInactivar").find("#rsal_RazonInactivo").val("");
+//    $("#ModalInactivar").find("#rsal_RazonInactivo").focus();
+//    }
+//});
+
+
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -135,28 +154,32 @@ $("#btnGuardar").click(function () {
         MsgError("Error", "Por favor llene todas las cajas de texto.");
     }
 });
-$("#InActivar").click(function () {
-    var data = $("#FormInactivar").serializeArray();
-    data = serializar(data);
-    if (data != null) {
-        data.rsal_Id = id;
-        data = JSON.stringify({ tbRazonSalidas: data });
-        _ajax(data,
-            '/RazonSalidas/Delete',
-            'POST',
-            function (obj) {
-                if (obj != "-1" && obj != "-2" && obj != "-3") {
-                    CierraPopups();
-                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
-                    llenarTabla();
-                } else {
-                    MsgError("Error", "No se logró inactivar el registro, contacte al administrador.");
-                }
-            });
-    } else {
-        MsgError("Error", "Por favor llene todas las cajas de texto.");
-    }
-});
+
+
+//$("#InActivar").click(function () {
+//    var data = $("#FormInactivar").serializeArray();
+//    data = serializar(data);
+//    if (data != null) {
+//        data.rsal_Id = id;
+//        data = JSON.stringify({ tbRazonSalidas: data });
+//        _ajax(data,
+//            '/RazonSalidas/Delete',
+//            'POST',
+//            function (obj) {
+//                if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                    CierraPopups();
+//                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+//                    llenarTabla();
+//                } else {
+//                    MsgError("Error", "No se logró inactivar el registro, contacte al administrador.");
+//                }
+//            });
+//    } else {
+//        MsgError("Error", "Por favor llene todas las cajas de texto.");
+//    }
+//});
+
+
 $("#btnActualizar").click(function () {
     var data = $("#FormEditar").serializeArray();
     data = serializar(data);
