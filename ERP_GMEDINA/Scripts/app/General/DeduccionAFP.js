@@ -780,16 +780,16 @@ $("#btnInactivarRegistroDeduccionAFP").click(function () {
 //    });
 //});
 
-//function FormatearDecimal(StringValue) {
-//    //SEGMENTAR LA CADENA DE MONTO 
-//    var indices = StringValue.split(",");
-//    //VARIABLE CONTENEDORA DEL MONTO
-//    var MontoFormateado = "";
-//    //ITERAR LOS INDICES DEL ARRAY MONTO
-//    for (var i = 0; i <= indices.length; i++) {
-//        //SETEAR LA VARIABLE DE MONTO
-//        MontoFormateado += indices[i];
-//    }
-//    //FORMATEAR A DECIMAL
-//    return MontoFormateado = parseFloat(MontoFormateado);
-//}
+function FormatearDecimal(StringValue) {
+    //SEGMENTAR LA CADENA DE MONTO 
+    var indices = StringValue.split(",");
+    //VARIABLE CONTENEDORA DEL MONTO
+    var MontoFormateado = "";
+    //ITERAR LOS INDICES DEL ARRAY MONTO
+    for (var i = 0; i <= indices.length; i++) {
+        //SETEAR LA VARIABLE DE MONTO
+        MontoFormateado += indices[i];
+    }
+    //FORMATEAR A DECIMAL
+    return MontoFormateado = parseFloat(MontoFormateado);
+}
