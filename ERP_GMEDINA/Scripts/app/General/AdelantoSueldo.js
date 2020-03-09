@@ -945,7 +945,7 @@ $("#btnInactivarRegistroAdelantos").click(function () {
 //FUNCION: OCULTAR MODAL DE INACTIVACION
 $("#btnCerrarInactivar").click(function () {
     $("#InactivarAdelantoSueldo").modal('hide');
-    $("#EditarAdelantoSueldo").modal({ backdrop: 'static', keyboard: false });
+    
 });
 
 //FUNCION: MOSTRAR EL MODAL DE ACTIVAR
