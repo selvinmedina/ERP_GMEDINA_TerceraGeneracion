@@ -89,7 +89,7 @@ namespace ERP_GMEDINA.Controllers
             ViewBag.uni_Id = new SelectList(db.tbUnidadMedida, "uni_Id", "uni_Descripcion");
             var User = Usuario();
             Session["BoxDetalle"] = null;
-            ViewBag.bod_Id = new SelectList(db.tbBodega.Where(x => x.bod_ResponsableBodega == User), "bod_Id", "bod_Nombre");
+            ViewBag.bod_Id = new SelectList(db.tbBodega.Where(x => x.bod_EsActiva == 1), "bod_Id", "bod_Nombre");
             ViewBag.Producto = db.tbBodegaDetalle.ToList();
             return View();
         }
