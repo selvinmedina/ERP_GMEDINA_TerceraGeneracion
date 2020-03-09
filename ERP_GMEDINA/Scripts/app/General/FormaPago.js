@@ -31,7 +31,7 @@ function cargarGridFormaPago() {
                 var botonActivar = ListaFormaPago[i].fpa_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaFormaPago[i].fpa_IdFormaPago + '" type="button" class="btn btn-default btn-xs"  id="btnActivarFormaPago">Activar</button>' : '' : '';
 
                 //variable boton inactivar
-                var botonInactivar = ListaFormaPago[i].fpa_Activo == false ? esAdministrador == "1" ? '<button data-id="' + ListaFormaPago[i].fpa_IdFormaPago + '" type="button" class="btn btn-danger btn-xs" id="btnInactivarFormaPago">Inactivar</button>' : '' : '';
+                var botonInactivar = ListaFormaPago[i].fpa_Activo == true ? esAdministrador == "1" ? '<button data-id="' + ListaFormaPago[i].fpa_IdFormaPago + '" type="button" class="btn btn-danger btn-xs" id="btnInactivarFormaPago">Inactivar</button>' : '' : '';
 
                 //agregar fila
                 $('#tblFormaPago').dataTable().fnAddData([
@@ -440,7 +440,6 @@ $("#btnInactivarFormaPagoConfirm").click(function () {
         else {
             $("#InactivarFormaPago").modal('hide');
             cargarGridFormaPago();
-            window.location.reload();
             //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Exito',
@@ -497,7 +496,6 @@ $("#btnActivarFormaPagoConfirm").click(function () {
         else {
             // REFRESCAR UNICAMENTE LA TABLA
             cargarGridFormaPago();
-            window.location.reload();
             //UNA VEZ REFRESCADA LA TABLA, SE OCULTA EL MODAL
             $("#ActivarFormaPago").modal('hide');
             //MENSAJE DE EXITO DE LA EDICIÓN

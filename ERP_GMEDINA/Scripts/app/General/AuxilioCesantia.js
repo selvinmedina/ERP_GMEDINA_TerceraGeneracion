@@ -405,7 +405,7 @@ $('#btnCrearAuxCes').click(function () {
             else {
                 $("#frmCrearAuxCes").modal('hide');
                 cargarGridAuxilioCesantia();
-
+                window.location.reload();
                 iziToast.success({
                     title: 'Exito',
                     message: 'El registro se agregó de forma exitosa!',
@@ -466,7 +466,7 @@ $(document).on("click", "#tblAuxCesantia tbody tr td #btnModalDetalles", functio
                     $("#frmDetailAuxCes").modal({ backdrop: 'static', keyboard: false });
                 }
                 else {
-
+                    window.location.reload();
                     iziToast.error({
                         title: 'Error',
                         message: 'No se pudo cargar la información, contacte al administrador',
@@ -895,32 +895,32 @@ $("#btnCerrarInactivar").click(function () {
 
     window.location.reload(true);
 
-
 });
 
 
+var Inactivar = 0
 
-function InactivarBodega(id)
-{
-    $("#frmEliminarAuxCes").modal();
-    localStorage.setItem("IdAux", id);
-}
+//Inactivar 
+$(document).on("click", "#btnModalEliminar", function () {
+    //validar informacion del usuario
+    var validacionPermiso = userModelState("AuxilioDeCesantias/Inactivar");
 
-$("#btnActivarAuxCes").click(function () {
-    $("#frmEliminarAuxCes").modal();
+    if (validacionPermiso.status == true) {
+        Inactivar = $(this).data('id');
+        $("#frmEliminarAuxCes").modal({ backdrop: 'static', keyboard: false });
+        $("#frmEliminarAuxCes").attr('disabled', false);
+    }
 
 });
-
 
 
 // ejecutar inactivar
 $("#btnEliminarAuxCes").click(function () {
-    $("#btnEliminarAuxCes").attr('disabled', true);
     //SERIALIZAR EL FORMULARIO (QUE ESTÁ EN LA VISTA PARCIAL) DEL MODAL, SE PARSEA A FORMATO JSON
     var data = $("#frmEliminarAuxCes").serializeArray();
     //SE ENVIA EL JSON AL SERVIDOR PARA EJECUTAR LA EDICIÓN
     $.ajax({
-        url: "/AuxilioDeCesantias/Inactivar/" + localStorage.getItem("IdAux"),
+        url: "/AuxilioDeCesantias/Inactivar/" + Inactivar,
         method: "POST",
         data: data
     }).done(function (data) {
@@ -942,6 +942,7 @@ $("#btnEliminarAuxCes").click(function () {
             });
         }
     });
+    Inactivar = 0;
 });
 
 
@@ -978,7 +979,6 @@ $("#btnActivarAuxCes").click(function () {
         }
         else {
             $("#frmActivarAuxCes").modal('hide');
-            $("#frmActivarAuxCes").modal('hide');
             cargarGridAuxilioCesantia();
             iziToast.success({
                 title: 'Éxito',
@@ -988,6 +988,7 @@ $("#btnActivarAuxCes").click(function () {
     });
     activarID = 0;
 });
+
 
 //funcion generica ajax
 function _ajax(params, uri, type, callback) {

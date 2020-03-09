@@ -28,7 +28,7 @@ function cargarGridDeducciones() {
                 var botonEditar = ListaAFP[i].afp_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnEditarAFP" data-id = "' + ListaAFP[i].afp_Id + '">Editar</button>' : '';
 
                 //variable boton editar
-                var botonInactivar = ListaAFP[i].afp_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-danger btn-xs" id="btnActivarAFP" data-id = "' + ListaAFP[i].afp_Id + '">Inactivar</button>' : '';
+                var botonInactivar = ListaAFP[i].afp_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-danger btn-xs" id="btnInactivarAFP" data-id = "' + ListaAFP[i].afp_Id + '">Inactivar</button>' : '';
 
                 //variable donde está el boton activar
                 var botonActivar = ListaAFP[i].afp_Activo == false ? esAdministrador == "1" ? '<button type="button" style="margin-right:6px;" class="btn btn-default btn-xs" id="btnActivarAFP" afpid="' + ListaAFP[i].afp_Id + '" data-id = "' + ListaAFP[i].afp_Id + '">Activar</button>' : '' : '';
