@@ -326,7 +326,8 @@
         public virtual DbSet<UDV_Vent_VentasConsumidorFinal> UDV_Vent_VentasConsumidorFinal { get; set; }
         public virtual DbSet<UDV_Vent_VentasExoneradas> UDV_Vent_VentasExoneradas { get; set; }
         public virtual DbSet<UDV_Vent_VentasPorCaja_EntreFechas> UDV_Vent_VentasPorCaja_EntreFechas { get; set; }
-        public virtual DbSet<UDV_Vent_SolicitudCredito_SolicitudesPorAprobarReporte> UDV_Vent_SolicitudCredito_SolicitudesPorAprobarReporte { get; set; }
+        public virtual DbSet<tbTareas> tbTareas { get; set; }
+        public virtual DbSet<tbTareasCargos> tbTareasCargos { get; set; }
     
         public virtual ObjectResult<SDP_Acce_GetObjetos_Result> SDP_Acce_GetObjetos()
         {
@@ -14772,6 +14773,82 @@
                 new ObjectParameter("insf_Activo", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Plani_tbInstitucionesFinancieras_Update_Result>("UDP_Plani_tbInstitucionesFinancieras_Update", insf_IdInstitucionFinancieraParameter, insf_DescInstitucionFinancParameter, insf_ContactoParameter, insf_TelefonoParameter, insf_CorreoParameter, insf_UsuarioModificaParameter, insf_FechaModificaParameter, insf_ActivoParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareas_Delete_Result> UDP_RRHH_tbTareas_Delete(Nullable<int> tar_Id, string tar_RazonInactivo, Nullable<int> tar_UsuarioModifica, Nullable<System.DateTime> tar_FechaModifica)
+        {
+            var tar_IdParameter = tar_Id.HasValue ?
+                new ObjectParameter("tar_Id", tar_Id) :
+                new ObjectParameter("tar_Id", typeof(int));
+    
+            var tar_RazonInactivoParameter = tar_RazonInactivo != null ?
+                new ObjectParameter("tar_RazonInactivo", tar_RazonInactivo) :
+                new ObjectParameter("tar_RazonInactivo", typeof(string));
+    
+            var tar_UsuarioModificaParameter = tar_UsuarioModifica.HasValue ?
+                new ObjectParameter("tar_UsuarioModifica", tar_UsuarioModifica) :
+                new ObjectParameter("tar_UsuarioModifica", typeof(int));
+    
+            var tar_FechaModificaParameter = tar_FechaModifica.HasValue ?
+                new ObjectParameter("tar_FechaModifica", tar_FechaModifica) :
+                new ObjectParameter("tar_FechaModifica", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Delete_Result>("UDP_RRHH_tbTareas_Delete", tar_IdParameter, tar_RazonInactivoParameter, tar_UsuarioModificaParameter, tar_FechaModificaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareas_Insert_Result> UDP_RRHH_tbTareas_Insert(string tar_Descripcion, Nullable<int> tar_UsuarioCrea, Nullable<System.DateTime> tar_FechaCrea)
+        {
+            var tar_DescripcionParameter = tar_Descripcion != null ?
+                new ObjectParameter("tar_Descripcion", tar_Descripcion) :
+                new ObjectParameter("tar_Descripcion", typeof(string));
+    
+            var tar_UsuarioCreaParameter = tar_UsuarioCrea.HasValue ?
+                new ObjectParameter("tar_UsuarioCrea", tar_UsuarioCrea) :
+                new ObjectParameter("tar_UsuarioCrea", typeof(int));
+    
+            var tar_FechaCreaParameter = tar_FechaCrea.HasValue ?
+                new ObjectParameter("tar_FechaCrea", tar_FechaCrea) :
+                new ObjectParameter("tar_FechaCrea", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Insert_Result>("UDP_RRHH_tbTareas_Insert", tar_DescripcionParameter, tar_UsuarioCreaParameter, tar_FechaCreaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareas_Restore_Result> UDP_RRHH_tbTareas_Restore(Nullable<int> tar_Id, Nullable<int> tar_UsuarioModifica, Nullable<System.DateTime> tar_FechaModifica)
+        {
+            var tar_IdParameter = tar_Id.HasValue ?
+                new ObjectParameter("tar_Id", tar_Id) :
+                new ObjectParameter("tar_Id", typeof(int));
+    
+            var tar_UsuarioModificaParameter = tar_UsuarioModifica.HasValue ?
+                new ObjectParameter("tar_UsuarioModifica", tar_UsuarioModifica) :
+                new ObjectParameter("tar_UsuarioModifica", typeof(int));
+    
+            var tar_FechaModificaParameter = tar_FechaModifica.HasValue ?
+                new ObjectParameter("tar_FechaModifica", tar_FechaModifica) :
+                new ObjectParameter("tar_FechaModifica", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Restore_Result>("UDP_RRHH_tbTareas_Restore", tar_IdParameter, tar_UsuarioModificaParameter, tar_FechaModificaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareas_Update_Result> UDP_RRHH_tbTareas_Update(Nullable<int> tar_Id, string tar_Descripcion, Nullable<int> tar_UsuarioModifica, Nullable<System.DateTime> tar_FechaModifica)
+        {
+            var tar_IdParameter = tar_Id.HasValue ?
+                new ObjectParameter("tar_Id", tar_Id) :
+                new ObjectParameter("tar_Id", typeof(int));
+    
+            var tar_DescripcionParameter = tar_Descripcion != null ?
+                new ObjectParameter("tar_Descripcion", tar_Descripcion) :
+                new ObjectParameter("tar_Descripcion", typeof(string));
+    
+            var tar_UsuarioModificaParameter = tar_UsuarioModifica.HasValue ?
+                new ObjectParameter("tar_UsuarioModifica", tar_UsuarioModifica) :
+                new ObjectParameter("tar_UsuarioModifica", typeof(int));
+    
+            var tar_FechaModificaParameter = tar_FechaModifica.HasValue ?
+                new ObjectParameter("tar_FechaModifica", tar_FechaModifica) :
+                new ObjectParameter("tar_FechaModifica", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Update_Result>("UDP_RRHH_tbTareas_Update", tar_IdParameter, tar_DescripcionParameter, tar_UsuarioModificaParameter, tar_FechaModificaParameter);
         }
     }
 }
