@@ -57,7 +57,7 @@
 @Html.Partial("_Create", new ERP_GMEDINA.Models.tbTipoPermisos())
 @Html.Partial("_Delete", new ERP_GMEDINA.Models.tbTipoPermisos())
 @Html.Partial("_Edit", new ERP_GMEDINA.Models.tbTipoPermisos())
-@*@Html.Partial("_Detalles", new ERP_GMEDINA.Models.tbTipoPermisos())*@
+@Html.Partial("_Detalles", new ERP_GMEDINA.Models.tbTipoPermisos())
 
 @section Styles {
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
@@ -69,12 +69,13 @@
 @* datatble *@
 @Scripts.Render("~/Scripts/plugins/dataTablesMatutina/DatatablesConfigurations")
 @Scripts.Render("~/Scripts/plugins/dataTablesMatutina/datatables.min")
+<script src="~/Scripts/app/General/TipoPermisos/Admin.js"></script>
 
 @*general*@
 @Scripts.Render("~/Scripts/app/general")
 @Scripts.Render("~/Scripts/plugins/iziToast/iziToast.min")
 @Scripts.Render("~/Scripts/plugins/iziToast/iziToast")
-@Scripts.Render("~/Scripts/app/TipoPermisos")
+<script src="~/Scripts/app/General/TipoPermisos/TipoPermisos.js"></script>
 @Scripts.Render("~/plugins/clockpicker")
-@Scripts.Render("~/Scripts/app/General/TipoPermisos/Admin")
+
 }

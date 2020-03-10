@@ -21,19 +21,19 @@ function tablaEditar(ID) {
                 }
             });
     }
+    id = 0;
 }
 function tablaDetalles(ID) {
-    var validacionTipopermisos = userModelState("TipoPermisos/Edit");
+    //id = ID;
+    var validacionTipopermisos = userModelState("TipoPermisos/Edit" );
     if (validacionTipopermisos.status == true) {
-        id = ID;
         _ajax(null,
             '/TipoPermisos/Edit/' + ID,
             'GET',
             function (obj) {
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
                     $("#ModalDetalles").find("#tper_Descripcion")["0"].innerText = obj.tper_Descripcion;
-                    //$("#ModalDetalles").find("#tper_Estado")["0"].innerText = obj.tper_Estado;
-                    //$("#ModalDetalles").find("#tper_RazonInactivo")["0"].innerText = obj.tper_RazonInactivo;
+
                     $("#ModalDetalles").find("#tper_FechaCrea")["0"].innerText = FechaFormato(obj.tper_FechaCrea);
                     $("#ModalDetalles").find("#tper_FechaModifica")["0"].innerText = FechaFormato(obj.tper_FechaModifica);
                     $("#ModalDetalles").find("#tbUsuario_usu_NombreUsuario")["0"].innerText = obj.tbUsuario.usu_NombreUsuario;
@@ -44,6 +44,27 @@ function tablaDetalles(ID) {
             });
     }
 }
+//function tablaDetalles(ID) {
+//    //id = ID;
+//    var validacionPermiso = userModelState("TipoPermisos/Edit");
+//    if (validacionPermiso.status == true) {
+//        _ajax(null,
+//            '/TipoPermisos/Edit/' + ID,
+//            'GET',
+//            function (obj) {
+//                if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                    $("#ModalDetalles").find("#tper_Descripcion")[0].innerText = obj.tper_RazonInactivo;
+//                    $("#ModalDetalles").find("#tper_RazonInactivo")[0].innerText = FechaFormato(obj.tper_RazonInactivo);
+//                    $("#ModalDetalles").find("#tper_FechaCrea")[0].innerText = FechaFormato(obj.tper_FechaCrea);
+//                    $("#ModalDetalles").find("#tper_FechaModifica")[0].innerText = obj.tbUsuario.tper_FechaModifica;
+//                    $("#ModalDetalles").find("#tbUsuario_usu_NombreUsuario")[0].innerText = obj.tbUsuario.usu_NombreUsuario;
+//                    $("#ModalDetalles").find("#tbUsuario1_usu_NombreUsuario")[0].innerText = obj.tbUsuario1.usu_NombreUsuario;
+//                    //$("#ModalDetalles").find("#btnEditar")["0"].dataset.id = ID;
+//                    $('#ModalDetalles').modal('show');
+//                }
+//            });
+//    }
+//}
 function llenarTabla() {
     _ajax(null,
         '/TipoPermisos/llenarTabla',

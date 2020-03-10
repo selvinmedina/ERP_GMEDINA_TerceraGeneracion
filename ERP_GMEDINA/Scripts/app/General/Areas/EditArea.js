@@ -307,7 +307,7 @@ $("#ModalInactivar").find("#InActivar").on("click", function () {
             .remove()
   .draw();
   inactivar.push(depto);
-  $('#ModalEditar').modal('hide');
+  //$('#ModalEditar').modal('hide');
   dRow = null;
  }
 

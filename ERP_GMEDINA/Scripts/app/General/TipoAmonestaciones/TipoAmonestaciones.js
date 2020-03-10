@@ -38,6 +38,7 @@ function tablaDetalles(ID) {
             'GET',
             function (obj) {
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
+                    
                     $("#ModalDetalles").find("#tamo_Descripcion")["0"].innerText = obj.tamo_Descripcion;
 
                     $("#ModalDetalles").find("#tamo_FechaCrea")["0"].innerText = FechaFormato(obj.tamo_FechaCrea);
