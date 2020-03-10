@@ -179,11 +179,11 @@ namespace ERP_GMEDINA.Controllers
             if (RazonInactivo != "")
             {
                 db = new ERP_GMEDINAEntities();
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
-                    var list = db.UDP_RRHH_tbRequerimientosEspeciales_Delete(id, RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
+                    var list = db.UDP_RRHH_tbRequerimientosEspeciales_Delete(tbRequerimientosEspeciales.resp_Id, RazonInactivo, (int)Session["UserLogin"], Function.DatetimeNow());
                     foreach (UDP_RRHH_tbRequerimientosEspeciales_Delete_Result item in list)
                     {
                         msj = item.MensajeError + " ";
