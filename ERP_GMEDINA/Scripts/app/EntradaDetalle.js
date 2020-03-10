@@ -356,7 +356,10 @@ $(document).ready(function () {
 
             }
         });
-
+    
+    if (location.pathname != "/Entrada") {
+        GetRTNproveedor();
+    }
     var $rows = $('#Table_BuscarProducto tr');
     $("#search").keyup(function () {
         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -890,25 +893,28 @@ $(document).change("#prov_Id", function () {
 
 function GetRTNproveedor() {
     var codigoProveedor = $('#prov_Id').val();
-    $.ajax({
-        url: "/Entrada/GetRTNProveedor",
-        method: "POST",
-        dataType: 'json',
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ codigoProveedor: codigoProveedor }),
-    })
-    .done(function (data) {
-        if (data.length > 0) {
-            $('#Rtn').empty();
-            $.each(data, function (key, val) {
+    if (codigoProveedor!="") {
+        $.ajax({
+            url: "/Entrada/GetRTNProveedor",
+            method: "POST",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ codigoProveedor: codigoProveedor }),
+        })
+        .done(function (data) {
+            if (data.length > 0) {
+                $('#Rtn').empty();
+                $.each(data, function (key, val) {
+                    $('#Rtn').val(val);
+                });
+                $('#Rtn').trigger("chosen:updated");
+            }
+            else {
+                $('#Rtn').empty();
                 $('#Rtn').val(val);
-            });
-            $('#Rtn').trigger("chosen:updated");
-        }
-        else {
-            $('#Rtn').empty();
-            $('#Rtn').val(val);
-            console.log(val.prov_Id);
-        }
-    });
+                console.log(val.prov_Id);
+            }
+        });
+    }
+    
 }

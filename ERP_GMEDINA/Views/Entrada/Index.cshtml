@@ -14,6 +14,19 @@
                     </li>
                 </ol>*@
         </div>
+        @if (ViewBag.smserror != "" && ViewBag.smserror != null)
+        {   <div class="row">
+            <div class="col-sm-12" id="mensaje">
+                <div class="alert alert-warning alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5><i class="icon fa fa-warning"></i>Alerta</h5>
+                    <h4>@ViewBag.smserror</h4>
+                </div>
+            </div>
+        </div>
+        }
     </div>
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -65,28 +78,27 @@
                                             @Html.DisplayFor(modelItem => item.tbTipoEntrada.tent_Descripcion)
                                         </td>
                                         <td>
+                                            <p>@Html.DisplayFor(modelItem => item.tbEstadoMovimiento.estm_Descripcion)</p>
                                            
-                                            @if (item.estm_Id == Helpers.EntradaEmitida)
-                                            {
-                                                <p>@Html.DisplayFor(modelItem => item.tbEstadoMovimiento.estm_Descripcion)</p>
-                                            }
-                                            else if (item.estm_Id == Helpers.EntradaInactivada)
-                                            {
-                                                <p>@Html.DisplayFor(modelItem => item.tbEstadoMovimiento.estm_Descripcion)</p>
-                                            }
-                                            else if (item.estm_Id == Helpers.EntradaAplicada)
-                                            {
-                                                <p style="">@Html.DisplayFor(modelItem => item.tbEstadoMovimiento.estm_Descripcion)</p>
-                                            }
-                                            else if (item.estm_Id == Helpers.EntradaEstadoAnulada)
-                                            {
-                                                <p style="">@Html.DisplayFor(modelItem => item.tbEstadoMovimiento.estm_Descripcion)</p>
-                                            }
                                         </td>
                                         <td>
+                                            @if (item.estm_Id == Helpers.EntradaAplicada || item.estm_Id == 3)
+                                            {
+                                                @Html.ActionLink("Detalles", "Details", new { id = item.ent_Id }, new { @class = "btn btn-primary btn-xs" })
+                                                @Html.ActionLink("Editar", "Edit", new { id = item.ent_Id }, new { @class = "btn btn-white btn-xs" })
+                                            }
+                                            else if (item.estm_Id == 6@*Helpers.EntradaInactivada*@)
+                                            {
+                                                @Html.ActionLink("Detalles", "Details", new { id = item.ent_Id }, new { @class = "btn btn-primary btn-xs" })
+                                                <input type="button" class="btn btn-white btn-xs" data-toggle="modal" data-id="@item.ent_Id" id="btnActivar" value="Activar" />
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Detalles", "Details", new { id = item.ent_Id }, new { @class = "btn btn-primary btn-xs" })
+                                                @Html.ActionLink("Editar", "Edit", new { id = item.ent_Id }, new { @class = "btn btn-white btn-xs" })
+                                                <input type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-id="@item.ent_Id" id="btnInactivar"  value="Inactivar" />
+                                            }
 
-                                            @Html.ActionLink("Detalles", "Details", new { id = item.ent_Id }, new { @class = "btn btn-primary btn-xs" })
-                                            @Html.ActionLink("Editar", "Edit", new { id = item.ent_Id }, new { @class = "btn btn-white btn-xs" })
 
                                         </td>
                                     </tr>
@@ -116,12 +128,74 @@
         </div>
     </div>
 </div>
-
+@*modal para inactivar*@
+<div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Inactivar Entrada</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input type="hidden" id="myid" />
+            <div class="modal-body">
+                ¿Está seguro que quiere Inactivar esta Entrada?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="InactivarConfirm">Sí</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*modal para activar*@
+<div class="modal fade" id="ModalEstado2" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Inactivar Entrada</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input type="hidden" id="myid" />
+            <div class="modal-body">
+                ¿Está seguro que quiere Inactivar esta Entrada?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="ActivarConfirm">Sí</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
 @**********************************************************************************MODALES*****************************************************************************@
 @**********************************************************************************MODALES*****************************************************************************@
 @**********************************************************************************MODALES*****************************************************************************@
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var id = 0;
+    $(document).on("click", "#tbEntrada tbody tr td input#btnInactivar", function () {
+        id = $(this).data('id');
+        $("#myid").val(id);
+        $("#ModalEstado").modal();
+    });
+    $("#InactivarConfirm").click(function () {
+        location.href = "Entrada/EstadoInactivar/" + id;
+    })
+
+    $(document).on("click", "#tbEntrada tbody tr td input#btnActivar", function () {
+        id = $(this).data('id');
+        $("#myid").val(id);
+        $("#ModalEstado2").modal();
+    });
+    $("#ActivarConfirm").click(function () {
+        location.href = "Entrada/Estadoactivar/" + id;
+    })
+
+</script>
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/app/Datepicker.js"></script>
 <script type="text/javascript">
@@ -147,5 +221,4 @@
             }
         });
     });
-
 </script>
