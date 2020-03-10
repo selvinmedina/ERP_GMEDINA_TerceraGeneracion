@@ -625,6 +625,7 @@
     <Compile Include="Models\RecursosHumanos\DatosProfesionales\cTitulos.cs" />
     <Compile Include="Models\RecursosHumanos\General\cAreas.cs" />
     <Compile Include="Models\RecursosHumanos\General\cCargos.cs" />
+    <Compile Include="Models\RecursosHumanos\General\cTareas.cs" />
     <Compile Include="Models\RecursosHumanos\General\cDepartamentos.cs" />
     <Compile Include="Models\RecursosHumanos\Empleados\cEmpleados.cs" />
     <Compile Include="Models\RecursosHumanos\General\cEmpresas.cs" />

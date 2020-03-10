@@ -1180,7 +1180,7 @@
         <AssociationConnector Association="ERP_GMEDINAModel.FK_acce_tbUsuario_usu_Id_rrhh_tbTareasCargos_tacar_UsuarioModifica" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_rrhh_tbCargos_car_Id_rrhh_tbTareasCargos_tacar_car_id" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_rrhh_tbTareas_tar_ID_FK_rrhh_tbTareasCargos_tacar_tar_Id" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

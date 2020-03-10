@@ -14796,23 +14796,6 @@
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Delete_Result>("UDP_RRHH_tbTareas_Delete", tar_IdParameter, tar_RazonInactivoParameter, tar_UsuarioModificaParameter, tar_FechaModificaParameter);
         }
     
-        public virtual ObjectResult<UDP_RRHH_tbTareas_Insert_Result> UDP_RRHH_tbTareas_Insert(string tar_Descripcion, Nullable<int> tar_UsuarioCrea, Nullable<System.DateTime> tar_FechaCrea)
-        {
-            var tar_DescripcionParameter = tar_Descripcion != null ?
-                new ObjectParameter("tar_Descripcion", tar_Descripcion) :
-                new ObjectParameter("tar_Descripcion", typeof(string));
-    
-            var tar_UsuarioCreaParameter = tar_UsuarioCrea.HasValue ?
-                new ObjectParameter("tar_UsuarioCrea", tar_UsuarioCrea) :
-                new ObjectParameter("tar_UsuarioCrea", typeof(int));
-    
-            var tar_FechaCreaParameter = tar_FechaCrea.HasValue ?
-                new ObjectParameter("tar_FechaCrea", tar_FechaCrea) :
-                new ObjectParameter("tar_FechaCrea", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Insert_Result>("UDP_RRHH_tbTareas_Insert", tar_DescripcionParameter, tar_UsuarioCreaParameter, tar_FechaCreaParameter);
-        }
-    
         public virtual ObjectResult<UDP_RRHH_tbTareas_Restore_Result> UDP_RRHH_tbTareas_Restore(Nullable<int> tar_Id, Nullable<int> tar_UsuarioModifica, Nullable<System.DateTime> tar_FechaModifica)
         {
             var tar_IdParameter = tar_Id.HasValue ?
@@ -14849,6 +14832,23 @@
                 new ObjectParameter("tar_FechaModifica", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Update_Result>("UDP_RRHH_tbTareas_Update", tar_IdParameter, tar_DescripcionParameter, tar_UsuarioModificaParameter, tar_FechaModificaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareas_Insert_Result> UDP_RRHH_tbTareas_Insert(string tar_Descripcion, Nullable<int> tar_UsuarioCrea, Nullable<System.DateTime> tar_FechaCrea)
+        {
+            var tar_DescripcionParameter = tar_Descripcion != null ?
+                new ObjectParameter("tar_Descripcion", tar_Descripcion) :
+                new ObjectParameter("tar_Descripcion", typeof(string));
+    
+            var tar_UsuarioCreaParameter = tar_UsuarioCrea.HasValue ?
+                new ObjectParameter("tar_UsuarioCrea", tar_UsuarioCrea) :
+                new ObjectParameter("tar_UsuarioCrea", typeof(int));
+    
+            var tar_FechaCreaParameter = tar_FechaCrea.HasValue ?
+                new ObjectParameter("tar_FechaCrea", tar_FechaCrea) :
+                new ObjectParameter("tar_FechaCrea", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Insert_Result>("UDP_RRHH_tbTareas_Insert", tar_DescripcionParameter, tar_UsuarioCreaParameter, tar_FechaCreaParameter);
         }
     }
 }

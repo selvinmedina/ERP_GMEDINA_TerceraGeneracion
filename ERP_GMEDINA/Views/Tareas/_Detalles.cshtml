@@ -4,12 +4,12 @@
         <div class="modal-content animated fadeIn">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
-                <h4 class="modal-title">Detalles Competencia</h4>
+                <h4 class="modal-title">Detalles Tareas</h4>
             </div>
             <div class="modal-body">
                 <dl class="dl-horizontal">
 					<dt>@Html.DisplayNameFor(model => model.tar_Descripcion)</dt>
-                    <dd id="comp_Descripcion"></dd>
+                    <dd id="tar_Descripcion"></dd>
 				</dl>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -30,13 +30,13 @@
                                         <td>Creado</td>
                                         @Html.HiddenFor(model => model.tar_UsuarioCrea, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                                         <td><span id="tbUsuario_usu_NombreUsuario">@Html.DisplayFor(model => model.tbUsuario.usu_NombreUsuario, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
-                                        <td><span id="comp_FechaCrea">@Html.DisplayFor(model => model.tar_FechaCrea, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
+                                        <td><span id="tar_FechaCrea">@Html.DisplayFor(model => model.tar_FechaCrea, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
                                     </tr>
                                     <tr>
                                         <td>Modificado</td>
                                         @Html.HiddenFor(model => model.tar_UsuarioModifica, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                                         <td><span id="tbUsuario1_usu_NombreUsuario">@Html.DisplayFor(model => model.tbUsuario1.usu_NombreUsuario, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
-                                        <td><span id="comp_FechaModifica">@Html.DisplayFor(model => model.tar_FechaModifica, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
+                                        <td><span id="tar_FechaModifica">@Html.DisplayFor(model => model.tar_FechaModifica, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })</span></td>
                                     </tr>
                                 </tbody>
                             </table>

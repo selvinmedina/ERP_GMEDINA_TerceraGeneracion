@@ -14,12 +14,12 @@ namespace ERP_GMEDINA.Models
     
         public int tar_Id { get; set; }
         public string tar_Descripcion { get; set; }
-        public bool tar_Estado { get; set; }
+        public Nullable<bool> tar_Estado { get; set; }
         public string tar_RazonInactivo { get; set; }
-        public int tar_UsuarioCrea { get; set; }
-        public System.DateTime tar_FechaCrea { get; set; }
-        public int tar_UsuarioModifica { get; set; }
-        public System.DateTime tar_FechaModifica { get; set; }
+        public Nullable<int> tar_UsuarioCrea { get; set; }
+        public Nullable<System.DateTime> tar_FechaCrea { get; set; }
+        public Nullable<int> tar_UsuarioModifica { get; set; }
+        public Nullable<System.DateTime> tar_FechaModifica { get; set; }
     
         public virtual tbUsuario tbUsuario { get; set; }
         public virtual tbUsuario tbUsuario1 { get; set; }

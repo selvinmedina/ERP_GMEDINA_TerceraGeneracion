@@ -24,7 +24,7 @@ function tablaEditar(ID) {
         'GET',
         function (obj) {
             if (obj != "-1" && obj != "-2" && obj != "-3") {
-                $("#FormEditar").find("#tar_Descripcion").val(obj.comp_Descripcion);
+                $("#FormEditar").find("#tar_Descripcion").val(obj.tar_Descripcion);
                 $('#ModalEditar').modal('show');
             }
         });
@@ -36,7 +36,7 @@ function tablaDetalles(ID) {
         'GET',
         function (obj) {
             if (obj != "-1" && obj != "-2" && obj != "-3") {
-                $("#ModalDetalles").find("#tar_Descripcion")["0"].innerText = obj.tar_Descripcion;
+                $("#ModalDetalles").find("#tar_Descripcion")[0].innerText = obj.tar_Descripcion;
                 $("#ModalDetalles").find("#tar_FechaCrea")["0"].innerText = FechaFormato(obj.tar_FechaCrea);
                 $("#ModalDetalles").find("#tar_FechaModifica")["0"].innerText = FechaFormato(obj.tar_FechaModifica);
                 $("#ModalDetalles").find("#tbUsuario_usu_NombreUsuario")["0"].innerText = obj.tbUsuario.usu_NombreUsuario;
