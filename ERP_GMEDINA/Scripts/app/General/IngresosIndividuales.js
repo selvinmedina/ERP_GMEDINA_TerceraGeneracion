@@ -22,7 +22,7 @@ function _ajax(params, uri, type, callback) {
     });
 }
 
-$(document).ready(function () {
+$(document).ready(function () {    
     //PLUGIN DE LOS CHECKS-BOX
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -99,6 +99,8 @@ function cargarGridDeducciones() {
                 //variable boton editar
                 var botonEditar = ListaIngresoIndividual[i].ini_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnEditarIngresosIndividuales" data-id = "' + ListaIngresoIndividual[i].ini_IdIngresosIndividuales + '">Editar</button>' : '';
 
+                var botonInactivar = ListaIngresoIndividual[i].ini_Activo == true ? '<button type="button" style="margin-right:3px;" class="btn btn-danger btn-xs" id="btnInactivarIngresoIndividual" data-id = "' + ListaIngresoIndividual[i].ini_IdIngresosIndividuales + '">Inactivar</button>' : '';
+
                 //variable donde está el boton activar
                 //var botonActivar = (ListaIngresoIndividual[i].ini_Activo) == false ? (esAdministrador) == "1" ? '<button type="button" style="margin-right:3px;" class="btn btn-default btn-xs" id="btnActivarIngresosIndividuales" data-id = "' + ListaIngresoIndividual[i].ini_IdIngresosIndividuales + '">Activar</button>' : '' : '';
                 var botonActivar = ListaIngresoIndividual[i].ini_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaIngresoIndividual[i].ini_IdIngresosIndividuales + '" type="button" class="btn btn-default btn-xs"  id="btnActivarIngresosIndividuales">Activar</button>' : '' : '';
@@ -111,7 +113,7 @@ function cargarGridDeducciones() {
                     (ListaIngresoIndividual[i].ini_Monto % 1 == 0) ? ListaIngresoIndividual[i].ini_Monto + ".00" : ListaIngresoIndividual[i].ini_Monto,
                     estadoRegistro,
                     ListaIngresoIndividual[i].ini_comentario,
-                    botonDetalles + botonEditar + botonActivar
+                    botonDetalles + botonEditar + botonInactivar + botonActivar
                 ]);
                 }
             //APLICAR EL MAX WIDTH
@@ -771,10 +773,14 @@ $(document).on("click", "#btnBa", function () {
     
 });
 
-$(document).on("click", "#btnInactivarIngresoIndividual", function () {
+$(document).on("click", "#IndexTabla tbody tr td #btnInactivarIngresoIndividual", function () {
+
+
     var validacionPermiso = userModelState("IngresosIndividuales/Inactivar");
 
     if (validacionPermiso.status == true) {
+        var id = $(this).data('id');
+        GB_Inactivar = id;
         $("#EditarIngresosIndividuales").modal('hide');
         $("#InactivarIngresosIndividuales").modal({ backdrop: 'static', keyboard: false });
 
