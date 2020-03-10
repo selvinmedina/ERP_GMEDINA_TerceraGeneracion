@@ -52,7 +52,7 @@ function cargarGridAcumuladosISR() {
                 var botonActivar = ListaAcumuladosISR[i].aisr_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaAcumuladosISR[i].aisr_Id + '" type="button" class="btn btn-default btn-xs"  id="btnActivarAcumuladosISR">Activar</button>' : '' : '';
 
                 //variable boton inactivar
-                var botoninactivar = ListaAcumuladosISR[i].aisr_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaAcumuladosISR[i].aisr_Id + '" type="button" class="btn btn-default btn-xs"  id="btnInactivarAcumuladosISR">Inactivar</button>' : '' : '';
+                var botoninactivar = ListaAcumuladosISR[i].aisr_Activo == true ? esAdministrador == "1" ? '<button data-id = "' + ListaAcumuladosISR[i].aisr_Id + '" type="button" class="btn btn-danger btn-xs"  id="btnInactivarAcumuladosISR">Inactivar</button>' : '' : '';
 
                 //AGREGAR EL ROW AL DATATABLE
                 $('#tblAcumuladosISR').dataTable().fnAddData([
@@ -728,7 +728,6 @@ $("#btnInactivarAcumuladosISREjecutar").click(function () {
         else {
             $("#InactivarAcumuladosISR").modal('hide');
             cargarGridAcumuladosISR();
-            window.location.reload();
             //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Exito',
@@ -785,7 +784,6 @@ $("#btnActivarAcumuladosISREjecutar").click(function () {
         else {
             $("#ActivarAcumuladosISR").modal('hide');
             cargarGridAcumuladosISR();
-            window.location.reload();
             iziToast.success({
                 title: 'Éxito',
                 message: '¡El registro se activó de forma exitosa!',
