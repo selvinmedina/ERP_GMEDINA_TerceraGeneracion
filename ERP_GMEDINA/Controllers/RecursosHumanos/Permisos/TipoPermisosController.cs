@@ -178,12 +178,12 @@ namespace ERP_GMEDINA.Controllers
 
             if (tbTipoPermisos.tper_Id != 0 )
             {
-                var id = (int)Session["id"];
+                //var id = (int)Session["id"];
                 var Usuario = (tbUsuario)Session["Usuario"];
                 try
                 {
                     db = new ERP_GMEDINAEntities();
-                    var list = db.UDP_RRHH_tbTipoPermisos_Delete(id, null, (int)Session["UserLogin"], Function.DatetimeNow());
+                    var list = db.UDP_RRHH_tbTipoPermisos_Delete(tbTipoPermisos.tper_Id, null, (int)Session["UserLogin"], Function.DatetimeNow());
                     foreach (UDP_RRHH_tbTipoPermisos_Delete_Result item in list)
                     {
                         msj = item.MensajeError = " ";

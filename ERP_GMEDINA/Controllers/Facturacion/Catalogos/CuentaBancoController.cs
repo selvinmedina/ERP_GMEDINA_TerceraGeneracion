@@ -59,8 +59,12 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("CuentasBanco/Create")]
-        public ActionResult Create([Bind(Include = "bcta_Id,ban_Id,mnda_Id,bcta_TipoCuenta,bcta_TotalCredito,bcta_TotalDebito,bcta_FechaApertura,bcta_Numero,bcta_UsuarioCrea,bcta_FechaCrea,bcta_UsuarioModifica,bcta_FechaModifica")] tbCuentasBanco tbCuentasBanco)
+        public ActionResult Create([Bind(Include = "bcta_Id,ban_Id,mnda_Id,bcta_TipoCuenta,bcta_TotalCredito,bcta_TotalDebito,bcta_Numero,bcta_UsuarioCrea,bcta_FechaCrea,bcta_UsuarioModifica,bcta_FechaModifica")] tbCuentasBanco tbCuentasBanco, string bcta_FechaApertura)
         {
+
+            string[] fecha = bcta_FechaApertura.Split('/');
+            var newfecha= fecha[1].ToString() + "-" +fecha[0].ToString() + "-" +fecha[2].ToString();
+            DateTime fechaApertura = DateTime.Parse(newfecha);
             tbCuentasBanco CuentasBanco = new tbCuentasBanco();
             if (ModelState.IsValid)
             {
@@ -75,7 +79,7 @@ namespace ERP_GMEDINA.Controllers
                         tbCuentasBanco.bcta_TipoCuenta,
                         tbCuentasBanco.bcta_TotalCredito,
                         tbCuentasBanco.bcta_TotalDebito,
-                        tbCuentasBanco.bcta_FechaApertura,
+                        fechaApertura,
                         tbCuentasBanco.bcta_Numero,
                         Function.GetUser(),
                         Function.DatetimeNow());
@@ -136,7 +140,7 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("CuentasBanco/Edit")]
-        public ActionResult Edit([Bind(Include = "bcta_Id,ban_Id,mnda_Id,bcta_TipoCuenta,bcta_TotalCredito,bcta_TotalDebito,bcta_FechaApertura,bcta_Numero,bcta_UsuarioCrea,bcta_FechaCrea,bcta_UsuarioModifica,bcta_FechaModifica, tbUsuario, tbUsuario1")] tbCuentasBanco CuentasBanco)
+        public ActionResult Edit([Bind(Include = "bcta_Id,ban_Id,mnda_Id,bcta_TipoCuenta,bcta_TotalCredito,bcta_TotalDebito,bcta_FechaApertura,bcta_Numero,bcta_UsuarioCrea,bcta_FechaCrea,bcta_UsuarioModifica,bcta_FechaModifica")] tbCuentasBanco CuentasBanco)
         {
             var Lista = Function.TipoCuentaList();
             if (ModelState.IsValid)

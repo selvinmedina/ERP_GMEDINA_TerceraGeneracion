@@ -115,7 +115,7 @@ namespace ERP_GMEDINA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="tpi_Id,tpi_Descripcion,tpi_UsuarioCrea,tpi_FechaCrea,tpi_UsuarioModifica,tpi_FechaModifica, tbUsuario, tbUsuario1")] tbTipoIdentificacion tbTipoIdentificacion)
+        public ActionResult Edit([Bind(Include="tpi_Id,tpi_Descripcion,tpi_UsuarioCrea,tpi_FechaCrea,tpi_UsuarioModifica,tpi_FechaModifica")] tbTipoIdentificacion tbTipoIdentificacion)
         {
             try
             {

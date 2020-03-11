@@ -64,7 +64,7 @@ function cargarGridISR() {
                 var botonActivar = ListaISR[i].isr_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaISR[i].isr_Id + '" type="button" class="btn btn-default btn-xs"  id="btnActivarISRModal">Activar</button>' : '' : '';
 
                 //variable boton inactivar
-                var botonInactivar = ListaISR[i].isr_Activo == false ? esAdministrador == "1" ? '<button type="button" data-id="' + ListaISR[i].isr_Id + '" class="btn btn-danger btn-xs" id="btnModalInactivarISR">Inactivar</button>' : '' : '';
+                var botonInactivar = ListaISR[i].isr_Activo == true ? esAdministrador == "1" ? '<button type="button" data-id="' + ListaISR[i].isr_Id + '" class="btn btn-danger btn-xs" id="btnModalInactivarISR">Inactivar</button>' : '' : '';
                 //agregar el row al datatable
                 $('#tblISR').dataTable().fnAddData([
                     ListaISR[i].isr_Id,
@@ -322,7 +322,6 @@ $(document).on("click", "#btnModalInactivarISR", function () {
         $("#btnInactivarISR").attr("disabled", false);
         var ID = $(this).data('id');
         GB_Inactivar = ID;
-        console.log(GB_Inactivar);
         //Mostrar el Modal
         $("#InactivarISR").modal({ backdrop: 'static', keyboard: false });
     }
@@ -353,7 +352,6 @@ $("#btnInactivarISR").click(function () {
         else {
             $("#InactivarISR").modal('hide');
             cargarGridISR();
-            window.location.reload();
             //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Exito',
@@ -415,7 +413,7 @@ $("#btnActivarISR").click(function () {
         else {
             $("#ActivarISR").modal('hide');
             cargarGridISR();
-            window.location.reload();
+            //window.location.reload();
             //Mensaje de exito de la edicion
             iziToast.success({
                 title: 'Éxito',

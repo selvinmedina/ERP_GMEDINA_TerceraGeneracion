@@ -18,11 +18,11 @@ $(document).on("click", "#tblBusquedaGenericaBox tbody tr td button#RemoveBox", 
     var table = $('#tbEntradaDetalle').DataTable();
     var box_Codigo = this.value;
     $(this).after('<button class="btn btn-primary btn-xs" value="' + box_Codigo + '" id="seleccionarBox" data-dismiss="modal">Seleccionar</button>');
-    this.remove()
+    this.remove();
     //var prod_CodigoTabla = table.rows("td:eq(0)").text();
     //var rows = $('tr')
     //var box_Codigo = table.rows(':eq(0)').data()[0][0];
-    console.log(box_Codigo)
+    console.log(box_Codigo);
     //$(this.value).append('<button class="btn btn-danger btn-xs" id="RemoveBox" data-dismiss="modal">Quitar</button>');
     //$(box_Codigo).$(this.remove());
     //var button = '<button class="btn btn-danger btn-xs" id="RemoveBox" data-dismiss="modal">Quitar</button>';
@@ -90,11 +90,11 @@ $(document).on("click", "#tblBusquedaGenericaBox tbody tr td button#seleccionarB
     var table = $('#tbEntradaDetalle').DataTable();
     var box_Codigo = this.value;
     $(this).after('<button class="btn btn-danger btn-xs" id="RemoveBox" data-dismiss="modal" value="' + box_Codigo + '">Quitar</button>');
-    this.remove()
+    this.remove();
     //var prod_CodigoTabla = table.rows("td:eq(0)").text();
     //var rows = $('tr')
     //var box_Codigo = table.rows(':eq(0)').data()[0][0];
-    console.log(box_Codigo)
+    console.log(box_Codigo);
     //$(this.value).append('<button class="btn btn-danger btn-xs" id="RemoveBox" data-dismiss="modal">Quitar</button>');
     //$(box_Codigo).$(this.remove());
     //var button = '<button class="btn btn-danger btn-xs" id="RemoveBox" data-dismiss="modal">Quitar</button>';
@@ -356,7 +356,10 @@ $(document).ready(function () {
 
             }
         });
-
+    
+    if (location.pathname != "/Entrada") {
+        GetRTNproveedor();
+    }
     var $rows = $('#Table_BuscarProducto tr');
     $("#search").keyup(function () {
         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -373,7 +376,7 @@ $(document).ready(function () {
     });
 });
 $(document).on("click", "#Table_BuscarProducto tbody tr td button#seleccionar", function () {
-    $('#Error_Barras').text('');
+    $('#Error_Barras').text('');    
     prod_CodigoBarrasItem = $(this).closest('tr').data('html');
     idItem = $(this).closest('tr').data('id');
     contentItem = $(this).closest('tr').data('content');
@@ -890,25 +893,28 @@ $(document).change("#prov_Id", function () {
 
 function GetRTNproveedor() {
     var codigoProveedor = $('#prov_Id').val();
-    $.ajax({
-        url: "/Entrada/GetRTNProveedor",
-        method: "POST",
-        dataType: 'json',
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ codigoProveedor: codigoProveedor }),
-    })
-    .done(function (data) {
-        if (data.length > 0) {
-            $('#Rtn').empty();
-            $.each(data, function (key, val) {
+    if (codigoProveedor!="") {
+        $.ajax({
+            url: "/Entrada/GetRTNProveedor",
+            method: "POST",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ codigoProveedor: codigoProveedor }),
+        })
+        .done(function (data) {
+            if (data.length > 0) {
+                $('#Rtn').empty();
+                $.each(data, function (key, val) {
+                    $('#Rtn').val(val);
+                });
+                $('#Rtn').trigger("chosen:updated");
+            }
+            else {
+                $('#Rtn').empty();
                 $('#Rtn').val(val);
-            });
-            $('#Rtn').trigger("chosen:updated");
-        }
-        else {
-            $('#Rtn').empty();
-            $('#Rtn').val(val);
-            console.log(val.prov_Id);
-        }
-    });
+                console.log(val.prov_Id);
+            }
+        });
+    }
+    
 }

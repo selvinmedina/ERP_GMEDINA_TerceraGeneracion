@@ -69,7 +69,7 @@
                                             {
                                                 <button type="button" data-id="@item.ini_IdIngresosIndividuales" class="btn btn-primary btn-xs" id="btnDetalleIngresosIndividuales">Detalles</button>
                                                 <button type="button" data-id="@item.ini_IdIngresosIndividuales" class="btn btn-default btn-xs" id="btnEditarIngresosIndividuales">Editar</button>
-                                                <button type="button"  data-id="@item.ini_IdIngresosIndividuales" class="btn btn-danger btn-xs" id="btnInactivarIngresoIndividual">Inactivar</button>
+                                                <button type="button" data-id="@item.ini_IdIngresosIndividuales" class="btn btn-danger btn-xs" id="btnInactivarIngresoIndividual">Inactivar</button>
                                             }
                                             <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             if (oUsuario?.usu_EsAdministrador == true && item.ini_Activo == false)
@@ -77,6 +77,7 @@
                                                 <button type="button" data-id="@item.ini_IdIngresosIndividuales" class="btn btn-primary btn-xs" id="btnDetalleIngresosIndividuales">Detalles</button>
                                                  <!-- ACTIVAR -->
                                                 <button type="button" data-id="@item.ini_IdIngresosIndividuales" class="btn btn-default btn-xs" id="btnActivarIngresosIndividuales">Activar</button>
+                                                
                                             }
                                         }
                                     </td>

@@ -42,7 +42,7 @@ $(document).ready(function () {
                 defaultContent: "<div>" +
                     "<a class='btn btn-primary btn-xs ' onclick='CallDetalles(this)' >Detalles</a>" +
                     "<a class='btn btn-default btn-xs ' onclick='CallEditar(this)'>Editar</a>" +
-                    "<a class='btn btn-danger btn-xs' onclick='inactivar(this)'>Inactivar</a>" +
+                    "<a class='btn btn-danger btn-xs fuera' id='fuera' onclick='inactivar(this)'>Inactivar</a>" +
                     "</div>"
             });
         }

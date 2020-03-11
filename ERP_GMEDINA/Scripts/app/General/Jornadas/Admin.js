@@ -1,5 +1,14 @@
 ﻿Admin = true;
-
+function inactivar(btn) {
+    var tr = $(btn).closest('tr');
+    var row = tabla.row(tr);
+    var id = row.data().ID;
+    tableinactivar(id);
+    CierraPopups();
+    $('#ModalInactivar').modal('show');
+    $("#ModalInactivar").find("#jor_RazonInactivo").val("");
+    $("#ModalInactivar").find("#jor_RazonInactivo").focus();
+}
 //Esta funcion llama al modal de Habilitar
 function hablilitar(btn) {
     var tr = $(btn).closest('tr');
@@ -8,6 +17,22 @@ function hablilitar(btn) {
     $("#txtIdRestore").val(id);
     $('#ModalHabilitar').modal('show');
 }
+
+//Esta funcion llama al modal de inHabilitar
+function inactivar(btn) {
+    var validacionPermiso = userModelState("Jornadas/Delete");
+    if (validacionPermiso.status == true) {
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $("#txtIdDelete").val(id);
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#eqtr_RazonInactivo").val("");
+        $("#ModalInactivar").find("#eqtr_RazonInactivo").focus();
+    }
+}
+
 
 //Cambiar el controlador para ejecutar el UDP de restaurar
 $("#btnActivar").click(function () {

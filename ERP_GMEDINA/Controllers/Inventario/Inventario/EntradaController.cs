@@ -25,6 +25,7 @@ namespace ERP_GMEDINA.Controllers
         [SessionManager("Entrada/Index")]
         public ActionResult Index()
         {
+            try { ViewBag.smserror = TempData["smserror"].ToString(); } catch { }
             ViewBag.estm_Id = new SelectList(db.tbEstadoMovimiento, "estm_Id", "estm_Descripcion");
             ViewBag.bod_Id = new SelectList(db.tbBodega, "bod_Id", "bod_Nombre");
             ViewBag.tent_Id = new SelectList(db.tbTipoEntrada, "tent_Id", "tent_Descripcion");
@@ -343,7 +344,7 @@ namespace ERP_GMEDINA.Controllers
                                                             , Editardetalle.ent_Id
                                                            , Editardetalle.prod_Codigo
                                                            , Editardetalle.entd_Cantidad
-                                                           , Editardetalle.box_Codigo
+                                                           , "0"/*Editardetalle.box_Codigo*/
                                                            , Editardetalle.entd_UsuarioCrea,
                                                            entr.entd_FechaCrea,
                                                            Function.GetUser(), Function.DatetimeNow()
@@ -553,11 +554,14 @@ namespace ERP_GMEDINA.Controllers
                                     {
                                         entd.entd_UsuarioCrea = 1;
                                         entd.entd_FechaCrea = DateTime.Now;
-
+                                        if (entd.box_Codigo == null)
+                                        {
+                                            entd.box_Codigo = "0";
+                                        }
                                         DETALLE = db.UDP_Inv_tbEntradaDetalle_Insert(Convert.ToInt16(MsjError)
                                                                                     , entd.prod_Codigo
-                                                                                    , entd.entd_Cantidad,
-                                                                                    entd.box_Codigo,
+                                                                                    , entd.entd_Cantidad
+                                                                                    ,entd.box_Codigo,
                                                                                     Function.GetUser(), Function.DatetimeNow());
                                         foreach (UDP_Inv_tbEntradaDetalle_Insert_Result B_detalle in DETALLE)
                                             MensajeError = B_detalle.MensajeError;
@@ -594,31 +598,31 @@ namespace ERP_GMEDINA.Controllers
 
         public ActionResult EstadoInactivar(int? id)
         {
-
             try
             {
                 tbEntrada obj = db.tbEntrada.Find(id);
                 IEnumerable<object> list = null;
                 var MsjError = "";
-                list = db.UDP_Inv_tbEntrada_Update_Estado(id, Models.Helpers.EntradaInactivada, Function.GetUser(), Function.DatetimeNow());
+                list = db.UDP_Inv_tbEntrada_Update_Estado(id, 6/*Models.Helpers.EntradaInactivada*/, Function.GetUser(), Function.DatetimeNow());
                 foreach (UDP_Inv_tbEntrada_Update_Estado_Result obje in list)
                     MsjError = obje.MensajeError;
 
-                if (MsjError == "-1")
+                if (MsjError.StartsWith("-1"))
                 {
-                    ModelState.AddModelError("", "No se Actualizo el registro");
-                    return RedirectToAction("Edit/" + id);
+                    TempData["smserror"] = "No se ha podido inactivar el registro";
+                    ViewBag.smserror = TempData["smserror"];
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    return RedirectToAction("Edit/" + id);
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception Ex)
             {
-                Ex.Message.ToString();
-                ModelState.AddModelError("", "No se Actualizo el registro");
-                return RedirectToAction("Edit/" + id);
+                TempData["smserror"] = "No se ha podido inactivar el registro " + Ex.Message.ToString();
+                ViewBag.smserror = TempData["smserror"];
+                return RedirectToAction("Index");
             }
 
 
@@ -637,21 +641,22 @@ namespace ERP_GMEDINA.Controllers
                 foreach (UDP_Inv_tbEntrada_Update_Estado_Result obje in list)
                     MsjError = obje.MensajeError;
 
-                if (MsjError == "-1")
+                if (MsjError.StartsWith("-1"))
                 {
-                    ModelState.AddModelError("", "No se Actualizo el registro");
-                    return RedirectToAction("Edit/" + id);
+                    TempData["smserror"] = "No se ha podido activar el registro";
+                    ViewBag.smserror = TempData["smserror"];
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    return RedirectToAction("Edit/" + id);
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception Ex)
             {
-                Ex.Message.ToString();
-                ModelState.AddModelError("", "No se Actualizo el registro");
-                return RedirectToAction("Edit/" + id);
+                TempData["smserror"] = "No se ha podido activar el registro " + Ex.Message.ToString();
+                ViewBag.smserror = TempData["smserror"];
+                return RedirectToAction("Index");
             }
 
 
@@ -707,7 +712,7 @@ namespace ERP_GMEDINA.Controllers
 
                 if (MsjError == "-1")
                 {
-                    ModelState.AddModelError("", "No se Actualizo el registro");
+                    ViewBag.smserror = TempData["smserror"].ToString();
                     return RedirectToAction("Edit/" + id);
                 }
                 else

@@ -62,7 +62,7 @@
                                             {
                                                 <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-primary btn-xs" id="btnModalDetalles">Detalles</button>
                                                     <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-default btn-xs" id="btnModalEdit">Editar</button>
-                                                    <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-danger btn-xs" id="btnModalEliminar" onclick="InactivarBodega(@item.aces_IdAuxilioCesantia)">Inactivar</button>
+                                                    <button type="button" data-id="@item.aces_IdAuxilioCesantia" class="btn btn-danger btn-xs" id="btnModalEliminar">Inactivar</button>
                                             }
                                                 <!-- validar si el usuario es administrador para mostrar el boton "activar" -->
                                             if (esAdmin == true && item.aces_Activo == false)
@@ -148,7 +148,7 @@
                 ¿Está seguro que desea inactivar este registro?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger " id="btnEliminarAuxCes">Si</button>
+                <button type="button" class="btn btn-danger " id="btnEliminarAuxCes" data-dismiss="modal">Si</button>
                 <button type="button" class="btn btn-white" id="btnCerrarInactivar" data-dismiss="modal">No</button>
             </div>
         </div>
@@ -164,7 +164,7 @@
                 ¿Está seguro que desea activar este registro?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnActivarAuxCes">Si</button>
+                <button type="button" class="btn btn-primary" id="btnActivarAuxCes" data-dismiss="modal">Si</button>
                 <button type="button" class="btn btn-white" data-dismiss="modal">No</button>
             </div>
         </div>

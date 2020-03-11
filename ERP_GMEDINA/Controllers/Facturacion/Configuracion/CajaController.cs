@@ -164,7 +164,7 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionManager("Caja/Edit")]
-        public ActionResult Edit([Bind(Include = "cja_Id,cja_Descripcion,suc_Id,cja_UsuarioCrea,cja_FechaCrea,cja_UsuarioModifica,cja_FechaModifica,tbUsuario,tbUsuario1")] tbCaja tbCaja)
+        public ActionResult Edit([Bind(Include = "cja_Id,cja_Descripcion,suc_Id,cja_UsuarioCrea,cja_FechaCrea,cja_UsuarioModifica,cja_FechaModifica")] tbCaja tbCaja)
         {
             List<tbUsuario> List = Function.getUserInformation();
             int SucursalId = 0;
@@ -183,7 +183,7 @@ namespace ERP_GMEDINA.Controllers
                 {
                     string MensajeError = "";
                     IEnumerable<object> list = null;
-                    list = db.UDP_Vent_tbCaja_Update(tbCaja.cja_Id, tbCaja.cja_Descripcion, tbCaja.suc_Id, tbCaja.cja_UsuarioCrea, tbCaja.cja_FechaCrea, Function.GetUser(), Function.DatetimeNow());
+                    list = db.UDP_Vent_tbCaja_Update(tbCaja.cja_Id, tbCaja.cja_Descripcion, SucursalId, tbCaja.cja_UsuarioCrea, tbCaja.cja_FechaCrea, Function.GetUser(), Function.DatetimeNow());
                     foreach (UDP_Vent_tbCaja_Update_Result caja in list)
                         MensajeError = caja.MensajeError.ToString();
                     if (MensajeError.StartsWith("-1"))

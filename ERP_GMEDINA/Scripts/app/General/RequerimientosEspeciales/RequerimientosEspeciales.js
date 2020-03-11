@@ -47,6 +47,7 @@ function llenarTabla() {
         '/RequerimientosEspeciales/llenarTabla',
         'POST',
         function (Lista) {
+            var tabla = $("#IndexTable").DataTable();
             tabla.clear();
             tabla.draw();
             if (validarDT(Lista)) {
@@ -54,22 +55,42 @@ function llenarTabla() {
             }
             $.each(Lista, function (index, value) {
                 var Acciones = value.resp_Estado == 1
-                  ?null:
+                  ? "<div>" +
+                       "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a> " +
+                       "<a class='btn btn-default btn-xs ' onclick='CallEditar(this)' >Editar</a> " +
+                       "<a class='btn btn-danger btn-xs ' onclick='btnInactivar(" + value.resp_Id + ")' id='InActivar'>Inactivar</a> " +
+                   "</div>" :
                   "<div>" +
                        "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a>" +
                        "<a class='btn btn-default btn-xs ' onclick='hablilitar(this)' >Activar</a>" +
                    "</div>";
                 if (value.resp_Estado > fill) {
-                tabla.row.add({
-                    ID: value.resp_Id,
-                    "Número" : value.resp_Id,
-                    Descripción: value.resp_Descripcion,
-                    Acciones: Acciones,
-                    Estado: value.resp_Estado ? "Activo":"Inactivo"
-                }).draw();
+                    tabla.row.add({
+                        ID: value.resp_Id,
+                        "Número": value.resp_Id,
+                        Descripción: value.resp_Descripcion,
+                        Estado: value.resp_Estado ? "Activo" : "Inactivo",
+                        Acciones: Acciones
+                    });
                 }
+                tabla.draw();
             });
         });
+}
+
+function CallInactivar(btn) {
+    //tablaDetalles(id);
+    var validacionPermiso = userModelState("RequerimientosEspeciales/Delete");
+    if (validacionPermiso.status == true) {
+        CierraPopups();
+        var tr = $(btn).closest('tr');
+        var row = tabla.row(tr);
+        var id = row.data().ID;
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#resp_Id").val(id);
+        //$("#ModalInactivar").find("#fare_RazonInactivo").val("");
+        //$("#ModalInactivar").find("#fare_RazonInactivo").focus();
+    }
 }
 
 //Botones GET
@@ -98,7 +119,10 @@ $("#btnEditar").click(function () {
             });
     }
 });
-$("#btnInactivar").click(function () {
+//$("#btnInactivar").click(function () {
+function btnInactivar(id) {
+
+    $('#txtinput').val(id);
     var validacionPermiso = userModelState("RequerimientosEspeciales/Delete");
     if (validacionPermiso.status == true) {
         CierraPopups();
@@ -106,7 +130,7 @@ $("#btnInactivar").click(function () {
         $("#ModalInactivar").find("#resp_RazonInactivo").val("");
         $("#ModalInactivar").find("#resp_RazonInactivo").focus();
     }
-});
+};
 //botones POST
 $("#btnGuardar").click(function () {
     var data = $("#FormNuevo").serializeArray();
@@ -134,7 +158,9 @@ $("#InActivar").click(function () {
     var data = $("#FormInactivar").serializeArray();
     data = serializar(data);
     if (data != null) {
-        data.habi_Id = id;
+        //data.resp_Id=
+        console.log($('#resp_Id').val());
+        data.resp_Id = $('#txtinput').val();
         data = JSON.stringify({ tbRequerimientosEspeciales: data });
         _ajax(data,
             '/RequerimientosEspeciales/Delete',
@@ -142,9 +168,9 @@ $("#InActivar").click(function () {
             function (obj) {
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
                     CierraPopups();
-                    llenarTabla();
                     LimpiarControles(["resp_Descripcion", "resp_RazonInactivo"]);
-                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosa.");
+                    MsgSuccess("¡Éxito!", "El registro se inactivó de forma exitosaa.");
+                    llenarTabla();
                 } else {
                     MsgError("Error", "No se inactivó el registro, contacte al administrador.");
                 }

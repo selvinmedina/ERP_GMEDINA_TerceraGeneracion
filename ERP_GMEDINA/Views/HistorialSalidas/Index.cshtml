@@ -53,7 +53,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-white pull-right" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary pull-left" id="btnActualizar">Actualizar</button>
-                <button type="button" class="btn btn-danger pull-left" id="btnInactivar">Inactivar</button>
+                @*<button type="button" class="btn btn-danger pull-left" id="btnInactivar">Inactivar</button>*@
             </div>
         </div>
     </div>
@@ -70,6 +70,7 @@
                 <h4 class="modal-title">¿Seguro que desea inactivar el registro?</h4>
             </div>
             <div class="modal-body" id="ModalInactivar">
+                <input type="hidden" id="txtIdDelete" />
                 <p>
                     @Html.Partial("_InhabilitarHistorialSalidas", new ERP_GMEDINA.Models.tbHistorialSalidas())
 

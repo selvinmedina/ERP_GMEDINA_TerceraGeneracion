@@ -197,7 +197,7 @@ namespace ERP_GMEDINA.Controllers
                 {
                     if (Function.GetUserRols("EstadoFactura/Edit"))
                     {
-                        if (ModelState.IsValid)
+                        if (!ModelState.IsValid)
                         {
                             try
                             {

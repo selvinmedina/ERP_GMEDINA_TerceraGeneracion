@@ -51,22 +51,13 @@ function format(obj) {
     div += '</div>';
     return div ;
 }
-$("#btnInactivar").click(function () {
-    var validacionPermiso = userModelState("Personas/Detalles");
-    if (validacionPermiso.status == true) {
-        CierraPopups();
-        id = sessionStorage.getItem("IdPersona")
-        $('#ModalInactivar').modal('show');
-        $("#ModalInactivar").find("#per_Id").val(id);
-        $("#ModalInactivar").find("#per_RazonInactivo").val("");
-        $("#ModalInactivar").find("#per_RazonInactivo").focus();
-        llenarTabla();
-    }
-});
+
 $("#InActivar").click(function () {
     var data = $("#FormInactivar").serializeArray();
     data = serializar(data);
     if (data != null) {
+        data.per_Id = $("#txtIdDelete").val();
+        //data.per_RazonInactivo = $("#")
         data = JSON.stringify({ tbPersonas: data });
         _ajax(data,
             '/Personas/Delete',
