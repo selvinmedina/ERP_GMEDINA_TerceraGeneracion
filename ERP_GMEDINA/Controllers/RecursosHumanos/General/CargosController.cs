@@ -17,6 +17,28 @@ namespace ERP_GMEDINA.Controllers
         Models.Helpers Function = new Models.Helpers();
         [SessionManager("Cargos/Index")]
         //GET: Cargos
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetTareas()
+        {
+            db = new ERP_GMEDINAEntities();
+            
+               var  list = db.tbTareas.Where(x => x.tar_Estado == true)
+                        .Select(
+                        t => new
+                        {
+                            tar_Id = t.tar_Id,
+                            tar_Descripcion = t.tar_Descripcion
+                        }
+                        ).ToList();
+            
+                
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index()
         {
             tbCargos tbCargos =new tbCargos {car_Estado=true };

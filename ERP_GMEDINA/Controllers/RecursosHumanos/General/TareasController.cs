@@ -39,6 +39,7 @@ namespace ERP_GMEDINA.Controllers
                             tar_Estado = t.tar_Estado,
                         }
                         ).ToList();
+
                     return Json(tbTareas, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)

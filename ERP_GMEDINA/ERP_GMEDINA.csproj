@@ -5637,6 +5637,7 @@
     <Content Include="Views\Tareas\_Detalles.cshtml" />
     <Content Include="Views\Tareas\_Edit.cshtml" />
     <Content Include="Views\Tareas\Index.cshtml" />
+    <Content Include="Views\Cargos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

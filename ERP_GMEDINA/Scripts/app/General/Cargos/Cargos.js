@@ -227,3 +227,37 @@ $("#btnActualizar").click(function () {
         }
     }
 });
+
+
+$('input[type=checkbox]').on('change', function () {
+    if ($(this).is(':checked')) {
+        alert("checkbox " + $(this).prop("id") + " ("+$(this).val() + ") => Seleccionado");     
+    }
+    else
+    {
+        alert("checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => noSeleccionado");
+    }
+})
+
+$(document).ready(function () {
+
+    $.ajax({
+        url: "/Cargos/GetTareas",
+        method: "POST",
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(),
+    })
+    .done(function (data) {
+        if (data.length > 1) {
+            $.each(data, function (i, item) {
+                newTr = '';
+                newTr += '<tr data-id="' + item.tar_Id + '">';
+                newTr += '<td id="objpantalla' + item.tar_Id + '">' + '<input type="checkbox" class="js-switch js-check-change" id="chk' + item.tar_Id + '" name="vehicle1" value="Bike">' + '</td>';
+                newTr += '<td id="objpantalla' + item.tar_Id + '">' + item.tar_Descripcion + '</td>';
+                newTr += '</tr>';
+                $('#NoAsignados tbody').append(newTr);
+            })
+        }
+    })
+});
