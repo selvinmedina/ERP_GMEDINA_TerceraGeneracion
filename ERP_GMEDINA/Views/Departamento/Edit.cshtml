@@ -121,16 +121,14 @@
                     <tr>
                         <td>Creado por  </td>
                         <td>
-                            @Html.DisplayFor(model => model.tbUsuario1.usu_Nombres)
-                            @Html.DisplayFor(model => model.tbUsuario1.usu_Apellidos)
+                            @Html.DisplayFor(model => model.tbUsuario1.usu_NombreUsuario)
                         </td>
                         <td>@Html.DisplayFor(model => model.dep_FechaCrea)</td>
                     </tr>
                     <tr>
                         <td>Modificado por</td>
                         <td>
-                            @Html.DisplayFor(model => model.tbUsuario.usu_Nombres)
-                            @Html.DisplayFor(model => model.tbUsuario.usu_Apellidos)
+                            @Html.DisplayFor(model => model.tbUsuario.usu_NombreUsuario)
                         </td>
                         <td>@Html.DisplayFor(model => model.dep_FechaModifica)</td>
                     </tr>
@@ -141,7 +139,7 @@
 </div>
 }  
 <!-- CREAR REGISTRO MODAL-->
-<div class="modal fade" id="modalregistro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalregistro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -214,7 +212,7 @@
 </div>
 
 <!-- Edit Municipio Modal-->
-<div class="modal fade" id="EditMunicipioModal">
+<div class="modal fade" id="EditMunicipioModal" data-backdrop="static" data-keyboard="false" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
