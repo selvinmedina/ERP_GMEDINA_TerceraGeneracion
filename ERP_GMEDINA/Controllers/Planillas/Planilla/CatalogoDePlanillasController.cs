@@ -633,6 +633,7 @@ namespace ERP_GMEDINA.Controllers
             string response = "bien";
             string mensajeError = "";
             IEnumerable<object> planillaInactivada = null;
+            IQueryable<CatalogoDePlanillasViewModel> tbCatalogoDePlanillas = null;
             using (var dbContextTransaccion = db.Database.BeginTransaction())
             {
                 try
@@ -646,6 +647,7 @@ namespace ERP_GMEDINA.Controllers
                     if (mensajeError.Contains("-1"))
                         response = "error";
 
+                    tbCatalogoDePlanillas = GetPlanilla((Session["sesionUsuario"] as tbUsuario)?.usu_EsAdministrador);
                     dbContextTransaccion.Commit();
                 }
                 catch (Exception)
@@ -655,7 +657,8 @@ namespace ERP_GMEDINA.Controllers
 
                 }
             }
-            return Json(response, JsonRequestBehavior.AllowGet);
+            object json = new { data = tbCatalogoDePlanillas, response = response };
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

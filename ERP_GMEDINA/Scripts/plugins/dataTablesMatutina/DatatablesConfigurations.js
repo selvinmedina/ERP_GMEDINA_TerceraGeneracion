@@ -94,4 +94,7 @@ function CallEditar(btn) {
     var id = row.data().ID;
     tablaEditar(id);
 }
-
+function inactivar(btn) {
+    
+    tablaEditar(id);
+}

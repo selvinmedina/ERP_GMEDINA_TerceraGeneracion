@@ -167,7 +167,10 @@
                                     </dd>
 
                             }
-                            @Html.ActionLink("Editar", "Edit", new { id = Model.ent_Id }, new { @class = "btn btn-primary" })
+                            @if (Model.estm_Id != 6)
+                            {
+                                @Html.ActionLink("Editar", "Edit", new { id = Model.ent_Id }, new { @class = "btn btn-primary" })
+                            }
 
                         </dl>
                     <div class="row">
