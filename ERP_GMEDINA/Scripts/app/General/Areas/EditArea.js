@@ -293,7 +293,6 @@ $("#ModalEditar").find("#btnActualizar").on("click", function () {
 );
 });
 $("#ModalInactivar").find("#InActivar").on("click", function () {
-    if (Entidad == 'Depto') {
   var depto =
  {
      depto_Id: idDelete,
@@ -307,10 +306,9 @@ $("#ModalInactivar").find("#InActivar").on("click", function () {
             .remove()
   .draw();
   inactivar.push(depto);
-  //$('#ModalEditar').modal('hide');
+  $('#ModalEditar').modal('hide');
   dRow = null;
- }
-
+  CierraPopups();
 });
 //$("#btnInactivar").on("click", function () {
 // $("#depto_RazonInactivo").val("");
@@ -332,14 +330,10 @@ function Inactivar(btn) {
         
         depto_Id = datos.Id;
         idDelete = depto_Id;
-        //var row = tabla.row(tr);
-        //var id = row.data().ID;
-        //$("#txtIdDelete").val(id);
         CierraPopups();
         $('#ModalInactivar').modal('show');
         $("#ModalInactivar").find("#depto_RazonInactivo").val("");
         $("#ModalInactivar").find("#depto_RazonInactivo").focus();
-        Entidad = "Depto";
     }
 }
 //$("#btnInactivarArea").on("click", function () {
