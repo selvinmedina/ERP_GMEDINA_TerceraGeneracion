@@ -118,41 +118,41 @@
 
                     </table>
 
-                    <div class="modal fade" id="ModalAnular1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5 class="modal-title" id="exampleModalLabel"> Usuario</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <p><label value="">Modificar el estado del Usuario? </label></p>
-
-                                    <input type="hidden" name="conten" id="conten">
-                                    <input type="hidden" name="TruFals" id="TruFals">
-
-                                    <textarea rows="4" cols="50" placeholder="Ingrese la razon de Inactivación" id="razonInac" name="razonInac" onKeyPress="return CaracteresNombre(event)" , onkeyup="this.value=NumText(this.value)"></textarea>
-                                    <p id="Mensaje" style="color:red"></p>
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button class="btn btn-primary btn-sm" type="button" id="Inactivar">Si</button>
-                                    @*<button type="button" class="btn btn-primary" name="Si" id="Si" data-dismiss="modal" onclick="InactivarCliente();">Si</button>*@
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                 
 
                 </div>
             </div>
         </div>
     </div>
  </div>
+<div class="modal fade" id="ModalAnular1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel"> Usuario</h5>
+            </div>
+            <div class="modal-body">
+                <p><label value="">Modificar el estado del Usuario? </label></p>
 
+                <input type="hidden" name="conten" id="conten">
+                <input type="hidden" name="TruFals" id="TruFals">
+
+                <textarea rows="4" cols="50" placeholder="Ingrese la razon de Inactivación" id="razonInac" name="razonInac" onKeyPress="return CaracteresNombre(event)" , onkeyup="this.value=NumText(this.value)"></textarea>
+                <p id="Mensaje" style="color:red"></p>
+            </div>
+
+
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" type="button" id="Inactivar">Si</button>
+                @*<button type="button" class="btn btn-primary" name="Si" id="Si" data-dismiss="modal" onclick="InactivarCliente();">Si</button>*@
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/app/RolesUsuarioEdit.js"></script>
 <script src="~/Scripts/app/DataTable.js"></script>

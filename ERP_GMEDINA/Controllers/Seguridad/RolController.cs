@@ -25,8 +25,14 @@ namespace ERP_GMEDINA.Controllers
         [SessionManager("Rol/Index")]
         public ActionResult Index()
         {
+            try
+            { ViewBag.smserror = TempData["smserror"].ToString(); }
+            catch (Exception)
+            { }
+
             return View(db.tbRol.ToList());
         }
+
         public ActionResult _IndexAccesoRol()
         {
             return View();
@@ -75,7 +81,7 @@ namespace ERP_GMEDINA.Controllers
             }
             return View(tbRol);
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -118,8 +124,10 @@ namespace ERP_GMEDINA.Controllers
                 Ex.Message.ToString();
                 ModelState.AddModelError("", "No se pudo actualizar el Estado , Contacte al Administrador");
             }
-            return RedirectToAction("Edit/" + id);
+            return RedirectToAction("Index");//cambiado a Index 
         }
+
+
         public ActionResult Inactivar(int id)
         {
             try
@@ -133,10 +141,10 @@ namespace ERP_GMEDINA.Controllers
                 if (Msj.StartsWith("-1"))
                 {
                     TempData["smserror"] = " No se puede inactivar el rol porque ya hay usuarios asignados con este rol.";
-                    ViewBag.smserror = TempData["smserror"];
+                 
 
                     ModelState.AddModelError("", "No se puede inactivar el rol");
-                    return RedirectToAction("Edit/" + id);
+                    return Json(JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception Ex)
@@ -144,7 +152,7 @@ namespace ERP_GMEDINA.Controllers
                 Ex.Message.ToString();
                 ModelState.AddModelError("", "No se pudo actualizar el Estado , Contacte al Administrador");
             }
-            return RedirectToAction("Edit/" + id);
+            return Json(JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult AgregarObjeto(int idRol, ICollection<tbAccesoRol> RolAcceso)
@@ -207,7 +215,7 @@ namespace ERP_GMEDINA.Controllers
                     {
                         if (DescripcionRol != "")
                         {
-                            Rol = db.UDP_Acce_tbRol_Insert(DescripcionRol, Models.Helpers.RolActivo, Function.GetUser(), Function.DatetimeNow());
+                            Rol = db.UDP_Acce_tbRol_Insert(DescripcionRol, true, Function.GetUser(), Function.DatetimeNow());
                             foreach (UDP_Acce_tbRol_Insert_Result vRol in Rol)
                                 Msj1 = vRol.MensajeError;
                             if (!Msj1.StartsWith("-1"))
@@ -319,8 +327,8 @@ namespace ERP_GMEDINA.Controllers
                         {
                             foreach (tbAccesoRol vAccesoRol in RolAcceso)
                             {
-                               db.UDP_Acce_tbAccesoRol_Delete(idRol, vAccesoRol.obj_Id);
-                                
+                                db.UDP_Acce_tbAccesoRol_Delete(idRol, vAccesoRol.obj_Id);
+
                             }
                         }
                         var Listado = db.SDP_Acce_GetUserRols(Function.GetUser(), "").ToList();
@@ -336,7 +344,7 @@ namespace ERP_GMEDINA.Controllers
 
             }
         }
-        
+
         //[HttpPost]
         public ActionResult ExportReport()
         {
