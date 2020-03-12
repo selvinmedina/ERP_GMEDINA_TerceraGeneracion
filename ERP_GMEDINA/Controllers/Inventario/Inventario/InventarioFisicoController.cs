@@ -385,7 +385,7 @@ namespace ERP_GMEDINA.Controllers
                         return RedirectToAction("Edit/" + MsjError);
                     }
                 }
-                return RedirectToAction("Edit");
+                return RedirectToAction("Index");
             }
             ViewBag.bodegas = new SelectList(db.tbBodega, "bod_Id", "bod_Nombre", tbInventarioFisico.bod_Id);
             this.listas();
