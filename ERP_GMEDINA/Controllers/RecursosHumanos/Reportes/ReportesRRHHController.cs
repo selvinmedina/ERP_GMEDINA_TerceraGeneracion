@@ -627,12 +627,12 @@ namespace ERP_GMEDINA.Controllers
             command.CommandText = "select * from rrhh.V_RPT_HistorialPermisos where 1 = 1 ";
             if (emp_Id != null)
             {
-                command.CommandText += "and emp_Id = @emp_Id";
+                command.CommandText += "and Codigo_Empleado = @emp_Id";
                 command.Parameters.AddWithValue("@emp_Id", SqlDbType.Int).Value = emp_Id;
             }
             if (tper_Id != null)
             {
-                command.CommandText += " and tper_Id = @tper_Id";
+                command.CommandText += " and Codigo_tipo_Permiso = @tper_Id";
                 command.Parameters.AddWithValue("@tper_Id", SqlDbType.Int).Value = tper_Id;
             }
             if (FechaInicio != null && FechaFin != null)
