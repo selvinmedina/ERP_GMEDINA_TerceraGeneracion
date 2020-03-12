@@ -122,6 +122,7 @@ $("#btnEditar").click(function () {
 $("#btnGuardar").click(function () {
 
     var data = $("#FormNuevo").serializeArray();
+    console.log(data);
     data = serializar(data);
     if (data != null) {
         let a = parseFloat(data.car_SueldoMinimo);
@@ -138,7 +139,7 @@ $("#btnGuardar").click(function () {
 
             }
             else {
-                data = JSON.stringify({ tbCargos: data });
+                data = JSON.stringify({ tbCargos: data, tareas:AccesoTarea });
                 _ajax(data,
                     '/Cargos/Create',
                     'POST',
@@ -148,6 +149,7 @@ $("#btnGuardar").click(function () {
                             MsgSuccess("¡Éxito!", "El registro se agregó de forma exitosa.");
                             LimpiarControles(["car_Descripcion", "car_RazonInactivo", "car_SueldoMaximo", "car_SueldoMinimo"]);
                             llenarTabla();
+                            window.location.href = "http://localhost:51144/Cargos";
 
                         } else {
                             MsgError("Error", "No se agregó el registro, contacte al administrador.");
@@ -229,15 +231,7 @@ $("#btnActualizar").click(function () {
 });
 
 
-$('input[type=checkbox]').on('change', function () {
-    if ($(this).is(':checked')) {
-        alert("checkbox " + $(this).prop("id") + " ("+$(this).val() + ") => Seleccionado");     
-    }
-    else
-    {
-        alert("checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => noSeleccionado");
-    }
-})
+
 
 $(document).ready(function () {
 
@@ -253,11 +247,54 @@ $(document).ready(function () {
             $.each(data, function (i, item) {
                 newTr = '';
                 newTr += '<tr data-id="' + item.tar_Id + '">';
-                newTr += '<td id="objpantalla' + item.tar_Id + '">' + '<input type="checkbox" class="js-switch js-check-change" id="chk' + item.tar_Id + '" name="vehicle1" value="Bike">' + '</td>';
+                newTr += '<td>' + '<input type="checkbox" class="js-switch js-check-change" id="chk' + item.tar_Id + '" >' + '</td>';
                 newTr += '<td id="objpantalla' + item.tar_Id + '">' + item.tar_Descripcion + '</td>';
                 newTr += '</tr>';
                 $('#NoAsignados tbody').append(newTr);
             })
+
+            $('#Asignados> tbody > tr').each(function () {
+                $(this).remove();
+            })
+
+
+
         }
     })
 });
+
+var AccesoTarea = []
+
+$('#Add').click(function () {
+    $('#NoAsignados> tbody > tr').each(function () {
+        idItem = $(this).data('id');
+        var objpantalla;
+
+        if ($('#chk' + idItem).is(':checked')) {
+            active = $(this)
+            var Asignados = $('#Asignados').length
+            $('#NoAsignados tbody').append(active)
+            $('#chk' + idItem).prop('checked', false);
+            $(this).remove();
+            $('#Asignados tbody').append(active)
+            AccesoTarea.push(idItem);
+            console.log(AccesoTarea)
+
+        }
+    })
+})
+
+$('#Remove').click(function () {
+    $('#Asignados> tbody > tr').each(function () {
+        idItem = $(this).data('id');
+        var objpantalla;
+
+        if ($('#chk' + idItem).is(':checked')) {
+            active = $(this)
+            $('#chk' + idItem).prop('checked', false);
+            $(this).remove();
+            $('#NoAsignados tbody').append(active)
+        }
+    })
+})
+

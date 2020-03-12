@@ -207,7 +207,7 @@ namespace ERP_GMEDINA.Controllers
                         {
                             return Json(new { codigo = "-3", input = "car_Descripcion", result = tbAreas.car_Descripcion }, JsonRequestBehavior.AllowGet);
                         }
-                        tbAreas.car_Id = int.Parse(item.MensajeError);
+                        tbAreas.car_Id = int.Parse(item.MensajeError.ToString());
                     }
                     var list = db.UDP_RRHH_tbAreas_Insert(
                         tbAreas.suc_Id,
@@ -240,7 +240,7 @@ namespace ERP_GMEDINA.Controllers
                             {
                                 return Json(new { codigo = "-4", input = "car_Descripcion", result = item.tbCargos.car_Descripcion }, JsonRequestBehavior.AllowGet);
                             }
-                            item.tbCargos.car_Id = int.Parse(i.MensajeError);
+                            item.tbCargos.car_Id = int.Parse(i.MensajeError.ToString());
                         }
                         var depto = db.UDP_RRHH_tbDepartamentos_Insert(
                             tbAreas.area_Id,
@@ -379,7 +379,7 @@ namespace ERP_GMEDINA.Controllers
                                 {
                                     return Json(new { codigo = "-3", Accion = "i" }, JsonRequestBehavior.AllowGet);
                                 }
-                                item.car_Id = int.Parse(i.MensajeError);
+                                item.car_Id = int.Parse(i.MensajeError.ToString());
                             }
                             var depto = db.UDP_RRHH_tbDepartamentos_Insert(
                                 cAreas.area_Id,

@@ -4206,31 +4206,6 @@
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbCargos_Delete_Result>("UDP_RRHH_tbCargos_Delete", car_IdParameter, car_razon_InactivoParameter, car_UsuarioModificaParameter, car_FechaModificaParameter);
         }
     
-        public virtual ObjectResult<UDP_RRHH_tbCargos_Insert_Result> UDP_RRHH_tbCargos_Insert(string car_Descripcion, Nullable<decimal> car_SueldoMinimo, Nullable<decimal> car_SueldoMaximo, Nullable<int> car_UsuarioCrea, Nullable<System.DateTime> car_FechaCrea)
-        {
-            var car_DescripcionParameter = car_Descripcion != null ?
-                new ObjectParameter("car_Descripcion", car_Descripcion) :
-                new ObjectParameter("car_Descripcion", typeof(string));
-    
-            var car_SueldoMinimoParameter = car_SueldoMinimo.HasValue ?
-                new ObjectParameter("car_SueldoMinimo", car_SueldoMinimo) :
-                new ObjectParameter("car_SueldoMinimo", typeof(decimal));
-    
-            var car_SueldoMaximoParameter = car_SueldoMaximo.HasValue ?
-                new ObjectParameter("car_SueldoMaximo", car_SueldoMaximo) :
-                new ObjectParameter("car_SueldoMaximo", typeof(decimal));
-    
-            var car_UsuarioCreaParameter = car_UsuarioCrea.HasValue ?
-                new ObjectParameter("car_UsuarioCrea", car_UsuarioCrea) :
-                new ObjectParameter("car_UsuarioCrea", typeof(int));
-    
-            var car_FechaCreaParameter = car_FechaCrea.HasValue ?
-                new ObjectParameter("car_FechaCrea", car_FechaCrea) :
-                new ObjectParameter("car_FechaCrea", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbCargos_Insert_Result>("UDP_RRHH_tbCargos_Insert", car_DescripcionParameter, car_SueldoMinimoParameter, car_SueldoMaximoParameter, car_UsuarioCreaParameter, car_FechaCreaParameter);
-        }
-    
         public virtual ObjectResult<UDP_RRHH_tbCargos_Restore_Result> UDP_RRHH_tbCargos_Restore(Nullable<int> car_Id, Nullable<int> car_UsuarioModifica, Nullable<System.DateTime> car_FechaModifica)
         {
             var car_IdParameter = car_Id.HasValue ?
@@ -14908,6 +14883,31 @@
                 new ObjectParameter("tacar_FechaModifica", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareasCargos_Restore_Result>("UDP_RRHH_tbTareasCargos_Restore", tacar_IdParameter, tacar_UsuarioModificaParameter, tacar_FechaModificaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbCargos_Insert_Result> UDP_RRHH_tbCargos_Insert(string car_Descripcion, Nullable<decimal> car_SueldoMinimo, Nullable<decimal> car_SueldoMaximo, Nullable<int> car_UsuarioCrea, Nullable<System.DateTime> car_FechaCrea)
+        {
+            var car_DescripcionParameter = car_Descripcion != null ?
+                new ObjectParameter("car_Descripcion", car_Descripcion) :
+                new ObjectParameter("car_Descripcion", typeof(string));
+    
+            var car_SueldoMinimoParameter = car_SueldoMinimo.HasValue ?
+                new ObjectParameter("car_SueldoMinimo", car_SueldoMinimo) :
+                new ObjectParameter("car_SueldoMinimo", typeof(decimal));
+    
+            var car_SueldoMaximoParameter = car_SueldoMaximo.HasValue ?
+                new ObjectParameter("car_SueldoMaximo", car_SueldoMaximo) :
+                new ObjectParameter("car_SueldoMaximo", typeof(decimal));
+    
+            var car_UsuarioCreaParameter = car_UsuarioCrea.HasValue ?
+                new ObjectParameter("car_UsuarioCrea", car_UsuarioCrea) :
+                new ObjectParameter("car_UsuarioCrea", typeof(int));
+    
+            var car_FechaCreaParameter = car_FechaCrea.HasValue ?
+                new ObjectParameter("car_FechaCrea", car_FechaCrea) :
+                new ObjectParameter("car_FechaCrea", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbCargos_Insert_Result>("UDP_RRHH_tbCargos_Insert", car_DescripcionParameter, car_SueldoMinimoParameter, car_SueldoMaximoParameter, car_UsuarioCreaParameter, car_FechaCreaParameter);
         }
     }
 }

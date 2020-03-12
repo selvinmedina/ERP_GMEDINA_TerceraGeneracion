@@ -87,9 +87,10 @@ namespace ERP_GMEDINA.Controllers
 
         [HttpPost]
         [SessionManager("Cargos/Create")]
-        public JsonResult Create(tbCargos tbCargos)
+        public JsonResult Create(tbCargos tbCargos, int[] tareas)
         {
             string msj = "";
+            IEnumerable<Object> TareaAcceso = null;
             if (tbCargos.car_Descripcion != "")
             {
                 db = new ERP_GMEDINAEntities();
@@ -101,6 +102,19 @@ namespace ERP_GMEDINA.Controllers
                     foreach (UDP_RRHH_tbCargos_Insert_Result item in list)
                     {
                         msj = item.MensajeError + " ";
+                        
+                    }
+                    if (!msj.StartsWith("1"))
+                    {
+                        foreach(int t in tareas)
+                        {
+                            TareaAcceso = db.UDP_RRHH_tbTareasCargos_Insert(t,int.Parse(msj), (int)Session["UserLogin"], Function.DatetimeNow());
+                            foreach(UDP_RRHH_tbTareasCargos_Insert_Result item in TareaAcceso)
+                            {
+                                msj = item.MensajeError + " ";
+                               
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
