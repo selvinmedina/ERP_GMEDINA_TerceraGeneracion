@@ -147,30 +147,7 @@ $(document).on("click", "#detalle tbody tr td button#removerInventarioFisicoDeta
 });
 
 //Busqueda Generica de Productos
-$(document).ready(function () {
-    $('#BuscarProducto').DataTable(
-        {
-            "searching": true,
-            "lengthChange": true,
-
-            "oLanguage": {
-                "oPaginate": {
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior",
-                },
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sEmptyTable": "No hay registros",
-                "sEmptyTable": "No hay registros",
-                "sInfoEmpty": "Mostrando 0 de 0 Entradas",
-                "sSearch": "Buscar",
-                "sInfo": "Mostrando _START_ a _END_ Entradas",
-
-            }
-        });
-});
-
-$(document).on("click", "#BuscarProducto tbody tr td button#seleccionar", function () {
+$(document).on("click", "#tblBuscarProducto tbody tr td button#seleccionar", function () {
     id = $(this).closest('tr').data('id');
     descripcion = $(this).closest('tr').data('content');
     barras = $(this).closest('tr').data('delay');
