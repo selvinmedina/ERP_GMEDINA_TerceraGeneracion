@@ -14850,5 +14850,64 @@
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareas_Insert_Result>("UDP_RRHH_tbTareas_Insert", tar_DescripcionParameter, tar_UsuarioCreaParameter, tar_FechaCreaParameter);
         }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareasCargos_Inactivar_Result> UDP_RRHH_tbTareasCargos_Inactivar(Nullable<int> tacar_Id, string tacar_RazonInactivo, Nullable<int> tacar_UsuarioModifica, Nullable<System.DateTime> tacar_FechaModifica)
+        {
+            var tacar_IdParameter = tacar_Id.HasValue ?
+                new ObjectParameter("tacar_Id", tacar_Id) :
+                new ObjectParameter("tacar_Id", typeof(int));
+    
+            var tacar_RazonInactivoParameter = tacar_RazonInactivo != null ?
+                new ObjectParameter("tacar_RazonInactivo", tacar_RazonInactivo) :
+                new ObjectParameter("tacar_RazonInactivo", typeof(string));
+    
+            var tacar_UsuarioModificaParameter = tacar_UsuarioModifica.HasValue ?
+                new ObjectParameter("tacar_UsuarioModifica", tacar_UsuarioModifica) :
+                new ObjectParameter("tacar_UsuarioModifica", typeof(int));
+    
+            var tacar_FechaModificaParameter = tacar_FechaModifica.HasValue ?
+                new ObjectParameter("tacar_FechaModifica", tacar_FechaModifica) :
+                new ObjectParameter("tacar_FechaModifica", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareasCargos_Inactivar_Result>("UDP_RRHH_tbTareasCargos_Inactivar", tacar_IdParameter, tacar_RazonInactivoParameter, tacar_UsuarioModificaParameter, tacar_FechaModificaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareasCargos_Insert_Result> UDP_RRHH_tbTareasCargos_Insert(Nullable<int> tar_Id, Nullable<int> car_Id, Nullable<int> tacar_UsuarioCrea, Nullable<System.DateTime> tacar_FechaCrea)
+        {
+            var tar_IdParameter = tar_Id.HasValue ?
+                new ObjectParameter("tar_Id", tar_Id) :
+                new ObjectParameter("tar_Id", typeof(int));
+    
+            var car_IdParameter = car_Id.HasValue ?
+                new ObjectParameter("car_Id", car_Id) :
+                new ObjectParameter("car_Id", typeof(int));
+    
+            var tacar_UsuarioCreaParameter = tacar_UsuarioCrea.HasValue ?
+                new ObjectParameter("tacar_UsuarioCrea", tacar_UsuarioCrea) :
+                new ObjectParameter("tacar_UsuarioCrea", typeof(int));
+    
+            var tacar_FechaCreaParameter = tacar_FechaCrea.HasValue ?
+                new ObjectParameter("tacar_FechaCrea", tacar_FechaCrea) :
+                new ObjectParameter("tacar_FechaCrea", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareasCargos_Insert_Result>("UDP_RRHH_tbTareasCargos_Insert", tar_IdParameter, car_IdParameter, tacar_UsuarioCreaParameter, tacar_FechaCreaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_RRHH_tbTareasCargos_Restore_Result> UDP_RRHH_tbTareasCargos_Restore(Nullable<int> tacar_Id, Nullable<int> tacar_UsuarioModifica, Nullable<System.DateTime> tacar_FechaModifica)
+        {
+            var tacar_IdParameter = tacar_Id.HasValue ?
+                new ObjectParameter("tacar_Id", tacar_Id) :
+                new ObjectParameter("tacar_Id", typeof(int));
+    
+            var tacar_UsuarioModificaParameter = tacar_UsuarioModifica.HasValue ?
+                new ObjectParameter("tacar_UsuarioModifica", tacar_UsuarioModifica) :
+                new ObjectParameter("tacar_UsuarioModifica", typeof(int));
+    
+            var tacar_FechaModificaParameter = tacar_FechaModifica.HasValue ?
+                new ObjectParameter("tacar_FechaModifica", tacar_FechaModifica) :
+                new ObjectParameter("tacar_FechaModifica", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbTareasCargos_Restore_Result>("UDP_RRHH_tbTareasCargos_Restore", tacar_IdParameter, tacar_UsuarioModificaParameter, tacar_FechaModificaParameter);
+        }
     }
 }

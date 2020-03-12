@@ -1173,9 +1173,9 @@
         <AssociationConnector Association="ERP_GMEDINAModel.FK_Vent_tbPuntoEmisionDetalle_tbPuntoEmision_pemi_Id" ManuallyRouted="false" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_Vent_tbSolicitudEfectivo_tbSolicitudEfectivoDetalle_solef_Id" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ERP_GMEDINAModel.tbTareas" Width="1.5" PointX="3" PointY="358" />
-        <EntityTypeShape EntityType="ERP_GMEDINAModel.tbTareasCargos" Width="1.5" PointX="11.25" PointY="366.875" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_acce_tbUsuario_usu_Id_rrhh_tbTareas_tar_UsuarioCrea" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_acce_tbUsuario_usu_Id_rrhh_tbTareas_tar_UsuarioModifica" />
+        <EntityTypeShape EntityType="ERP_GMEDINAModel.tbTareasCargos" Width="1.5" PointX="11.25" PointY="366.75" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_acce_tbUsuario_usu_Id_rrhh_tbTareasCargos_tacar_UsuarioCrea" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_acce_tbUsuario_usu_Id_rrhh_tbTareasCargos_tacar_UsuarioModifica" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_rrhh_tbCargos_car_Id_rrhh_tbTareasCargos_tacar_car_id" />
