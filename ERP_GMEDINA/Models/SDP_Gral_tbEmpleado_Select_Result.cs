@@ -5,12 +5,12 @@ namespace ERP_GMEDINA.Models
     
     public partial class SDP_Gral_tbEmpleado_Select_Result
     {
-        public short emp_Id { get; set; }
+        public int emp_Id { get; set; }
         public string emp_Nombres { get; set; }
         public string emp_Apellidos { get; set; }
         public string emp_Sexo { get; set; }
-        public System.DateTime emp_FechaNacimiento { get; set; }
-        public byte tpi_Id { get; set; }
+        public Nullable<System.DateTime> emp_FechaNacimiento { get; set; }
+        public Nullable<int> tpi_Id { get; set; }
         public string emp_Identificacion { get; set; }
         public string emp_Telefono { get; set; }
         public string emp_Correoelectronico { get; set; }

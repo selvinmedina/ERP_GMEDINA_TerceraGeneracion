@@ -59,9 +59,9 @@ function cargarGridAdelantos() {
                 var botonDetalles = '<button style="margin-right:3px;" data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-primary btn-xs"  id="btnDetalleAdelantoSueldo">Detalles</button>';
 
                 //variable boton editar
-                var botonEditar = ListaAdelantos[i].adsu_Activo == true ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-default btn-xs"  id="btnEditarAdelantoSueldo">Editar</button>' : '';
+                var botonEditar = ListaAdelantos[i].adsu_Activo == true && ListaAdelantos[i].adsu_Deducido == false ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-default btn-xs"  id="btnEditarAdelantoSueldo">Editar</button>' : '';
 
-                var botoninactivar = ListaAdelantos[i].adsu_Activo == true ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarAdelantoSueldo">Inactivar</button>' : '';
+                var botoninactivar = ListaAdelantos[i].adsu_Activo == true && ListaAdelantos[i].adsu_Deducido == false ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-danger btn-xs"  id="btnmodalInactivarAdelantoSueldo">Inactivar</button>' : '';
                 //variable donde está el boton activar
                 var botonActivar = ListaAdelantos[i].adsu_Activo == false ? esAdministrador == "1" ? '<button data-id = "' + ListaAdelantos[i].adsu_IdAdelantoSueldo + '" type="button" class="btn btn-default btn-xs"  id="btnActivarRegistroAdelantos">Activar</button>' : '' : '';
                 var dataId = ListaAdelantos[i].adsu_IdAdelantoSueldo;
@@ -945,7 +945,7 @@ $("#btnInactivarRegistroAdelantos").click(function () {
 //FUNCION: OCULTAR MODAL DE INACTIVACION
 $("#btnCerrarInactivar").click(function () {
     $("#InactivarAdelantoSueldo").modal('hide');
-    $("#EditarAdelantoSueldo").modal({ backdrop: 'static', keyboard: false });
+    
 });
 
 //FUNCION: MOSTRAR EL MODAL DE ACTIVAR

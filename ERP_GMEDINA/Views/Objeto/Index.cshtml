@@ -23,7 +23,7 @@
                 <div class="ibox-title">
                     <h5> Listado De Objetos</h5>
                     <div class="ibox-tools">
-                        @Html.ActionLink("Registrar Objeto", "Create", null, new { @class = "btn btn-primary "})
+                        @Html.ActionLink("Registrar Objeto", "Create", null, new { @class = "btn btn-primary " })
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -37,10 +37,10 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.obj_Pantalla)
                                 </th>
-                               
+
                                 <th>
-                                  @Html.DisplayNameFor(model => model.obj_Estado)
-                                 </th>
+                                    @Html.DisplayNameFor(model => model.obj_Estado)
+                                </th>
                                 <th>Actividad</th>
                             </tr>
                         </thead>
@@ -54,27 +54,38 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.obj_Pantalla)
                                     </td>
-                                    
+
                                     <td>
-                                      @if (item.obj_Estado==true)
-                                      {
-                                        <p> Activo</p>
-                                      }
-                                      else
-                                      {
-                                        <p>Inactivo</p>
-                                      }
+                                        @if (item.obj_Estado == true)
+                                        {
+                                            <p> Activo</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Inactivo</p>
+                                        }
                                     </td>
                                     <td>
+                                        @if (item.obj_Estado == true)
+                                    {
                                         @Html.ActionLink("Detalles", "Details", new { id = item.obj_Id }, new { @class = "btn btn-primary btn-xs" })
                                         @Html.ActionLink("Editar", "Edit", new { id = item.obj_Id }, new { @class = "btn btn-white btn-xs" })
-                               
-                                    </td>
-                                </tr>
+                                        <input type="button" class="btn btn-danger btn-xs" onclick="inactivar(@item.obj_Id)" data-toggle="modal" data-target="#ModalEstado" value="Inactivar" />
+
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Detalles", "Details", new { id = item.obj_Id }, new { @class = "btn btn-primary btn-xs" })
+                                        @Html.ActionLink("Activar", "Estadoactivar", new { id = item.obj_Id }, new { @class = "btn btn-white btn-xs" })
+                                    }
+
+
+                                </td>
+                            </tr>
                             }
                         </tbody>
 
-                       
+
 
                     </table>
 
@@ -84,12 +95,63 @@
     </div>
 </div>
 
+
+
+@*se agrego el modal*@
+<div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Inactivar Objeto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input type="hidden" name="conten" id="conten"> @*el que contiene el id que se inactivara*@
+            <div class="modal-body">
+                ¿Está seguro que quiere Inactivar esta Pantalla?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger " type="button" id="Inactivar" onclick="Inactivar()">Si</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section scripts{
 
     <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
     <script src="~/Scripts/DataTables/dataTables.responsive.js"></script>
     <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
     <script>
+
+
+
+
+        //++++++++++++++++++++++++++++++++++<
+        function inactivar(id) {
+            $('#conten').val(id);
+        }
+
+
+        function Inactivar() {
+            var obj_id = $('#conten').val();
+            console.log(obj_id);
+            $.ajax({
+                url: "/Objeto/EstadoInactivar",
+                method: "POST",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ id: obj_id }),
+            })
+       .done(function (data) {
+           window.location.href = 'objeto';
+       });
+        }
+        //++++++++++++++++++++++++++++++++++>
+
     $(document).ready(function () {
         $('#tbObjeto').DataTable({
 

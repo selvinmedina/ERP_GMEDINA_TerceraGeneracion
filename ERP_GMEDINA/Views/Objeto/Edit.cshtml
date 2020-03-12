@@ -9,15 +9,19 @@
         color: red;
         font-size: small;
     }
-     .required:after {
-         content: "*";
-         font-weight: bold;
-         color: red; }
+
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+
     .validation-summary-errors {
         color: red;
         font-size: small;
     }
-     #obj_Pantalla {
+
+    #obj_Pantalla {
         text-transform: uppercase;
     }
 </style>
@@ -26,17 +30,17 @@
     <div class="col-sm-4">
         <h2>Objeto</h2>
         @*<ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Edit</strong>
-            </li>
-        </ol>*@
+                <li>
+                    @Html.ActionLink("List", "Index")
+                </li>
+                <li class="active">
+                    <strong>Edit</strong>
+                </li>
+            </ol>*@
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-			@Html.ActionLink("Regresar", "Index")
+            @Html.ActionLink("Regresar", "Index")
         </div>
     </div>
 </div>
@@ -111,7 +115,7 @@
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.obj_Estado, new { @class = "control-label col-md-2" })
-                                <div class="col-md-3" >
+                                <div class="col-md-3">
                                     @if (Model.obj_Estado == true)
                                     {
                                         <p> Activo</p>
@@ -131,22 +135,10 @@
                             <div class="form-group ">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" />
-                                    @* Boton de activar/inactivar *@
-                                    @{if (Model.obj_Estado == true)
-                                        {
-                                            <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado" value="Inactivar" />
-                                        }
-                                        else
-                                        {
-                                            @Html.ActionLink("Activar", "Estadoactivar", new { id = Model.obj_Id }, new { @class = "btn btn-primary" })
-                                        }
 
-
-                                    }
-                                   
                                     @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
 
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -185,28 +177,10 @@
                     </table>
                 </div>
             </div>
-            </div>
-            <div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Inactivar Objeto</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Está seguro que quiere Inactivar esta Pantalla?
-                        </div>
-                        <div class="modal-footer">
-                            @Html.ActionLink("Sí", "EstadoInactivar", new { id = Model.obj_Id }, new { @class = "btn btn-danger" })
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+
+    </div>
 </div>
 
 
