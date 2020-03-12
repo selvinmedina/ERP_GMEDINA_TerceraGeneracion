@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ERP_GMEDINA.Models.SDP_tbEmpleado_Select_Result>
+﻿@model IEnumerable<ERP_GMEDINA.Models.SDP_tbEmpleado_Select_Result1>
 @using ERP_GMEDINA.Models
 
 @{
@@ -33,13 +33,13 @@
                                 {
                                     <tr tr data-id="@item.emp_Id" data-name="@item.per_Id " data-apellidos="@item.per_Id" data-email="@item.per_Id">
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.per_Id)
+                                            @Html.DisplayFor(modelItem => item.per_Nombres)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.emp_Id)
+                                            @Html.DisplayFor(modelItem => item.per_Apellidos)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.per_Id)
+                                            @Html.DisplayFor(modelItem => item.per_CorreoElectronico)
                                         </td>
                                         <td>
                                             <button class="btn btn-primary btn-xs" type="button" value="@item.emp_Id" onclick="Seleccionar(@item.emp_Id)">Seleccionar</button>

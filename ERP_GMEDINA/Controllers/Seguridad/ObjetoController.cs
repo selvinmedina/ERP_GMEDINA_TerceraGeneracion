@@ -53,11 +53,11 @@ namespace ERP_GMEDINA.Controllers
         [SessionManager("Objeto/Create")]
         public ActionResult Create([Bind(Include = "obj_Id,obj_Pantalla,obj_Referencia,obj_UsuarioCrea,obj_FechaCrea,obj_UsuarioModifica,obj_FechaModifica,obj_Estado")] tbObjeto tbObjeto)
         {
-            if (db.tbObjeto.Any(a => a.obj_Pantalla == tbObjeto.obj_Pantalla ))
+            if (db.tbObjeto.Any(a => a.obj_Pantalla == tbObjeto.obj_Pantalla))
             {
                 ModelState.AddModelError("", "Ya existe un objeto con este nombre de Pantalla, favor registrar otro");
             }
-            if (db.tbObjeto.Any(a =>  a.obj_Referencia == tbObjeto.obj_Referencia))
+            if (db.tbObjeto.Any(a => a.obj_Referencia == tbObjeto.obj_Referencia))
             {
                 ModelState.AddModelError("", "Ya existe un objeto con esta Referencia, favor registrar otro");
             }
@@ -188,18 +188,18 @@ namespace ERP_GMEDINA.Controllers
                 {
                     Function.InsertBitacoraErrores("Objeto/EstadoInactivar", MsjError, "EstadoInactivar");
                     ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                    return RedirectToAction("Edit/" + id);
+                    return Json(JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Edit/" + id);
+                    return Json(JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception Ex)
             {
                 Function.InsertBitacoraErrores("Objeto/EstadoInactivar", Ex.Message.ToString(), "EstadoInactivar");
                 ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                return RedirectToAction("Edit/" + id);
+                return Json(JsonRequestBehavior.AllowGet);
             }
         }
         //para que cambie estado a inactivar
@@ -219,18 +219,18 @@ namespace ERP_GMEDINA.Controllers
                 {
                     Function.InsertBitacoraErrores("Objeto/Estadoactivar", MsjError, "Estadoactivar");
                     ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                    return RedirectToAction("Edit/" + id);
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    return RedirectToAction("Edit/" + id);
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception Ex)
             {
                 Function.InsertBitacoraErrores("Objeto/Estadoactivar", Ex.Message.ToString(), "Estadoactivar");
                 ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                return RedirectToAction("Edit/" + id);
+                return RedirectToAction("Index");
             }
         }
 
