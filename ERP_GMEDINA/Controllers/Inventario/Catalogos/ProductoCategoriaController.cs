@@ -274,7 +274,7 @@ namespace ERP_GMEDINA.Controllers
                                 }
                             }
                             _Tran.Complete();
-                            return RedirectToAction("Edit/" + MsjError);
+                            return RedirectToAction("Index" );
                         }
                     }
                     catch (Exception Ex)

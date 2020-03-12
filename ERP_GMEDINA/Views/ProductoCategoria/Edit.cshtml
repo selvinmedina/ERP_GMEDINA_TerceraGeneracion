@@ -180,21 +180,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-10 text-center">
-                                    @{if (Model.pcat_EsActivo == 1)
-                                        {
-                                            <input type="submit" value="Guardar" class="btn btn-primary" />
-                                            <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado" value="Inactivar" />
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado_@Model.pcat_Id">
-                                                Eliminar
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <input type="submit" value="Guardar" class="btn btn-primary" disabled />
-                                            @Html.ActionLink("Activar", "ActivarCateValidacion", new { id = Model.pcat_Id }, new { @class = "btn btn-primary " })
-                                        }
-
-                                    }
+                                    <input type="submit" value="Guardar" class="btn btn-primary" id="Btnsubmit" />
                                     @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
 
                                 </div>
@@ -242,46 +228,7 @@
 </div>
 
 
-@*modales*@
-<div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Inactivar Categoría</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro que quiere Inactivar esta Categoría?
-            </div>
-            <div class="modal-footer">
-                @Html.ActionLink("Sí", "InactivarCateValidacion", new { id = Model.pcat_Id }, new { @class = "btn btn-danger" })
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="modal fade" id="ModalEstado_@Model.pcat_Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Eliminar Categorìa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro que quiere Eliminar esta Categoría?
-            </div>
-            <div class="modal-footer">
-                @Html.ActionLink("Sí", "EliminarProductoCategoria", new { id = Model.pcat_Id }, new { @class = "btn btn-danger" })
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

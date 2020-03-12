@@ -72,11 +72,26 @@
                             </dd>
 
                         </dl>
-                        @Html.ActionLink("Editar", "Edit", new { id = Model.pcat_Id }, new { @class = "btn btn-primary" })
-                        @*<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado_@Model.pcat_Id">
-                Eliminar
-            </button>*@
-                    </div>
+
+                        <div class="form-group">
+                           
+                            <div class="col-md-4">
+                                @if (Model.pcat_EsActivo == 1)
+                                {
+
+                                    @Html.ActionLink("Editar", "Edit", new { id = Model.pcat_Id }, new { @class = "btn btn-primary" })
+                                }
+                                else
+                                {
+
+                                }
+                            </div>
+
+
+                            
+                        
+                        </div>
+
                     <div class="form-horizontal">
                         @* ListaSinAcciones *@
                         @Html.Partial("_IndexSubCategoria", Model.tbProductoSubcategoria, new ViewDataDictionary { { "pcat_Id", Model.pcat_Id } })
