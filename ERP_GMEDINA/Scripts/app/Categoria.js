@@ -1,20 +1,21 @@
 var contador = 0;
-
+var iddelete = 0;
 
 function Inact(id) {
-    $("#Idcatel").val(id);
+    iddelete = id;
     $("#ModalEstado").modal;   
     return 1;
 }
 
 $("#PruebaInac").click(function () {
-    id = $("#Idcatel").val();
+    
+  
     $.ajax({
         url: "/ProductoCategoria/InactivarCateValidacion",
         method: "POST",
         dataType: 'json',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ id: id }),
+        data: JSON.stringify({ id: iddelete }),
     })
     .done(function (data) {
         if (data.length > 0)
