@@ -78,9 +78,10 @@ namespace ERP_GMEDINA.Controllers
                     //////Solicitud Efectivo
                     tbMovimientoCaja MovimientoCaja = new tbMovimientoCaja();
                     tbSolicitudEfectivo SolicitudEfectivo = new tbSolicitudEfectivo();
+                    tbCargos empleados = new tbCargos();
                     ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Nombre", SolicitudEfectivo.mnda_Id);
-                    ViewBag.usu_Id = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", MovimientoCaja.usu_Id);
-
+                    //ViewBag.usu_Id = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", MovimientoCaja.usu_Id);
+                    ViewBag.car_id = new SelectList(db.tbCargos, "car_id", "car_Descripcion", empleados.car_Descripcion );
 
                     ViewBag.suc_Descripcion = db.tbUsuario.Where(x => x.usu_Id == idUser).Select(x => x.tbSucursales.suc_Descripcion).SingleOrDefault();
                     ViewBag.suc_Id = db.tbUsuario.Where(x => x.usu_Id == idUser).Select(x => x.tbSucursales.suc_Id == null ? 0 : x.tbSucursales.suc_Id).SingleOrDefault();
