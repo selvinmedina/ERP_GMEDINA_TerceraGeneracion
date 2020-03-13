@@ -102,6 +102,7 @@ namespace ERP_GMEDINA.Controllers
         public JsonResult Create(tbRequisiciones tbRequisiciones, DatosProfesionalesArray DatosProfesionales)
         {
             string msj = "...";
+           
             if (tbRequisiciones != null)
             {
                 try
@@ -172,7 +173,7 @@ namespace ERP_GMEDINA.Controllers
                                 }
                             }
                             //Titulos
-                            if (DatosProfesionales.Titulos != null & msj != "-1")
+                            if (DatosProfesionales.Titulos != null & ! msj.StartsWith ("-1"))
                             {
                                 for (int i = 0; i < DatosProfesionales.Titulos.Length; i++)
                                 {
