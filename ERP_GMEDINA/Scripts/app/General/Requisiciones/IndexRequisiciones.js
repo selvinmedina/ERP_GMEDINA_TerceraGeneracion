@@ -199,7 +199,7 @@ function tablaDetalles(ID) {
 
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
                     $("#ModalDetalles").find("#req_Experiencia")["0"].innerText = obj[0].req_Experiencia;
-                    $("#ModalDetalles").find("#req_Sexo")["0"].innerText = obj[0].req_Sexo.startsWith("F") ? "Femenino" :  obj[0].req_Sexo.startsWith("M") ? "Masulino" : "Indiferente" ;
+                    $("#ModalDetalles").find("#req_Sexo")["0"].innerText = obj[0].req_Sexo.startsWith("F") ? "Femenino" :  obj[0].req_Sexo.startsWith("M") ? "Masculino" : "Indiferente" ;
                     $("#ModalDetalles").find("#req_Descripcion")["0"].innerText = obj[0].req_Descripcion;
                     $("#ModalDetalles").find("#req_EdadMinima")["0"].innerText = obj[0].req_EdadMinima;
                     $("#ModalDetalles").find("#req_EdadMaxima")["0"].innerText = obj[0].req_EdadMaxima;
