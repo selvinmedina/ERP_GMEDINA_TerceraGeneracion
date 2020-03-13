@@ -60,7 +60,7 @@ function llenarTabla() {
                 var Acciones = value.fare_Estado == 1
                     ? "<div>" +
                        "<a class='btn btn-primary btn-xs' onclick='CallDetalles(this)' >Detalles</a> " +
-                       "<button class='btn btn-dafault btn-xs' onclick='CallEditar(this)' >Editar</button> " +
+                       "<a class='btn btn-default btn-xs' onclick='CallEditar(this)' >Editar</a> " +
                        "<a class='btn btn-danger btn-xs ' onclick='CallInactivar(this)' id='InActivar' >Inactivar</a> " +
                    "</div>" :
                      "<div>" +
