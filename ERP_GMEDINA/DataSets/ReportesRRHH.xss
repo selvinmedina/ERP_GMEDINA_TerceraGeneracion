@@ -23,6 +23,8 @@
     <Shape ID="DesignTable:V_RPT_Requisiciones" ZOrder="7" X="3180" Y="326" Height="365" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="306" />
     <Shape ID="DesignTable:V_RPT_HistorialCargos" ZOrder="8" X="1435" Y="344" Height="110" Width="300" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="0" OldDataTableHeight="237" SplitterPosition="28" />
     <Shape ID="DesignTable:V_RPT_HistorialPermisos" ZOrder="1" X="1315" Y="228" Height="75" Width="295" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="0" OldDataTableHeight="216" SplitterPosition="24" />
+    <Shape ID="DesignTable:V_Report_Cargos" ZOrder="1" X="1323" Y="689" Height="191" Width="242" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
+  
   </Shapes>
   <Connectors />
 </DiagramLayout>

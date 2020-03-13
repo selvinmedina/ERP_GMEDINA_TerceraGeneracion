@@ -328,6 +328,9 @@
         public virtual DbSet<UDV_Vent_VentasPorCaja_EntreFechas> UDV_Vent_VentasPorCaja_EntreFechas { get; set; }
         public virtual DbSet<tbTareas> tbTareas { get; set; }
         public virtual DbSet<tbTareasCargos> tbTareasCargos { get; set; }
+        public virtual DbSet<V_Cargos> V_Cargos { get; set; }
+        public virtual DbSet<V_Personas> V_Personas { get; set; }
+        public virtual DbSet<V_Report_Cargos> V_Report_Cargos { get; set; }
     
         public virtual ObjectResult<SDP_Acce_GetObjetos_Result> SDP_Acce_GetObjetos()
         {

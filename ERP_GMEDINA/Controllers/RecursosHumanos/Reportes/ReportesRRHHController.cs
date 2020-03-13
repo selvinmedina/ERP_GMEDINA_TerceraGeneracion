@@ -612,6 +612,7 @@ namespace ERP_GMEDINA.Controllers
         [SessionManager("ReportesRRHH/Permisos")]
         public ActionResult Permisos(int? emp_Id, DateTime? FechaInicio, DateTime? FechaFin, int? tper_Id)
         {
+            string error = "";
             ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
             reportViewer.SizeToReportContent = false;
@@ -676,6 +677,7 @@ namespace ERP_GMEDINA.Controllers
             }
             catch (Exception ex)
             {
+                error = ex.Message;
                 return View("~/Views/ErrorPages/ErrorConnectionDB.cshtml", null);
             }
         }
@@ -1183,6 +1185,71 @@ namespace ERP_GMEDINA.Controllers
                 return View();
             }
             catch (Exception ex)
+            {
+                return View("~/Views/ErrorPages/ErrorConnectionDB.cshtml", null);
+            }
+        }
+
+        [HttpPost]
+        [SessionManager("ReportesRRHH/Cargos")]
+        public ActionResult Cargos(int? CargoId, int? Empleado)
+        {
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+            reportViewer.SizeToReportContent = false;
+            reportViewer.Width = Unit.Pixel(1050);
+            reportViewer.Height = Unit.Pixel(500);
+            reportViewer.BackColor = System.Drawing.Color.White;
+            var connectionString = ConfigurationManager.ConnectionStrings["ERP_GMEDINAConnectionString"].ConnectionString;
+
+            //comando para el dataAdapter
+            SqlCommand command = new SqlCommand();
+            command.CommandText = @"select c.car_Id, 
+                                                c.car_Descripcion, 
+                                                t.tar_Id, t.tar_Descripcion,
+                                                p.per_Id, p.per_Nombres + ' ' + p.per_Apellidos 
+                                    from rrhh.tbPersonas p inner join  rrhh.tbEmpleados e
+                                            on p.per_Id = e.per_Id inner join rrhh.tbCargos c
+                                            on e.car_Id = c.car_Id inner join rrhh.tbTareasCargos tc
+                                            on c.car_id = tc.car_id inner join rrhh.tbTareas t
+                                            on tc.tar_id = t.tar_Id where 1 = 1";
+
+            if (CargoId != null)
+            {
+                command.CommandText += @" and c.car_Id = @CargoId";
+                command.Parameters.AddWithValue("@CargoId", SqlDbType.Int).Value = CargoId;
+               
+            }
+            if (Empleado != null)
+            {
+                command.CommandText += @" and p.per_Id = @Empleado";
+                command.Parameters.AddWithValue("@Empleado", SqlDbType.Int).Value = Empleado;
+            }
+            try
+            {
+                SqlConnection conx = new SqlConnection(connectionString);
+                command.Connection = conx;
+                SqlDataAdapter adp = new SqlDataAdapter(command);
+
+                ds.EnforceConstraints = false;
+                adp.Fill(ds, ds.V_Report_Cargos.TableName);
+
+                reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\Cargos.rdlc";
+                reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ReportesRRHH", ds.Tables["V_Report_Cargos"]));
+                conx.Close();
+
+
+                ViewBag.ReportViewer = reportViewer;
+
+
+                ViewBag.Empleados = new SelectList(db.V_Personas, "IdPersona", "NombrePersona");
+                ViewBag.Cargos = new SelectList(db.V_Cargos, "IdCargo", "Cargo");
+                ViewBag.ReportViewer = reportViewer;
+
+                return View();
+            }
+            catch
             {
                 return View("~/Views/ErrorPages/ErrorConnectionDB.cshtml", null);
             }

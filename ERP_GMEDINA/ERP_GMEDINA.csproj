@@ -3070,6 +3070,7 @@
     <Compile Include="Models\V_BonosColaborador.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\V_Cargos.cs" />
     <Compile Include="Models\V_CatalogoDeIngresos.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
@@ -3226,6 +3227,7 @@
     <Compile Include="Models\V_Objetos.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\V_Personas.cs" />
     <Compile Include="Models\V_PlanillaDeducciones.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
@@ -3274,6 +3276,7 @@
     <Compile Include="Models\V_ReportesVarios.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\V_Report_Cargos.cs" />
     <Compile Include="Models\V_RPT_EmpleadoCurriculum.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>

@@ -313,6 +313,9 @@
         <EntityTypeShape EntityType="ERP_GMEDINAModel.UDV_Vent_VentasConsumidorFinal" Width="1.5" PointX="38.75" PointY="21.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ERP_GMEDINAModel.UDV_Vent_VentasExoneradas" Width="1.5" PointX="38.75" PointY="25.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ERP_GMEDINAModel.UDV_Vent_VentasPorCaja_EntreFechas" Width="1.5" PointX="38.75" PointY="29.75" IsExpanded="false" />
+		<EntityTypeShape EntityType="ERP_GMEDINAModel.V_Cargos" Width="1.5" PointX="39.375" PointY="33.75" />
+        <EntityTypeShape EntityType="ERP_GMEDINAModel.V_Personas" Width="1.5" PointX="39.375" PointY="36.75" />
+        <EntityTypeShape EntityType="ERP_GMEDINAModel.V_Report_Cargos" Width="1.5" PointX="39.375" PointY="39.75" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_Acce_tbAccesoRol_Acce_tbObjeto_obj_Id" ManuallyRouted="false" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_Acce_tbAccesoRol_acrol_UsuarioModifica" ManuallyRouted="false" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_Acce_tbAccesoRol_tbRoles_Rol_Id" ManuallyRouted="false" />
@@ -1179,8 +1182,8 @@
         <AssociationConnector Association="ERP_GMEDINAModel.FK_acce_tbUsuario_usu_Id_rrhh_tbTareasCargos_tacar_UsuarioCrea" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_acce_tbUsuario_usu_Id_rrhh_tbTareasCargos_tacar_UsuarioModifica" />
         <AssociationConnector Association="ERP_GMEDINAModel.FK_rrhh_tbCargos_car_Id_rrhh_tbTareasCargos_tacar_car_id" />
-        <AssociationConnector Association="ERP_GMEDINAModel.FK_rrhh_tbTareas_tar_ID_FK_rrhh_tbTareasCargos_tacar_tar_Id" />
-        </Diagram>
+        <AssociationConnector Association="ERP_GMEDINAModel.FK_rrhh_tbTareas_tar_ID_FK_rrhh_tbTareasCargos_tacar_tar_Id" />        
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

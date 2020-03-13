@@ -24,6 +24,10 @@ namespace ERP_GMEDINA.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo {0} es requerido")]
         public string box_Descripcion { get; set; }
 
+        [Display(Name = "Estado")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El campo {0} es requerido")]
+        public byte box_Estado { get; set; }
+
         [Display(Name = "Creada Por")]
         public int box_UsuarioCrea { get; set; }
 
