@@ -16,7 +16,7 @@ namespace ERP_GMEDINA.Models
         [Display(Name = "Parámetro Id")]
         [Required]
         public byte par_Id { get; set; }
-        [Display(Name = "Nombre Empresa")]
+        [Display(Name = "Empresa")]
         [StringLength(100, ErrorMessage = "No puede ingresar mas de 100 caracteres")]
         [Required]
         public string par_NombreEmpresa { get; set; }
@@ -34,19 +34,19 @@ namespace ERP_GMEDINA.Models
         [Display(Name = "Moneda")]
         [Required]
         public short mnda_Id { get; set; }
-        [Display(Name = "Rol Gerente de Tienda")]
+        [Display(Name = "Gerente Tienda")]
         [Required]
         public int par_RolGerenteTienda { get; set; }
-        [Display(Name = "Rol Credito-Cobranza")]
+        [Display(Name = "Credito-Cobranza")]
         [Required]
         public int par_RolCreditoCobranza { get; set; }
-        [Display(Name = "Rol Supervisor de Caja")]
+        [Display(Name = "Supervisor Caja")]
         [Required]
         public int par_RolSupervisorCaja { get; set; }
-        [Display(Name = "Rol Cajero")]
+        [Display(Name = "Cajero")]
         [Required]
         public int par_RolCajero { get; set; }
-        [Display(Name = "Rol Auditor")]
+        [Display(Name = "Auditor")]
         [Required]
         public int par_RolAuditor { get; set; }
         [Display(Name = "Sucursal Principal")]
@@ -56,7 +56,7 @@ namespace ERP_GMEDINA.Models
         public System.DateTime par_FechaCrea { get; set; }
         public Nullable<int> par_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> par_FechaModifica { get; set; }
-        [Display(Name = "Porcentaje de Descuento TE")]
+        [Display(Name = "Descuento TE")]
         [Required]
         public Nullable<decimal> par_PorcentajeDescuentoTE { get; set; }
         [Display(Name = "Consumidor Final")]

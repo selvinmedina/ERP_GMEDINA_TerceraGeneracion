@@ -11,6 +11,12 @@
         <ol class="breadcrumb">
         </ol>
     </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+
+    </div>
 </div>
 
 
@@ -24,134 +30,171 @@
                     <h5>Detalle Parametro</h5>
                 </div>
                 <div class="ibox-content">
+                    <div class="col-lg-6">
 
 
-				    <dl class="dl-horizontal">
+                        <dl class="dl-horizontal">
 
-       <dt>
-           @Html.DisplayNameFor(model => model.par_PathLogo)
-       </dt>
-       <dd>
-        @{
-        if (Model.par_PathLogo != null && Model.par_PathLogo != "")
-        {
-            <img src="@Url.Content(Model.par_PathLogo)" alt="Fotografía" class="img-rounded" width="200" height="200">
-        }
-        else
-        {
-            <img src="~/Content/img/NoImage.png" alt="Sin Fotografía" class="img-rounded" width="200" height="200">
-        }
-        }
-       </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_PathLogo)
+                            </dt>
+                            <dd>
+                                @{
+                                    if (Model.par_PathLogo != null && Model.par_PathLogo != "")
+                                    {
+                                        <img src="@Url.Content(Model.par_PathLogo)" alt="Fotografía" class="img-rounded" width="200" height="200">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/img/NoImage.png" alt="Sin Fotografía" class="img-rounded" width="200" height="200">
+                                    }
+                                }
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="col-lg-6">
+                        <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_NombreEmpresa)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_NombreEmpresa)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_NombreEmpresa)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.par_NombreEmpresa)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_TelefonoEmpresa)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_TelefonoEmpresa)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_TelefonoEmpresa)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.par_TelefonoEmpresa)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_CorreoEmpresa)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_CorreoEmpresa)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_CorreoEmpresa)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.par_RolGerenteTienda)
-        </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.par_CorreoEmpresa)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_RolGerenteTienda)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_RolGerenteTienda) -
-            @Html.DisplayFor(model => model.tbRol3.rol_Descripcion)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.par_RolGerenteTienda) -*@
+                                @Html.DisplayFor(model => model.tbRol3.rol_Descripcion)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_RolCreditoCobranza)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_RolCreditoCobranza)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_RolCreditoCobranza) -
-            @Html.DisplayFor(model => model.tbRol2.rol_Descripcion)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.par_RolCreditoCobranza) -*@
+                                @Html.DisplayFor(model => model.tbRol2.rol_Descripcion)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_RolSupervisorCaja)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_RolSupervisorCaja)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_RolSupervisorCaja) -
-            @Html.DisplayFor(model => model.tbRol4.rol_Descripcion)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.par_RolSupervisorCaja) -*@
+                                @Html.DisplayFor(model => model.tbRol4.rol_Descripcion)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_RolCajero)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_RolCajero)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_RolCajero) -
-            @Html.DisplayFor(model => model.tbRol1.rol_Descripcion)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.par_RolCajero) -*@
+                                @Html.DisplayFor(model => model.tbRol1.rol_Descripcion)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_RolAuditor)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_RolAuditor)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_RolAuditor) -
-            @Html.DisplayFor(model => model.tbRol.rol_Descripcion)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.par_RolAuditor) -*@
+                                @Html.DisplayFor(model => model.tbRol.rol_Descripcion)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_SucursalPrincipal)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_SucursalPrincipal)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_SucursalPrincipal) -
-            @Html.DisplayFor(model => model.tbSucursales.suc_Descripcion)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.par_SucursalPrincipal) -*@
+                                @Html.DisplayFor(model => model.tbSucursales.suc_Descripcion)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_PorcentajeDescuentoTE)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_PorcentajeDescuentoTE)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_PorcentajeDescuentoTE)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.par_PorcentajeDescuentoTE)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.par_IdConsumidorFinal)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.par_IdConsumidorFinal)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.par_IdConsumidorFinal) -
-            @Html.DisplayFor(model => model.tbCliente.clte_Identificacion)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.par_IdConsumidorFinal) -*@
+                                @Html.DisplayFor(model => model.tbCliente.clte_Identificacion)
+                            </dd>
 
-        <dt>
-           Moneda
-        </dt>
+                            <dt>
+                                Moneda
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.mnda_Id) -
-            @Html.DisplayFor(model => model.tbMoneda.mnda_Abreviatura)
-        </dd>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.mnda_Id) -*@
+                                @Html.DisplayFor(model => model.tbMoneda.mnda_Abreviatura)
+                            </dd>
 
-    </dl>
+                        </dl>
+                        </div>
 
 
-	    @Html.ActionLink("Editar", "Edit", new { id = Model.par_Id }, new { @class = "btn btn-primary"})
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.par_Id }, new { @class = "btn btn-primary" })
+                        @*@Html.ActionLink("Volver", "Index", new { id = Model.par_Id }, new { @class = "btn btn-default" })*@
 
+                    </div>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Auditoría</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped  table-bordered">
+                        <tr>
+                            <th>Acción</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                        </tr>
+                        <tr>
+                            <td>Creado</td>
+                            <td>
+                                @Html.DisplayFor(model => model.tbUsuario1.usu_NombreUsuario)
+                            </td>
+                            <td>@Html.DisplayFor(model => model.par_FechaCrea)</td>
+                        </tr>
+                        <tr>
+                            <td>Modificado</td>
+                            <td>
+                                @Html.DisplayFor(model => model.tbUsuario.usu_NombreUsuario)
+                            </td>
+                            <td>@Html.DisplayFor(model => model.par_FechaModifica)</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

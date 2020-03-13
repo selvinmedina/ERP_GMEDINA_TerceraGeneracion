@@ -72,12 +72,13 @@ namespace ERP_GMEDINA.Controllers
             ViewBag.sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion");
             ViewBag.par_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
             ViewBag.par_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+            ViewBag.par_NombreEmpresa = new SelectList(db.tbEmpresas, "empr_Nombre", "empr_Nombre");
             ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura");
-            ViewBag.Id_Rol = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion");
-            ViewBag.Id_Rol1 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion");
-            ViewBag.Id_Rol2 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion");
-            ViewBag.Id_Rol3 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion");
-            ViewBag.Id_Rol4 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion");
+            ViewBag.Id_Rol = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Auditor Interno"), "rol_Id", "rol_Descripcion");
+            ViewBag.Id_Rol1 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Cajero"), "rol_Id", "rol_Descripcion");
+            ViewBag.Id_Rol2 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Créditos y Cobranza"), "rol_Id", "rol_Descripcion");
+            ViewBag.Id_Rol3 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Tienda"), "rol_Id", "rol_Descripcion");
+            ViewBag.Id_Rol4 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Supervisor de Caja"), "rol_Id", "rol_Descripcion");
             ViewBag.consumidor = new SelectList(db.tbCliente, "clte_Id", "clte_Identificacion");
             ViewBag.id_mnda = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura");
             return View();
@@ -87,12 +88,13 @@ namespace ERP_GMEDINA.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [HandleError]
         [SessionManager("Parametro/Create")]
-        public ActionResult Create([Bind(Include = "par_Id,par_NombreEmpresa,par_TelefonoEmpresa,par_CorreoEmpresa,par_PathLogo,mnda_Id,par_RolGerenteTienda,par_RolCreditoCobranza,par_RolSupervisorCaja,par_RolCajero,par_RolAuditor,par_SucursalPrincipal,par_UsuarioCrea,par_FechaCrea,par_UsuarioModifica,par_FechaModifica,par_PorcentajeDescuentoTE,par_IdConsumidorFinal")] tbParametro tbParametro,
+        public ActionResult Create([Bind(Include = "par_NombreEmpresa,par_TelefonoEmpresa,par_CorreoEmpresa,par_PathLogo,mnda_Id,par_RolGerenteTienda,par_RolCreditoCobranza,par_RolSupervisorCaja,par_RolCajero,par_RolAuditor,par_SucursalPrincipal,par_UsuarioCrea,par_FechaCrea,par_UsuarioModifica,par_FechaModifica,par_PorcentajeDescuentoTE,par_IdConsumidorFinal")] tbParametro tbParametro,
             HttpPostedFileBase FotoPath)
         {
+            int id = tbParametro.par_Id;
             var path = "";
             if (FotoPath == null)
             {
@@ -101,13 +103,14 @@ namespace ERP_GMEDINA.Controllers
                 ViewBag.sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion",tbParametro.par_SucursalPrincipal);
                 ViewBag.par_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioModifica);
                 ViewBag.par_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioCrea);
+                ViewBag.par_NombreEmpresa = new SelectList(db.tbEmpresas, "empr_Nombre", "empr_Nombre");
                 ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura", tbParametro.mnda_Id);
                 ViewBag.id_mnda = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura");
-                ViewBag.Id_Rol = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
-                ViewBag.Id_Rol1 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
-                ViewBag.Id_Rol2 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
-                ViewBag.Id_Rol3 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
-                ViewBag.Id_Rol4 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
+                ViewBag.Id_Rol = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Auditor Interno"), "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
+                ViewBag.Id_Rol1 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Cajero"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
+                ViewBag.Id_Rol2 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Créditos y Cobranza"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
+                ViewBag.Id_Rol3 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Tienda"), "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
+                ViewBag.Id_Rol4 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Supervisor de Caja"), "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
                 ViewBag.consumidor = new SelectList(db.tbCliente, "clte_Id", "clte_Identificacion");
                 return View(tbParametro);
             }
@@ -124,9 +127,9 @@ namespace ERP_GMEDINA.Controllers
                             {
                                 string Extension = Path.GetExtension(FotoPath.FileName).ToLower();
                                 string Archivo = tbParametro.par_Id + Extension;
-                                path = Path.Combine(Server.MapPath("~/Logo"), Archivo);
+                                path = Path.Combine(Server.MapPath("~/Logos"), Archivo);
                                 FotoPath.SaveAs(path);
-                                tbParametro.par_PathLogo = "~/Logo/" + Archivo;
+                                tbParametro.par_PathLogo = "~/Logos/" + Archivo;
                             }
                             else
                             {
@@ -138,22 +141,23 @@ namespace ERP_GMEDINA.Controllers
 
                     IEnumerable<object> List = null;
                     var MsjError = "";
-                    List = db.UDP_Gral_tbParametro_Insert(tbParametro.par_Id, tbParametro.par_NombreEmpresa, tbParametro.par_TelefonoEmpresa, tbParametro.par_CorreoEmpresa, tbParametro.par_PathLogo, tbParametro.mnda_Id, tbParametro.par_RolGerenteTienda, tbParametro.par_RolCreditoCobranza, tbParametro.par_RolSupervisorCaja, tbParametro.par_RolCajero, tbParametro.par_RolAuditor, tbParametro.par_SucursalPrincipal, tbParametro.par_PorcentajeDescuentoTE, tbParametro.par_IdConsumidorFinal, Function.GetUser(), Function.DatetimeNow());
+                    List = db.UDP_Gral_tbParametro_Insert(tbParametro.par_NombreEmpresa, tbParametro.par_TelefonoEmpresa, tbParametro.par_CorreoEmpresa, tbParametro.par_PathLogo, tbParametro.mnda_Id, tbParametro.par_RolGerenteTienda, tbParametro.par_RolCreditoCobranza, tbParametro.par_RolSupervisorCaja, tbParametro.par_RolCajero, tbParametro.par_RolAuditor, tbParametro.par_SucursalPrincipal, tbParametro.par_PorcentajeDescuentoTE, tbParametro.par_IdConsumidorFinal, Function.GetUser(), Function.DatetimeNow());
                     foreach (UDP_Gral_tbParametro_Insert_Result parametro in List)
-                        MsjError = parametro.MensajeError;
+                        MsjError = Convert.ToString(parametro.MensajeError);
 
                     if (MsjError.StartsWith("-1"))
                     {
                         ViewBag.sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion",tbParametro.par_SucursalPrincipal);
                         ViewBag.par_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioModifica);
                         ViewBag.par_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioCrea);
+                        ViewBag.par_NombreEmpresa = new SelectList(db.tbEmpresas, "empr_Nombre", "empr_Nombre");
                         ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura", tbParametro.mnda_Id);
                         ViewBag.id_mnda = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura");
-                        ViewBag.Id_Rol = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
-                        ViewBag.Id_Rol1 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
-                        ViewBag.Id_Rol2 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
-                        ViewBag.Id_Rol3 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
-                        ViewBag.Id_Rol4 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
+                        ViewBag.Id_Rol = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Auditor Interno"), "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
+                        ViewBag.Id_Rol1 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Cajero"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
+                        ViewBag.Id_Rol2 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Créditos y Cobranza"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
+                        ViewBag.Id_Rol3 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Tienda"), "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
+                        ViewBag.Id_Rol4 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Supervisor de Caja"), "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
                         ViewBag.consumidor = new SelectList(db.tbCliente, "clte_Id", "clte_Identificacion");
                         Function.InsertBitacoraErrores("Parametro/Create", MsjError, "Create");
                         ModelState.AddModelError("", "No se pudo insertar el registro, favor contacte al administrador.");
@@ -183,13 +187,14 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion",tbParametro.par_SucursalPrincipal);
                     ViewBag.par_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioModifica);
                     ViewBag.par_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioCrea);
+                    ViewBag.par_NombreEmpresa = new SelectList(db.tbEmpresas, "empr_Nombre", "empr_Nombre");
                     ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura", tbParametro.mnda_Id);
                     ViewBag.id_mnda = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura");
-                    ViewBag.Id_Rol = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
-                    ViewBag.Id_Rol1 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
-                    ViewBag.Id_Rol2 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
-                    ViewBag.Id_Rol3 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
-                    ViewBag.Id_Rol4 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
+                    ViewBag.Id_Rol = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Auditor Interno"), "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
+                    ViewBag.Id_Rol1 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Cajero"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
+                    ViewBag.Id_Rol2 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Créditos y Cobranza"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
+                    ViewBag.Id_Rol3 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Tienda"), "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
+                    ViewBag.Id_Rol4 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Supervisor de Caja"), "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
                     ViewBag.consumidor = new SelectList(db.tbCliente, "clte_Id", "clte_Identificacion");
                     Function.InsertBitacoraErrores("Parametro/Create", Ex.Message.ToString(), "Create");
                     ModelState.AddModelError("", "No se pudo insertar el registro, favor contacte al administrador.");
@@ -202,13 +207,14 @@ namespace ERP_GMEDINA.Controllers
             ViewBag.sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion",tbParametro.par_SucursalPrincipal);
             ViewBag.par_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioModifica);
             ViewBag.par_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioCrea);
+            ViewBag.par_NombreEmpresa = new SelectList(db.tbEmpresas, "empr_Nombre", "empr_Nombre");
             ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura", tbParametro.mnda_Id);
             ViewBag.id_mnda = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura");
-            ViewBag.Id_Rol = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
-            ViewBag.Id_Rol1 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
-            ViewBag.Id_Rol2 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
-            ViewBag.Id_Rol3 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
-            ViewBag.Id_Rol4 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
+            ViewBag.Id_Rol = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Auditor Interno"), "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
+            ViewBag.Id_Rol1 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Cajero"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
+            ViewBag.Id_Rol2 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Créditos y Cobranza"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
+            ViewBag.Id_Rol3 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Tienda"), "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
+            ViewBag.Id_Rol4 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Supervisor de Caja"), "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
             ViewBag.consumidor = new SelectList(db.tbCliente, "clte_Id", "clte_Identificacion");
             return View(tbParametro);
         }
@@ -228,11 +234,12 @@ namespace ERP_GMEDINA.Controllers
             ViewBag.sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion",tbParametro.par_SucursalPrincipal);
             ViewBag.par_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioModifica);
             ViewBag.par_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioCrea);
-            ViewBag.Id_Rol = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
-            ViewBag.Id_Rol1 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
-            ViewBag.Id_Rol2 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
-            ViewBag.Id_Rol3 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
-            ViewBag.Id_Rol4 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
+            ViewBag.par_NombreEmpresa = new SelectList(db.tbEmpresas, "empr_Nombre", "empr_Nombre");
+            ViewBag.Id_Rol = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Auditor Interno"), "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
+            ViewBag.Id_Rol1 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Cajero"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
+            ViewBag.Id_Rol2 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Créditos y Cobranza"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
+            ViewBag.Id_Rol3 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Tienda"), "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
+            ViewBag.Id_Rol4 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Supervisor de Caja"), "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
             ViewBag.consumidor = new SelectList(db.tbCliente, "clte_Id", "clte_Identificacion", tbParametro.par_IdConsumidorFinal);
             ViewBag.id_mnda = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura", tbParametro.mnda_Id);
             return View(tbParametro);
@@ -267,9 +274,9 @@ namespace ERP_GMEDINA.Controllers
                             {
                                 string Extension = Path.GetExtension(FotoPath.FileName).ToLower();
                                 string Archivo = tbParametro.par_Id + Extension;
-                                path = Path.Combine(Server.MapPath("~/Logo"), Archivo);
+                                path = Path.Combine(Server.MapPath("~/Logos"), Archivo);
                                 FotoPath.SaveAs(path);
-                                tbParametro.par_PathLogo = "~/Logo/" + Archivo;
+                                tbParametro.par_PathLogo = "~/Logos/" + Archivo;
                             }
                             else
                             {
@@ -309,12 +316,13 @@ namespace ERP_GMEDINA.Controllers
             ViewBag.sucursal = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion",tbParametro.par_SucursalPrincipal);
             ViewBag.par_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioModifica);
             ViewBag.par_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbParametro.par_UsuarioCrea);
+            ViewBag.par_NombreEmpresa = new SelectList(db.tbEmpresas, "empr_Nombre", "empr_Nombre");
             ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Abreviatura", tbParametro.mnda_Id);
-            ViewBag.Id_Rol = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
-            ViewBag.Id_Rol1 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
-            ViewBag.Id_Rol2 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
-            ViewBag.Id_Rol3 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
-            ViewBag.Id_Rol4 = new SelectList(db.tbRol, "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
+            ViewBag.Id_Rol = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Auditor Interno"), "rol_Id", "rol_Descripcion", tbParametro.par_RolAuditor);
+            ViewBag.Id_Rol1 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Cajero"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCajero);
+            ViewBag.Id_Rol2 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Créditos y Cobranza"), "rol_Id", "rol_Descripcion", tbParametro.par_RolCreditoCobranza);
+            ViewBag.Id_Rol3 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Gerente de Tienda"), "rol_Id", "rol_Descripcion", tbParametro.par_RolGerenteTienda);
+            ViewBag.Id_Rol4 = new SelectList(db.tbRol.Where(x => x.rol_Descripcion == "Supervisor de Caja"), "rol_Id", "rol_Descripcion", tbParametro.par_RolSupervisorCaja);
             ViewBag.consumidor = new SelectList(db.tbCliente, "clte_Id", "clte_Identificacion", tbParametro.par_IdConsumidorFinal);
             if (path != null)
                 tbParametro.par_PathLogo = path;
