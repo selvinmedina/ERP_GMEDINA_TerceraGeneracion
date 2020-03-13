@@ -39,6 +39,26 @@ namespace ERP_GMEDINA.Controllers
                 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult getTareasDisponibles(int carid)
+        {
+            var list = db.sdp_rrhh_GetTareaDisponibles(carid).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult getTareasAsignadas(int carid)
+        {
+            var list = db.sdp_rrhh_GetTareaAsignadas(carid).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult getTareas()
+        {
+            var list = db.sdp_rrhh_getTareas().ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Index()
         {
             tbCargos tbCargos =new tbCargos {car_Estado=true };
@@ -154,23 +174,23 @@ namespace ERP_GMEDINA.Controllers
                 return HttpNotFound();
             }
             Session["id"] = id;
-            var Cargos = new tbCargos
-            {
-                car_Id = tbCargos.car_Id,
-                car_Descripcion = tbCargos.car_Descripcion,
-                car_SueldoMinimo = tbCargos.car_SueldoMinimo,
-                car_SueldoMaximo = tbCargos.car_SueldoMaximo,
-                car_Estado = tbCargos.car_Estado,
-                car_RazonInactivo = tbCargos.car_RazonInactivo,
-                car_UsuarioCrea = tbCargos.car_UsuarioCrea,
-                car_FechaCrea = tbCargos.car_FechaCrea,
-                car_UsuarioModifica = tbCargos.car_UsuarioModifica,
-                car_FechaModifica = tbCargos.car_FechaModifica,
-                tbUsuario = new tbUsuario { usu_NombreUsuario = IsNull(tbCargos.tbUsuario).usu_NombreUsuario },
-                tbUsuario1 = new tbUsuario { usu_NombreUsuario = IsNull(tbCargos.tbUsuario1).usu_NombreUsuario }
-            };
+            //var Cargos = new tbCargos
+            //{
+            //    car_Id = tbCargos.car_Id,
+            //    car_Descripcion = tbCargos.car_Descripcion,
+            //    car_SueldoMinimo = tbCargos.car_SueldoMinimo,
+            //    car_SueldoMaximo = tbCargos.car_SueldoMaximo,
+            //    car_Estado = tbCargos.car_Estado,
+            //    car_RazonInactivo = tbCargos.car_RazonInactivo,
+            //    car_UsuarioCrea = tbCargos.car_UsuarioCrea,
+            //    car_FechaCrea = tbCargos.car_FechaCrea,
+            //    car_UsuarioModifica = tbCargos.car_UsuarioModifica,
+            //    car_FechaModifica = tbCargos.car_FechaModifica,
+            //    tbUsuario = new tbUsuario { usu_NombreUsuario = IsNull(tbCargos.tbUsuario).usu_NombreUsuario },
+            //    tbUsuario1 = new tbUsuario { usu_NombreUsuario = IsNull(tbCargos.tbUsuario1).usu_NombreUsuario }
+            //};
 
-            return Json(Cargos, JsonRequestBehavior.AllowGet);
+            return View(tbCargos);
         }
 
 

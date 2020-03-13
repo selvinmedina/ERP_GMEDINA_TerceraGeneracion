@@ -9,20 +9,23 @@ var id = 0;
 //Funciones GET
 function tablaEditar(ID) {
     var validacionPermiso = userModelState("Cargos/Edit");
-    if (validacionPermiso.status == true) {
-        id = ID;
-        _ajax(null,
-            '/Cargos/Edit/' + ID,
-            'GET',
-            function (obj) {
-                if (obj != "-1" && obj != "-2" && obj != "-3") {
-                    $("#FormEditar").find("#car_Descripcion").val(obj.car_Descripcion);
-                    $("#ModalEditar").find("#car_SueldoMinimo").val(obj.car_SueldoMinimo);
-                    $("#ModalEditar").find("#car_SueldoMaximo").val(obj.car_SueldoMaximo);
-                    $('#ModalEditar').modal('show');
-                }
-            });
-    }
+    id = ID;
+    sessionStorage.setItem("IdCargo", id);
+    window.location.href = "Cargos/Edit/" + id
+    //if (validacionPermiso.status == true) {
+    //    id = ID;
+    //    _ajax(null,
+    //        '/Cargos/Edit/' + ID,
+    //        'GET',
+    //        function (obj) {
+    //            if (obj != "-1" && obj != "-2" && obj != "-3") {
+    //                $("#FormEditar").find("#car_Descripcion").val(obj.car_Descripcion);
+    //                $("#ModalEditar").find("#car_SueldoMinimo").val(obj.car_SueldoMinimo);
+    //                $("#ModalEditar").find("#car_SueldoMaximo").val(obj.car_SueldoMaximo);
+    //                $('#ModalEditar').modal('show');
+    //            }
+    //        });
+    //}
 }
 
 function tablaDetalles(ID) {
@@ -91,22 +94,24 @@ $("#btnAgregar").click(function () {
     }
 });
 
-$("#btnEditar").click(function () {
-    _ajax(null,
-        '/Cargos/Edit/' + id,
-        'GET',
-        function (obj) {
-            if (obj != "-1" && obj != "-2" && obj != "-3") {
-                CierraPopups();
-                $('#ModalEditar').modal('show');
-                $("#ModalEditar").find("#car_Descripcion").val(obj.car_Descripcion);
+//$("#btnEditar").click(function () {
+//    _ajax(null,
+//        '/Cargos/Edit/' + id,
+//        'GET',
+//        function (obj) {
+//            if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                CierraPopups();
+               
+                
+//                //$('#ModalEditar').modal('show');
+//                //$("#ModalEditar").find("#car_Descripcion").val(obj.car_Descripcion);
            
                
-                $("#ModalEditar").find("#car_Descripcion").focus();
+//                //$("#ModalEditar").find("#car_Descripcion").focus();
                
-            }
-        });
-});
+//            }
+//        });
+//});
 
 //$("#btnInactivar").click(function () {
 //    var validacionPermiso = userModelState("Cargos/delete");

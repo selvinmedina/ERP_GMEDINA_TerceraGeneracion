@@ -766,6 +766,15 @@
     <Compile Include="Models\SDP_Inv_tbSalidaDetalle_Select_Result.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sdp_rrhh_GetTareaAsignadas_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sdp_rrhh_GetTareaDisponibles_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sdp_rrhh_getTareas_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SDP_tbBodega_Listado_Result.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
@@ -3921,6 +3930,7 @@
     <Content Include="Scripts\app\General\Areas\IndexAreas.js" />
     <Content Include="Scripts\app\General\Cargos\Admin.js" />
     <Content Include="Scripts\app\General\Cargos\Cargos.js" />
+    <Content Include="Scripts\app\General\Cargos\EditCargos.js" />
     <Content Include="Scripts\app\General\CatalogoDeducciones.js" />
     <Content Include="Scripts\app\General\CatalogoDeIngresos.js" />
     <Content Include="Scripts\app\General\CatalogoPlanillas.js" />
@@ -5058,7 +5068,6 @@
     <Content Include="Views\Cargos\_Create.cshtml" />
     <Content Include="Views\Cargos\_Delete.cshtml" />
     <Content Include="Views\Cargos\_Detalles.cshtml" />
-    <Content Include="Views\Cargos\_Edit.cshtml" />
     <Content Include="Views\Competencias\Index.cshtml" />
     <Content Include="Views\Competencias\_Create.cshtml" />
     <Content Include="Views\Competencias\_Delete.cshtml" />
@@ -5647,6 +5656,8 @@
     <Content Include="Views\Tareas\_Edit.cshtml" />
     <Content Include="Views\Tareas\Index.cshtml" />
     <Content Include="Views\Cargos\Create.cshtml" />
+    <Content Include="Views\Cargos\Edit.cshtml" />
+    <Content Include="Views\CatalogoDeDeducciones\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

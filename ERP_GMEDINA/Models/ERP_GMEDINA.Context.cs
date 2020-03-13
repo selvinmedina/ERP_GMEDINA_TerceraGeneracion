@@ -14909,5 +14909,28 @@
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbCargos_Insert_Result>("UDP_RRHH_tbCargos_Insert", car_DescripcionParameter, car_SueldoMinimoParameter, car_SueldoMaximoParameter, car_UsuarioCreaParameter, car_FechaCreaParameter);
         }
+    
+        public virtual ObjectResult<sdp_rrhh_GetTareaAsignadas_Result> sdp_rrhh_GetTareaAsignadas(Nullable<int> car_id)
+        {
+            var car_idParameter = car_id.HasValue ?
+                new ObjectParameter("car_id", car_id) :
+                new ObjectParameter("car_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sdp_rrhh_GetTareaAsignadas_Result>("sdp_rrhh_GetTareaAsignadas", car_idParameter);
+        }
+    
+        public virtual ObjectResult<sdp_rrhh_GetTareaDisponibles_Result> sdp_rrhh_GetTareaDisponibles(Nullable<int> car_id)
+        {
+            var car_idParameter = car_id.HasValue ?
+                new ObjectParameter("car_id", car_id) :
+                new ObjectParameter("car_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sdp_rrhh_GetTareaDisponibles_Result>("sdp_rrhh_GetTareaDisponibles", car_idParameter);
+        }
+    
+        public virtual ObjectResult<sdp_rrhh_getTareas_Result> sdp_rrhh_getTareas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sdp_rrhh_getTareas_Result>("sdp_rrhh_getTareas");
+        }
     }
 }
