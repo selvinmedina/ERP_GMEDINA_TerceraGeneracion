@@ -2,9 +2,10 @@
 <xs:schema id="ReportesRRHH" targetNamespace="http://tempuri.org/ReportesRRHH.xsd" xmlns:mstns="http://tempuri.org/ReportesRRHH.xsd" xmlns="http://tempuri.org/ReportesRRHH.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ERP_GMEDINAConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ERP_GMEDINAConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ERP_GMEDINAConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ERP_GMEDINAConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="ERP_GMEDINAConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ERP_GMEDINAConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ERP_GMEDINAConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ERP_GMEDINAConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ERP_GMEDINA.Properties.Settings.GlobalReference.Default.ERP_GMEDINAConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="V_RPT_EmpleadoCurriculumTableAdapter" GeneratorDataComponentClassName="V_RPT_EmpleadoCurriculumTableAdapter" Name="V_RPT_EmpleadoCurriculum" UserDataComponentName="V_RPT_EmpleadoCurriculumTableAdapter">
@@ -391,6 +392,44 @@ FROM     rrhh.V_RPT_Requisiciones</CommandText>
               <Mapping SourceColumn="Fecha" DataSetColumn="Fecha" />
               <Mapping SourceColumn="FechaFin" DataSetColumn="FechaFin" />
               <Mapping SourceColumn="emp_Id" DataSetColumn="emp_Id" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="V_IncrementoSalarioTableAdapter" GeneratorDataComponentClassName="V_IncrementoSalarioTableAdapter" Name="V_IncrementoSalario" UserDataComponentName="V_IncrementoSalarioTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ERP_GMEDINAConnectionString (Settings)" DbObjectName="ERP_GMEDINA2.rrhh.V_IncrementoSalario" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT sue_Cantidad, sue_Anterior, NombreCompleto
+FROM     rrhh.V_IncrementoSalario</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="sue_Cantidad" DataSetColumn="sue_Cantidad" />
+              <Mapping SourceColumn="sue_Anterior" DataSetColumn="sue_Anterior" />
+              <Mapping SourceColumn="NombreCompleto" DataSetColumn="NombreCompleto" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="V_IncrementoSalario1TableAdapter" GeneratorDataComponentClassName="V_IncrementoSalario1TableAdapter" Name="V_IncrementoSalario1" UserDataComponentName="V_IncrementoSalario1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ERP_GMEDINAConnectionString (Settings)" DbObjectName="ERP_GMEDINA2.rrhh.V_IncrementoSalario" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT rrhh.V_IncrementoSalario.*
+FROM     rrhh.V_IncrementoSalario</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="sue_Cantidad" DataSetColumn="sue_Cantidad" />
+              <Mapping SourceColumn="sue_Anterior" DataSetColumn="sue_AnteriHor" />
+              <Mapping SourceColumn="NombreCompleto" DataSetColumn="NombreCompleto" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -1027,6 +1066,36 @@ FROM     rrhh.V_RPT_Requisiciones</CommandText>
               <xs:element name="Fecha" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
               <xs:element name="FechaFin" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFechaFin" msprop:Generator_ColumnPropNameInRow="FechaFin" msprop:Generator_ColumnPropNameInTable="FechaFinColumn" msprop:Generator_UserColumnName="FechaFin" type="xs:dateTime" minOccurs="0" />
               <xs:element name="emp_Id" msprop:Generator_ColumnVarNameInTable="columnemp_Id" msprop:Generator_ColumnPropNameInRow="emp_Id" msprop:Generator_ColumnPropNameInTable="emp_IdColumn" msprop:Generator_UserColumnName="emp_Id" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="V_IncrementoSalario" msprop:Generator_TableClassName="V_IncrementoSalarioDataTable" msprop:Generator_TableVarName="tableV_IncrementoSalario" msprop:Generator_RowChangedName="V_IncrementoSalarioRowChanged" msprop:Generator_TablePropName="V_IncrementoSalario" msprop:Generator_RowDeletingName="V_IncrementoSalarioRowDeleting" msprop:Generator_RowChangingName="V_IncrementoSalarioRowChanging" msprop:Generator_RowEvHandlerName="V_IncrementoSalarioRowChangeEventHandler" msprop:Generator_RowDeletedName="V_IncrementoSalarioRowDeleted" msprop:Generator_RowClassName="V_IncrementoSalarioRow" msprop:Generator_UserTableName="V_IncrementoSalario" msprop:Generator_RowEvArgName="V_IncrementoSalarioRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sue_Cantidad" msprop:Generator_ColumnVarNameInTable="columnsue_Cantidad" msprop:Generator_ColumnPropNameInRow="sue_Cantidad" msprop:Generator_ColumnPropNameInTable="sue_CantidadColumn" msprop:Generator_UserColumnName="sue_Cantidad" type="xs:decimal" />
+              <xs:element name="sue_Anterior" msprop:Generator_ColumnVarNameInTable="columnsue_Anterior" msprop:Generator_ColumnPropNameInRow="sue_Anterior" msprop:Generator_ColumnPropNameInTable="sue_AnteriorColumn" msprop:Generator_UserColumnName="sue_Anterior" type="xs:int" minOccurs="0" />
+              <xs:element name="NombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNombreCompleto" msprop:Generator_ColumnPropNameInRow="NombreCompleto" msprop:Generator_ColumnPropNameInTable="NombreCompletoColumn" msprop:Generator_UserColumnName="NombreCompleto" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="101" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="V_IncrementoSalario1" msprop:Generator_TableClassName="V_IncrementoSalario1DataTable" msprop:Generator_TableVarName="tableV_IncrementoSalario1" msprop:Generator_TablePropName="V_IncrementoSalario1" msprop:Generator_RowDeletingName="V_IncrementoSalario1RowDeleting" msprop:Generator_RowChangingName="V_IncrementoSalario1RowChanging" msprop:Generator_RowEvHandlerName="V_IncrementoSalario1RowChangeEventHandler" msprop:Generator_RowDeletedName="V_IncrementoSalario1RowDeleted" msprop:Generator_UserTableName="V_IncrementoSalario1" msprop:Generator_RowChangedName="V_IncrementoSalario1RowChanged" msprop:Generator_RowEvArgName="V_IncrementoSalario1RowChangeEvent" msprop:Generator_RowClassName="V_IncrementoSalario1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sue_Cantidad" msprop:Generator_ColumnVarNameInTable="columnsue_Cantidad" msprop:Generator_ColumnPropNameInRow="sue_Cantidad" msprop:Generator_ColumnPropNameInTable="sue_CantidadColumn" msprop:Generator_UserColumnName="sue_Cantidad" type="xs:decimal" />
+              <xs:element name="sue_AnteriHor" msdata:Caption="sue_Anterior" msprop:Generator_ColumnVarNameInTable="columnsue_AnteriHor" msprop:Generator_ColumnPropNameInRow="sue_AnteriHor" msprop:Generator_ColumnPropNameInTable="sue_AnteriHorColumn" msprop:Generator_UserColumnName="sue_AnteriHor" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NombreCompleto" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNombreCompleto" msprop:Generator_ColumnPropNameInRow="NombreCompleto" msprop:Generator_ColumnPropNameInTable="NombreCompletoColumn" msprop:Generator_UserColumnName="NombreCompleto" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="101" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

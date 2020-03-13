@@ -16,6 +16,7 @@ namespace ERP_GMEDINA.Models
         public string Tipo_Moneda { get; set; }
         public string Cuenta { get; set; }
         public Nullable<int> Sueldo_Anterior { get; set; }
+        public Nullable<decimal> Sueldo_Pasado { get; set; }
         public string Area { get; set; }
         public string Cargo { get; set; }
         public Nullable<decimal> Sueldo_Maximo { get; set; }

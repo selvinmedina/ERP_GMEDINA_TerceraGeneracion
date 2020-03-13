@@ -131,7 +131,6 @@
         public virtual DbSet<tbRequisiciones> tbRequisiciones { get; set; }
         public virtual DbSet<tbSeleccionCandidatos> tbSeleccionCandidatos { get; set; }
         public virtual DbSet<tbSucursales> tbSucursales { get; set; }
-        public virtual DbSet<tbSueldos> tbSueldos { get; set; }
         public virtual DbSet<tbTipoAmonestaciones> tbTipoAmonestaciones { get; set; }
         public virtual DbSet<tbTipoHoras> tbTipoHoras { get; set; }
         public virtual DbSet<tbTipoIncapacidades> tbTipoIncapacidades { get; set; }
@@ -292,7 +291,6 @@
         public virtual DbSet<V_RPT_Requisiciones> V_RPT_Requisiciones { get; set; }
         public virtual DbSet<V_RPT_RequisicionesDatos> V_RPT_RequisicionesDatos { get; set; }
         public virtual DbSet<V_SeleccionCandidatos> V_SeleccionCandidatos { get; set; }
-        public virtual DbSet<V_Sueldos> V_Sueldos { get; set; }
         public virtual DbSet<V_tbEmpleados> V_tbEmpleados { get; set; }
         public virtual DbSet<V_tbHistorialPermisos_completa> V_tbHistorialPermisos_completa { get; set; }
         public virtual DbSet<V_tbHistorialSalidas> V_tbHistorialSalidas { get; set; }
@@ -327,6 +325,8 @@
         public virtual DbSet<UDV_Vent_VentasExoneradas> UDV_Vent_VentasExoneradas { get; set; }
         public virtual DbSet<UDV_Vent_VentasPorCaja_EntreFechas> UDV_Vent_VentasPorCaja_EntreFechas { get; set; }
         public virtual DbSet<UDV_Vent_SolicitudCredito_SolicitudesPorAprobarReporte> UDV_Vent_SolicitudCredito_SolicitudesPorAprobarReporte { get; set; }
+        public virtual DbSet<tbSueldos> tbSueldos { get; set; }
+        public virtual DbSet<V_Sueldos> V_Sueldos { get; set; }
     
         public virtual ObjectResult<SDP_Acce_GetObjetos_Result> SDP_Acce_GetObjetos()
         {
@@ -7258,7 +7258,7 @@
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbSucursales_Update_Result>("UDP_RRHH_tbSucursales_Update", suc_IdParameter, empr_IdParameter, mun_CodigoParameter, bod_IdParameter, pemi_IdParameter, suc_DescripcionParameter, suc_CorreoParameter, suc_DireccionParameter, suc_TelefonoParameter, suc_UsuarioModificaParameter, suc_FechaModificaParameter);
         }
     
-        public virtual ObjectResult<UDP_RRHH_tbSueldos_Insert_Result> UDP_RRHH_tbSueldos_Insert(Nullable<int> sue_Id, Nullable<int> emp_Id, Nullable<int> tmon_Id, Nullable<decimal> sue_Cantidad, Nullable<int> sue_UsuarioCrea, Nullable<int> sue_UsuarioModifica, Nullable<System.DateTime> sue_FechaModifica)
+        public virtual ObjectResult<UDP_RRHH_tbSueldos_Insert_Result> UDP_RRHH_tbSueldos_Insert(Nullable<int> sue_Id, Nullable<int> emp_Id, Nullable<int> tmon_Id, Nullable<decimal> sue_Cantidad, Nullable<decimal> sue_SueldoPasado, Nullable<int> sue_UsuarioCrea, Nullable<int> sue_UsuarioModifica, Nullable<System.DateTime> sue_FechaModifica)
         {
             var sue_IdParameter = sue_Id.HasValue ?
                 new ObjectParameter("sue_Id", sue_Id) :
@@ -7276,6 +7276,10 @@
                 new ObjectParameter("sue_Cantidad", sue_Cantidad) :
                 new ObjectParameter("sue_Cantidad", typeof(decimal));
     
+            var sue_SueldoPasadoParameter = sue_SueldoPasado.HasValue ?
+                new ObjectParameter("sue_SueldoPasado", sue_SueldoPasado) :
+                new ObjectParameter("sue_SueldoPasado", typeof(decimal));
+    
             var sue_UsuarioCreaParameter = sue_UsuarioCrea.HasValue ?
                 new ObjectParameter("sue_UsuarioCrea", sue_UsuarioCrea) :
                 new ObjectParameter("sue_UsuarioCrea", typeof(int));
@@ -7288,7 +7292,7 @@
                 new ObjectParameter("sue_FechaModifica", sue_FechaModifica) :
                 new ObjectParameter("sue_FechaModifica", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbSueldos_Insert_Result>("UDP_RRHH_tbSueldos_Insert", sue_IdParameter, emp_IdParameter, tmon_IdParameter, sue_CantidadParameter, sue_UsuarioCreaParameter, sue_UsuarioModificaParameter, sue_FechaModificaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_RRHH_tbSueldos_Insert_Result>("UDP_RRHH_tbSueldos_Insert", sue_IdParameter, emp_IdParameter, tmon_IdParameter, sue_CantidadParameter, sue_SueldoPasadoParameter, sue_UsuarioCreaParameter, sue_UsuarioModificaParameter, sue_FechaModificaParameter);
         }
     
         public virtual ObjectResult<UDP_RRHH_tbSueldos_Restore_Result> UDP_RRHH_tbSueldos_Restore(Nullable<int> sue_id, Nullable<int> sue_UsuarioModifica, Nullable<System.DateTime> sue_FechaModifica)

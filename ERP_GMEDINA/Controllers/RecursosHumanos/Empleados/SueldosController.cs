@@ -178,17 +178,20 @@ namespace ERP_GMEDINA.Controllers
                 return HttpNotFound();
             }
             Session["id"] = id;
+           
             db = new ERP_GMEDINAEntities();
+
             var sueldos = db.V_Sueldos.Select(x =>
             new
             {
-
+              
                 Id = x.Id,
                 Identidad = x.Identidad,
                 Id_Empleado = x.Id_Empleado,
                 Id_Amonestacion = x.Id_Amonestacion,
                 Sueldo = x.Sueldo,
                 Sueldo_Anterior = x.Sueldo_Anterior,
+                Sueldo_Pasado = x.Sueldo_Pasado,
                 Estado = x.Estado,
                 RazonInactivo = x.RazonInactivo,
                 Usuario_Nombre = x.Usuario_Nombre,
@@ -197,11 +200,11 @@ namespace ERP_GMEDINA.Controllers
                 Usuario_Modifica = x.Usuario_Modifica,
                 Fecha_Modifica = x.Fecha_Modifica,
                 Sueldo_Maximo = x.Sueldo_Maximo,
-                Sueldo_Minimo = x.Sueldo_Minimo,
+                Sueldo_Minimo = x.Sueldo_Minimo
 
 
             }).Where(x => x.Id == id).ToList();
-
+            Session["Sueldo_Anterior"] = sueldos[0].Sueldo;
             return Json(sueldos, JsonRequestBehavior.AllowGet);
         }
 
@@ -215,7 +218,8 @@ namespace ERP_GMEDINA.Controllers
                 try
                 {
                     db = new ERP_GMEDINAEntities();
-                    var list = db.UDP_RRHH_tbSueldos_Insert(tbsueldos.sue_Id, tbsueldos.emp_Id, tbsueldos.tmon_Id, Convert.ToDecimal(tbsueldos.sue_Cantidad), (int)Session["UserLogin"], (int)Session["UserLogin"],Function.DatetimeNow());
+                    var list = db.UDP_RRHH_tbSueldos_Insert(tbsueldos.sue_Id, tbsueldos.emp_Id, tbsueldos.tmon_Id, decimal.Parse(tbsueldos.sue_Cantidad), tbsueldos.sue_SueldoPasado, (int)Session["UserLogin"], (int)Session["UserLogin"],Function.DatetimeNow());
+                    var count = db.tbSueldos.Where(s => s.sue_Id == tbsueldos.sue_Id);
                     foreach (UDP_RRHH_tbSueldos_Insert_Result item in list)
                     {
                         msj = item.MensajeError + " ";

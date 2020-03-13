@@ -5606,6 +5606,8 @@
     <Content Include="Views\Shared\_NavigationPlanillas.cshtml" />
     <Content Include="Views\Shared\_LayoutBasePlanillas.cshtml" />
     <Content Include="Views\Home\Inventario.cshtml" />
+    <Content Include="Views\ReportesRRHH\IncrementoSalarialRTP.cshtml" />
+    <Content Include="Views\ErrorPages\NoData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -5781,6 +5783,8 @@
       <LastGenOutput>SolicitudesCreditosPorAprobar.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\IncrementoSalarial.rdlc" />
+    <EmbeddedResource Include="Reports\SueldosRPT.rdlc" />
     <EmbeddedResource Include="Reports\VentasConsumidorFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VentasConsumidorFinal.cs</LastGenOutput>

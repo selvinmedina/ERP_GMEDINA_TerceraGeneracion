@@ -33,7 +33,11 @@ namespace ERP_GMEDINA.Models
 
         [Display(Name = "Sueldo Anterior")]
         public Nullable<int> sue_SueldoAnterior { get; set; }
-        
+
+        [Display(Name = "Sueldo Pasado")]
+        public Nullable<int> sue_SueldoPasado { get; set; }
+
+
         [Display(Name = "Estado")]
         public bool sue_Estado { get; set; }
 

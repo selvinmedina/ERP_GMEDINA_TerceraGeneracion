@@ -1,0 +1,79 @@
+﻿@using ReportViewerForMvc;
+@{
+    ViewBag.Title = "Reportes de Sueldos";
+    Layout = "~/Views/Shared/_LayoutBaseRRHH.cshtml";
+}
+
+
+@using (Html.BeginForm("IncrementoSalarialRTP", "ReportesRRHH", FormMethod.Post, new { id = "Sueldos" }))
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="float-e-margins">
+                <div class="ibox-title">
+                    <h5>Reportes de sueldos</h5>
+                    <div class="ibox-tools">
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="font-normal">Empleado</label>
+
+                                @Html.DropDownList("emp_Id", (IEnumerable<SelectListItem>)ViewBag.Empleados, "Seleccione un Empleado", new { @class = "buscable form-control", @name = "emp_Id", @id = "emp_Id" })
+                                
+                             
+
+                            </div>
+                        </div>
+   
+                      
+                      
+
+                    <button type="submit" class="btn btn-primary btn-sm" id="btnPrevisualizarDeducciones">Previsualizar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<br />
+
+
+@{
+    string visibilidadPreview = ViewBag.ReportViewer == null ? "none" : "";
+}
+
+<div class="row" style="display:@visibilidadPreview;">
+    <div class="col-lg-12  ibox-content">
+        <div class="float-e-margins ">
+            <div class="ibox-title">
+                <h5>Previsualización de reporte</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="col-lg-10 ">
+                @{
+                    if (ViewBag.ReportViewer != null)
+                    {
+                        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    @Styles.Render("~/plugins/select2Styles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/Scripts/app/general_Fechas")
+}
