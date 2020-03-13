@@ -99,12 +99,12 @@
                                             }
                                             else
                                             {
-                                                @*@Html.ActionLink("Detalles", "Details", new { id = item.pcat_Id }, new { @class = "btn btn-primary btn-xs" })*@
-                                                @Html.ActionLink("Activar", "ActivarCateValidacion", new { id = item.pcat_Id }, new { @class = "btn btn-primary btn-xs" })
+                                                @Html.ActionLink("Detalles", "Details", new { id = item.pcat_Id }, new { @class = "btn btn-primary btn-xs" })
+                                                @Html.ActionLink("Activar", "ActivarCateValidacion", new { id = item.pcat_Id }, new { @class = "btn btn-default btn-xs" })
                                             }
                                         }
                                         @*modales*@
-                                        <div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" data-backdrop="static" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
