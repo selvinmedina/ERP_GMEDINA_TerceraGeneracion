@@ -5,6 +5,6 @@ namespace ERP_GMEDINA.Models
     
     public partial class UDP_RRHH_tbCargos_Insert_Result
     {
-        public string MensajeError { get; set; }
+        public Nullable<int> MensajeError { get; set; }
     }
 }

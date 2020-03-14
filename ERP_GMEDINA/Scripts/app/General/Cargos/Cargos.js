@@ -9,20 +9,23 @@ var id = 0;
 //Funciones GET
 function tablaEditar(ID) {
     var validacionPermiso = userModelState("Cargos/Edit");
-    if (validacionPermiso.status == true) {
-        id = ID;
-        _ajax(null,
-            '/Cargos/Edit/' + ID,
-            'GET',
-            function (obj) {
-                if (obj != "-1" && obj != "-2" && obj != "-3") {
-                    $("#FormEditar").find("#car_Descripcion").val(obj.car_Descripcion);
-                    $("#ModalEditar").find("#car_SueldoMinimo").val(obj.car_SueldoMinimo);
-                    $("#ModalEditar").find("#car_SueldoMaximo").val(obj.car_SueldoMaximo);
-                    $('#ModalEditar').modal('show');
-                }
-            });
-    }
+    id = ID;
+    sessionStorage.setItem("IdCargo", id);
+    window.location.href = "Cargos/Edit/" + id
+    //if (validacionPermiso.status == true) {
+    //    id = ID;
+    //    _ajax(null,
+    //        '/Cargos/Edit/' + ID,
+    //        'GET',
+    //        function (obj) {
+    //            if (obj != "-1" && obj != "-2" && obj != "-3") {
+    //                $("#FormEditar").find("#car_Descripcion").val(obj.car_Descripcion);
+    //                $("#ModalEditar").find("#car_SueldoMinimo").val(obj.car_SueldoMinimo);
+    //                $("#ModalEditar").find("#car_SueldoMaximo").val(obj.car_SueldoMaximo);
+    //                $('#ModalEditar').modal('show');
+    //            }
+    //        });
+    //}
 }
 
 function tablaDetalles(ID) {
@@ -91,22 +94,24 @@ $("#btnAgregar").click(function () {
     }
 });
 
-$("#btnEditar").click(function () {
-    _ajax(null,
-        '/Cargos/Edit/' + id,
-        'GET',
-        function (obj) {
-            if (obj != "-1" && obj != "-2" && obj != "-3") {
-                CierraPopups();
-                $('#ModalEditar').modal('show');
-                $("#ModalEditar").find("#car_Descripcion").val(obj.car_Descripcion);
+//$("#btnEditar").click(function () {
+//    _ajax(null,
+//        '/Cargos/Edit/' + id,
+//        'GET',
+//        function (obj) {
+//            if (obj != "-1" && obj != "-2" && obj != "-3") {
+//                CierraPopups();
+               
+                
+//                //$('#ModalEditar').modal('show');
+//                //$("#ModalEditar").find("#car_Descripcion").val(obj.car_Descripcion);
            
                
-                $("#ModalEditar").find("#car_Descripcion").focus();
+//                //$("#ModalEditar").find("#car_Descripcion").focus();
                
-            }
-        });
-});
+//            }
+//        });
+//});
 
 //$("#btnInactivar").click(function () {
 //    var validacionPermiso = userModelState("Cargos/delete");
@@ -122,6 +127,7 @@ $("#btnEditar").click(function () {
 $("#btnGuardar").click(function () {
 
     var data = $("#FormNuevo").serializeArray();
+    console.log(data);
     data = serializar(data);
     if (data != null) {
         let a = parseFloat(data.car_SueldoMinimo);
@@ -138,7 +144,7 @@ $("#btnGuardar").click(function () {
 
             }
             else {
-                data = JSON.stringify({ tbCargos: data });
+                data = JSON.stringify({ tbCargos: data, tareas:AccesoTarea });
                 _ajax(data,
                     '/Cargos/Create',
                     'POST',
@@ -148,6 +154,7 @@ $("#btnGuardar").click(function () {
                             MsgSuccess("¡Éxito!", "El registro se agregó de forma exitosa.");
                             LimpiarControles(["car_Descripcion", "car_RazonInactivo", "car_SueldoMaximo", "car_SueldoMinimo"]);
                             llenarTabla();
+                            window.location.href = "http://localhost:51144/Cargos";
 
                         } else {
                             MsgError("Error", "No se agregó el registro, contacte al administrador.");
@@ -227,3 +234,72 @@ $("#btnActualizar").click(function () {
         }
     }
 });
+
+
+
+
+$(document).ready(function () {
+
+    $.ajax({
+        url: "/Cargos/GetTareas",
+        method: "POST",
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(),
+    })
+    .done(function (data) {
+        if (data.length > 1) {
+            $.each(data, function (i, item) {
+                newTr = '';
+                newTr += '<tr data-id="' + item.tar_Id + '">';
+                newTr += '<td>' + '<input type="checkbox" class="js-switch js-check-change" id="chk' + item.tar_Id + '" >' + '</td>';
+                newTr += '<td id="objpantalla' + item.tar_Id + '">' + item.tar_Descripcion + '</td>';
+                newTr += '</tr>';
+                $('#NoAsignados tbody').append(newTr);
+            })
+
+            $('#Asignados> tbody > tr').each(function () {
+                $(this).remove();
+            })
+
+
+
+        }
+    })
+});
+
+var AccesoTarea = []
+
+$('#Add').click(function () {
+    $('#NoAsignados> tbody > tr').each(function () {
+        idItem = $(this).data('id');
+        var objpantalla;
+
+        if ($('#chk' + idItem).is(':checked')) {
+            active = $(this)
+            var Asignados = $('#Asignados').length
+            $('#NoAsignados tbody').append(active)
+            $('#chk' + idItem).prop('checked', false);
+            $(this).remove();
+            $('#Asignados tbody').append(active)
+            AccesoTarea.push(idItem);
+            console.log(AccesoTarea)
+
+        }
+    })
+})
+
+$('#Remove').click(function () {
+    $('#Asignados> tbody > tr').each(function () {
+        idItem = $(this).data('id');
+        var objpantalla;
+
+        if ($('#chk' + idItem).is(':checked')) {
+            active = $(this)
+            $('#chk' + idItem).prop('checked', false);
+            $(this).remove();
+            $('#NoAsignados tbody').append(active)
+        }
+    })
+})
+

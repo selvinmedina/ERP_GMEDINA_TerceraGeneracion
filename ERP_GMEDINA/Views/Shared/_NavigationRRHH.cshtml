@@ -89,6 +89,10 @@
                             {
                                 <li class="@Html.IsSelected(controller: "TipoHoras")"><a href="@Url.Action("Index", "TipoHoras")">Tipos de Horas</a></li>
                             }
+                            @if (Login.GetUserRols("Tareas/Index"))
+                            {
+                                <li class="@Html.IsSelected(controller: "Tareas")"><a href="@Url.Action("Index", "Tareas")">Tareas</a></li>
+                            }
                         </ul>
                     </li>
                     @*MENU GENERAL*@

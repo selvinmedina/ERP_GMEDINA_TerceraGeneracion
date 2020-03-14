@@ -327,7 +327,9 @@
     <Compile Include="Controllers\RecursosHumanos\General\CargosController.cs" />
     <Compile Include="Controllers\RecursosHumanos\DatosProfesionales\CompetenciasController.cs" />
     <Compile Include="Controllers\RecursosHumanos\Empleados\EmpleadosController.cs" />
+    <Compile Include="Controllers\RecursosHumanos\General\TareasController.cs" />
     <Compile Include="Controllers\RecursosHumanos\General\EmpresasController.cs" />
+    <Compile Include="Controllers\RecursosHumanos\General\TareasCargosController.cs" />
     <Compile Include="Controllers\RecursosHumanos\Herramientas\EquipoEmpleadosController.cs" />
     <Compile Include="Controllers\RecursosHumanos\Herramientas\EquipoTrabajoController.cs" />
     <Compile Include="Controllers\ErrorPagesController.cs" />
@@ -623,6 +625,7 @@
     <Compile Include="Models\RecursosHumanos\DatosProfesionales\cTitulos.cs" />
     <Compile Include="Models\RecursosHumanos\General\cAreas.cs" />
     <Compile Include="Models\RecursosHumanos\General\cCargos.cs" />
+    <Compile Include="Models\RecursosHumanos\General\cTareas.cs" />
     <Compile Include="Models\RecursosHumanos\General\cDepartamentos.cs" />
     <Compile Include="Models\RecursosHumanos\Empleados\cEmpleados.cs" />
     <Compile Include="Models\RecursosHumanos\General\cEmpresas.cs" />
@@ -764,6 +767,15 @@
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SDP_Inv_tbSalidaDetalle_Select_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sdp_rrhh_GetTareaAsignadas_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sdp_rrhh_GetTareaDisponibles_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sdp_rrhh_getTareas_Result.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SDP_tbBodega_Listado_Result.cs">
@@ -1255,6 +1267,12 @@
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbSueldos.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbTareas.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbTareasCargos.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbTechoImpuestoVecinal.cs">
@@ -2355,6 +2373,27 @@
     <Compile Include="Models\UDP_RRHH_tbSueldos_Restore_Result.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UDP_RRHH_tbTareasCargos_Inactivar_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_RRHH_tbTareasCargos_Insert_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_RRHH_tbTareasCargos_Restore_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_RRHH_tbTareas_Delete_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_RRHH_tbTareas_Insert_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_RRHH_tbTareas_Restore_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_RRHH_tbTareas_Update_Result.cs">
+      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UDP_RRHH_tbTipoAmonestaciones_Delete_Result.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
@@ -3004,9 +3043,6 @@
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UDV_Vent_prueba.cs">
-      <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UDV_Vent_SolicitudCredito_SolicitudesPorAprobarReporte.cs">
       <DependentUpon>ERP_GMEDINA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UDV_Vent_SolicituEfectivo_Index.cs">
@@ -3900,10 +3936,13 @@
     <Content Include="Scripts\app\General\Areas\IndexAreas.js" />
     <Content Include="Scripts\app\General\Cargos\Admin.js" />
     <Content Include="Scripts\app\General\Cargos\Cargos.js" />
+    <Content Include="Scripts\app\General\Cargos\EditCargos.js" />
     <Content Include="Scripts\app\General\CatalogoDeducciones.js" />
     <Content Include="Scripts\app\General\CatalogoDeIngresos.js" />
     <Content Include="Scripts\app\General\CatalogoPlanillas.js" />
     <Content Include="Scripts\app\General\CatalogoPlanillas.min.js" />
+    <Content Include="Scripts\app\General\Tareas\Admin.js" />
+    <Content Include="Scripts\app\General\Tareas\Tareas.js" />
     <Content Include="Scripts\app\General\Competencias\Admin.js" />
     <Content Include="Scripts\app\General\Competencias\Competencias.js" />
     <Content Include="Scripts\app\General\datatableEdit.js" />
@@ -4883,6 +4922,12 @@
     <Content Include="Scripts\Scripts_Base\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Scripts_Base\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Scripts_Base\modernizr-2.8.3.js" />
+    <Content Include="Views\Personas\Create.cshtml" />
+    <Content Include="Views\Personas\Delete.cshtml" />
+    <Content Include="Views\Personas\Edit.cshtml" />
+    <Content Include="Views\Personas\Index.cshtml" />
+    <Content Include="Views\Personas\_Delete.cshtml" />
+    <Content Include="Views\Personas\_Detalles.cshtml" />
     <Content Include="Views\SeleccionCandidatos\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -5029,7 +5074,6 @@
     <Content Include="Views\Cargos\_Create.cshtml" />
     <Content Include="Views\Cargos\_Delete.cshtml" />
     <Content Include="Views\Cargos\_Detalles.cshtml" />
-    <Content Include="Views\Cargos\_Edit.cshtml" />
     <Content Include="Views\Competencias\Index.cshtml" />
     <Content Include="Views\Competencias\_Create.cshtml" />
     <Content Include="Views\Competencias\_Delete.cshtml" />
@@ -5106,12 +5150,6 @@
     <Content Include="Views\Nacionalidades\_Delete.cshtml" />
     <Content Include="Views\Nacionalidades\_Detalles.cshtml" />
     <Content Include="Views\Nacionalidades\_Edit.cshtml" />
-    <Content Include="Views\Personas\Create.cshtml" />
-    <Content Include="Views\Personas\Delete.cshtml" />
-    <Content Include="Views\Personas\Edit.cshtml" />
-    <Content Include="Views\Personas\Index.cshtml" />
-    <Content Include="Views\Personas\_Delete.cshtml" />
-    <Content Include="Views\Personas\_Detalles.cshtml" />
     <Content Include="Views\RazonSalidas\Index.cshtml" />
     <Content Include="Views\RazonSalidas\_Create.cshtml" />
     <Content Include="Views\RazonSalidas\_Delete.cshtml" />
@@ -5612,6 +5650,20 @@
     <Content Include="Views\Shared\_NavigationPlanillas.cshtml" />
     <Content Include="Views\Shared\_LayoutBasePlanillas.cshtml" />
     <Content Include="Views\Home\Inventario.cshtml" />
+    <Content Include="Views\TareasCargos\Create.cshtml" />
+    <Content Include="Views\TareasCargos\Delete.cshtml" />
+    <Content Include="Views\TareasCargos\Edit.cshtml" />
+    <Content Include="Views\TareasCargos\Index.cshtml" />
+    <Content Include="Views\TareasCargos\_Delete.cshtml" />
+    <Content Include="Views\TareasCargos\_Detalles.cshtml" />
+    <Content Include="Views\Tareas\_Create.cshtml" />
+    <Content Include="Views\Tareas\_Delete.cshtml" />
+    <Content Include="Views\Tareas\_Detalles.cshtml" />
+    <Content Include="Views\Tareas\_Edit.cshtml" />
+    <Content Include="Views\Tareas\Index.cshtml" />
+    <Content Include="Views\Cargos\Create.cshtml" />
+    <Content Include="Views\Cargos\Edit.cshtml" />
+    <Content Include="Views\CatalogoDeDeducciones\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

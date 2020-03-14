@@ -778,6 +778,13 @@ namespace ERP_GMEDINA
             bundles.Add(new ScriptBundle("~/Scripts/app/General/Competencias/Admin").Include(
             "~/Scripts/app/General/Competencias/Admin.js"));
 
+            //SCRIPT TAREAS
+            bundles.Add(new ScriptBundle("~/Scripts/app/Tareas/Tareas").Include(
+                  "~/Scripts/app/general/Tareas/Tareas.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/Tareas/Admin").Include(
+            "~/Scripts/app/General/Tareas/Admin.js"));
+
             //bundles APP/TipoHoras/TipoHoras
             bundles.Add(new ScriptBundle("~/Scripts/app/General/TipoHoras").Include(
                 "~/Scripts/app/General/TipoHoras/TipoHoras.js"));
