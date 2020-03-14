@@ -102,6 +102,7 @@ namespace ERP_GMEDINA.Controllers
         public JsonResult Create(tbRequisiciones tbRequisiciones, DatosProfesionalesArray DatosProfesionales)
         {
             string msj = "...";
+           
             if (tbRequisiciones != null)
             {
                 try
@@ -124,7 +125,7 @@ namespace ERP_GMEDINA.Controllers
                         {
                             msj = item.MensajeError + "";
                             //Competencias
-                            if (DatosProfesionales.Competencias != null & msj != "-1")
+                            if (DatosProfesionales.Competencias != null & !msj.StartsWith("-1"))
                             {
                                 for (int i = 0; i < DatosProfesionales.Competencias.Length; i++)
                                 {
@@ -136,7 +137,7 @@ namespace ERP_GMEDINA.Controllers
                                 }
                             }
                            // Habilidades
-                            if (DatosProfesionales.Habilidades != null & msj != "-1")
+                            if (DatosProfesionales.Habilidades != null & !msj.StartsWith("-1"))
                             {
                                 for (int i = 0; i < DatosProfesionales.Habilidades.Length; i++)
                                 {
@@ -148,7 +149,7 @@ namespace ERP_GMEDINA.Controllers
                                 }
                             }
                             //Idiomas
-                            if (DatosProfesionales.Idiomas != null & msj != "-1")
+                            if (DatosProfesionales.Idiomas != null & !msj.StartsWith("-1"))
                             {
                                 for (int i = 0; i < DatosProfesionales.Idiomas.Length; i++)
                                 {
@@ -160,7 +161,7 @@ namespace ERP_GMEDINA.Controllers
                                 }
                             }
                            // Requerimientos Especiales
-                            if (DatosProfesionales.ReqEspeciales != null & msj != "-1")
+                            if (DatosProfesionales.ReqEspeciales != null & !msj.StartsWith("-1"))
                             {
                                 for (int i = 0; i < DatosProfesionales.ReqEspeciales.Length; i++)
                                 {
@@ -172,7 +173,7 @@ namespace ERP_GMEDINA.Controllers
                                 }
                             }
                             //Titulos
-                            if (DatosProfesionales.Titulos != null & msj != "-1")
+                            if (DatosProfesionales.Titulos != null & ! msj.StartsWith ("-1"))
                             {
                                 for (int i = 0; i < DatosProfesionales.Titulos.Length; i++)
                                 {
