@@ -199,13 +199,13 @@ function tablaDetalles(ID) {
 
                 if (obj != "-1" && obj != "-2" && obj != "-3") {
                     $("#ModalDetalles").find("#req_Experiencia")["0"].innerText = obj[0].req_Experiencia;
-                    $("#ModalDetalles").find("#req_Sexo")["0"].innerText = obj[0].req_Sexo == "N" ? "Indiferente" : obj[0].req_Sexo == "M" ? "Masulino" : "Femenino";
+                    $("#ModalDetalles").find("#req_Sexo")["0"].innerText = obj[0].req_Sexo.startsWith("F") ? "Femenino" :  obj[0].req_Sexo.startsWith("M") ? "Masculino" : "Indiferente" ;
                     $("#ModalDetalles").find("#req_Descripcion")["0"].innerText = obj[0].req_Descripcion;
                     $("#ModalDetalles").find("#req_EdadMinima")["0"].innerText = obj[0].req_EdadMinima;
                     $("#ModalDetalles").find("#req_EdadMaxima")["0"].innerText = obj[0].req_EdadMaxima;
                     $("#ModalDetalles").find("#req_EstadoCivil")["0"].innerText = obj[0].req_EstadoCivil == "N" ? "Indiferente" : obj[0].req_Sexo == "C" ? "Casado(a)" : "Soltero(a)";
                     $("#ModalDetalles").find("#req_NivelEducativo")["0"].innerText = NivelEducativo;
-                    $("#ModalDetalles").find("#req_Permanente")["0"].innerText = obj[0].req_Permanente == "true" ? "Si" : "No";
+                    $("#ModalDetalles").find("#req_Permanente")["0"].innerText = obj[0].req_Permanente == true ? "Si" : "No";
                     $("#ModalDetalles").find("#req_Duracion")["0"].innerText = obj[0].req_Duracion == null ? "N/A" : obj[0].req_Duracion;
                     $("#ModalDetalles").find("#req_Vacantes")["0"].innerText = obj[0].req_Vacantes;
                     $("#ModalDetalles").find("#req_FechaRequisicion")["0"].innerText = FechaFormatoSimpleAlt(obj[0].req_FechaRequisicion);

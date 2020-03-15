@@ -486,18 +486,18 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.smserror = TempData["smserror"];
 
                     ModelState.AddModelError("", "No se Actualizo el registro");
-                  //  return RedirectToAction("Edit/" + id);
+                    //return RedirectToAction("Index");
                 }
                 else
                 {
-                   // return RedirectToAction("Index");
+                   //return RedirectToAction("Index");
                 }
             }
             catch (Exception Ex)
             {
                 Ex.Message.ToString();
                 ModelState.AddModelError("", "No se Actualizo el registro");
-                //return RedirectToAction("Edit/" + id);
+                //return RedirectToAction("Index");
             }
             return Json("Hola", JsonRequestBehavior.AllowGet);
             
