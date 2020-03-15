@@ -433,11 +433,12 @@ $("#BtnsubmitEdit").click(function () {
             url: "/Salida/EditSalidaDetalle",
             data: data,
             success: function (result) {
-                if (result.startsWith('-1'))
+                if (result.hasOwnProperty("-1"))
+                    $("#MsjError").text("El registro no se ha acualizado");
+                else if (result.hasOwnProperty("-2"))
                     $("#MsjError").text("No se pudo actualizar el registro, contacte al administrador");
                 else
-                    console.log(result);
-                window.location.href = '/Salida/Edit/' + result;
+                   window.location.href = '/Salida/Edit/' + result;
             }
         });
     }
@@ -729,6 +730,7 @@ function Producto(bod_Id, prod_CodigoBarrasItem) {
             $('#prod_CodigoBarras').text('');
             $('#sald_Cantidad').val('');
             $.each(data, function (key, value) {
+                console.log(data);
                 $("#prod_CodigoBarras").val(value.prod_CodigoBarras);
                 $('#prod_Codigo').val(value.prod_Codigo);
                 $('#prod_Descripcion').val(value.prod_Descripcion);
