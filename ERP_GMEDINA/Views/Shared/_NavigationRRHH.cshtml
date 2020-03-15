@@ -393,6 +393,12 @@
                                 <a href="@Url.Action("Requisicion", "ReportesRRHH")">Requisiciones</a>
                             </li>
                             }
+                            @if (Login.GetUserRols("ReportesRRHH/IncrementoSalarialRTP"))
+                            {
+                                <li class="@Html.IsSelected(action: "IncrementoSalarialRTP")">
+                                    <a href="@Url.Action("IncrementoSalarialRTP", "ReportesRRHH")">IncrementoSalarial</a>
+                                </li>
+                            }
 
                         </ul>
                     </li>

@@ -1016,6 +1016,97 @@ namespace ERP_GMEDINA.Controllers
                 return View("~/Views/ErrorPages/ErrorConnectionDB.cshtml", null);
             }
         }
+
+
+
+        //Reporte de Incremento Salarial.
+
+        [SessionManager("ReportesRRHH/IncrementoSalarialRTP")]
+        public ActionResult IncrementoSalarialRTP()
+        {
+            try
+            {
+                ViewBag.Empleados = new SelectList(db.V_Empleados.Where(o => o.emp_Estado == true), "emp_Id", "per_NombreCompleto");
+                return View();
+            }
+            catch
+            {
+                return View("~/Views/ErrorPages/ErrorConnectionDB.cshtml", null);
+            }
+        }
+
+        [HttpPost]
+        [SessionManager("ReportesRRHH/IncrementoSalarialRTP")]
+        public ActionResult IncrementoSalarialRTP(int? emp_Id)
+        {
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+            reportViewer.SizeToReportContent = false;
+            reportViewer.Width = Unit.Pixel(1050);
+            reportViewer.Height = Unit.Pixel(500);
+            reportViewer.BackColor = System.Drawing.Color.White;
+            var connectionString = ConfigurationManager.ConnectionStrings["ERP_GMEDINAConnectionString"].ConnectionString;
+           
+             //comando para el dataAdapter
+             SqlCommand command = new SqlCommand();
+            if (emp_Id != null )
+            {
+                command.CommandText = @"SELECT tbSueldos_1.sue_Cantidad,tbSueldos_1.[sue_SueldoPasado] AS sue_Anterior, per_Nombres+' ' + per_Apellidos AS NombreCompleto
+                  FROM rrhh.tbSueldos AS tbSueldos_1 INNER JOIN
+                  rrhh.tbEmpleados ON tbSueldos_1.emp_Id = rrhh.tbEmpleados.emp_Id INNER JOIN
+                  rrhh.tbPersonas ON rrhh.tbEmpleados.per_Id = rrhh.tbPersonas.per_Id WHERE tbSueldos_1.emp_Id =  @Emple";
+                command.Parameters.AddWithValue("@Emple", SqlDbType.Int).Value = emp_Id;
+
+                
+
+            }
+            else
+            {
+                return View("~/Views/ErrorPages/NoData.cshtml", null);
+
+            }
+
+
+            try
+                {
+                SqlConnection conx = new SqlConnection(connectionString);
+                command.Connection = conx;
+                SqlDataAdapter adp = new SqlDataAdapter(command);
+                adp.Fill(ds, ds.V_IncrementoSalario.TableName);
+
+                reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\IncrementoSalarial.rdlc";
+                reportViewer.LocalReport.DataSources.Add(new ReportDataSource("IncrementoSalarialDS", ds.Tables["V_IncrementoSalario"]));
+                conx.Close();
+
+
+                ViewBag.ReportViewer = reportViewer;
+                ViewBag.Empleados = new SelectList(db.V_Empleados.Where(o => o.emp_Estado == true), "emp_Id", "per_NombreCompleto");
+
+            }
+                catch (Exception ex)
+            {
+                return View("~/Views/ErrorPages/NoData.cshtml", null);
+            }
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [SessionManager("ReportesRRHH/HistorialAudienciaDescargoRPT")]
         public ActionResult HistorialAudienciaDescargoRPT()
         {

@@ -41,6 +41,7 @@ function tablaEditar(ID) {
                 $("#FormEditar").find("#minimo").val(obj[0].Sueldo_Minimo);
                 $("#FormEditar").find("#tmon_Id").val(obj[0].Id_Amonestacion);
                 $("#FormEditar").find("#sue_Cantidad").val(obj[0].Sueldo);
+                $("#FormEditar").find("#sue_SueldoPasado").val(obj[0].Sueldo);
                 $("#ModalEditar").modal('show');
             }
         });
@@ -195,7 +196,7 @@ $('#IndexTable tbody').on('click', 'td.details-control', function () {
 $("#btnActualizar").click(function () {
     var data = $('#FormEditar').serializeArray();
     data = serializar(data);
-
+    
     if (data != null) {
         let a = parseFloat(data.sue_Cantidad);
         let b = parseFloat(data.minimo);
@@ -204,7 +205,7 @@ $("#btnActualizar").click(function () {
         if (a >= b) {
             if (a <= c) {
                 data = JSON.stringify({ tbsueldos: data });
-
+                console.log(data);
                 _ajax(data,
                     '/Sueldos/Edit',
                     'POST',
