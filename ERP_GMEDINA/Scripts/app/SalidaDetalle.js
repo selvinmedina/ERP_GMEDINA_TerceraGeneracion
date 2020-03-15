@@ -107,16 +107,13 @@ function validateMyForm() {
             }
             else {
                 $('#sal_BodDestinoError').text('');
-
                 vBodDestino = true;
-
                 vFactura = true;
                 vDevolucion = true;
             }
         }
         else {
-            if (TipoSalida == "VENTA" || TipoSalida == "VENTAS") {
-              
+            if (TipoSalida == "VENTA" || TipoSalida == "VENTAS") {             
                 if (!validacionFactura.startsWith("Factura") || FacturaCodigoError != '') {
                     vFactura = false;
                     $('#fact_Codigo').focus()
@@ -138,13 +135,11 @@ function validateMyForm() {
                     var tdev = document.getElementById("tdev_Id");
                     var TipoSalida_tdev = tdev.options[tdev.selectedIndex].text;
                     /////////
+                    vDFactura = true;
                     if (!validacionFactura.startsWith("Factura") || FacturaCodigoError != '') {
                         $('#validationFactura').text('');
                         vDFactura = false;
                         $('#fact_Codigo').focus()
-                    }
-                    else {
-                        vDFactura = true;
                     }
                     if (TipoSalida_tdev.startsWith("Seleccionar")) {
                         $('#sal_RazonDevolucionError').text('');
@@ -174,8 +169,6 @@ function validateMyForm() {
     }
     if (Tabla == "No hay registros") {
         vSalidaDetalle = false;
-        //window.location.hash = '#alert_message';
-        //$('#').focus();
         $("#alert_message").css("display", "block");
         $('#alert_message').html('<div class="alert alert-danger alert-dismissible" role="alert">'
                                             +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
@@ -183,14 +176,7 @@ function validateMyForm() {
                                             +'</button>'
                                         +'<strong>Detalle Vacio</strong>'
                                   + '</div>');
-        //document.getElementById('alert_message').scrollIntoView()
         window.location.hash = '#alert_message';
-
-
-        //setInterval(function () {
-        //    $('#alert_message').html('');
-        //    $('#prod_CodigoBarras').focus()
-        //}, 5000);
     }
     else {
         $("#alert_message").css("display", "none");

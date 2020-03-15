@@ -7,7 +7,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.sal_FechaElaboracion, new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="FechaElaboracion" name="FechaElaboracion">
+                    <input type="text" class="form-control" id="FechaElaboracion" name="sal_FechaElaboracion">
                     @Html.ValidationMessageFor(model => model.sal_FechaElaboracion)
                 </div>
             </div>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="submit" id="btnAnularSalida">Generar</button>
+        <button class="btn btn-primary" type="submit">Generar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
     </div>
 }

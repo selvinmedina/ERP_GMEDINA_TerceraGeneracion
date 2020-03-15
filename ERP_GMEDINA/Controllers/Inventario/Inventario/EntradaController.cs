@@ -180,13 +180,12 @@ namespace ERP_GMEDINA.Controllers
             var EncargadoName = db.tbUsuario.Where(x => x.usu_Id == Encargado).Select(i => new { i.usu_Nombres, i.usu_Apellidos }).FirstOrDefault();
             var ent_id = Convert.ToInt32(id);
             ImprimirEntradaPorId EntradaRVId = new ImprimirEntradaPorId();
-            ReportDocument rdId = new ReportDocument();
+            //ReportDocument rdId = new ReportDocument();
             Reportes EntradaDSTId = new Reportes();
            
             var EntradaTableAdapterId = new UDV_Inv_EntradaPorIdTableAdapter();
             try
             {
-
                 EntradaTableAdapterId.Fill(EntradaDSTId.UDV_Inv_EntradaPorId, ent_id);
                
                 EntradaRVId.SetDataSource(EntradaDSTId);

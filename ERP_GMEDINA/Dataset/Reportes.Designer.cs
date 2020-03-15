@@ -6098,8 +6098,6 @@ namespace ERP_GMEDINA.Dataset {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class UDV_Inv_Salida_Imprimir_ReporteDataTable : global::System.Data.TypedTableBase<UDV_Inv_Salida_Imprimir_ReporteRow> {
             
-            private global::System.Data.DataColumn columnsal_FechaElaboracion;
-            
             private global::System.Data.DataColumn columntsal_Id;
             
             private global::System.Data.DataColumn columntsal_Descripcion;
@@ -6140,6 +6138,8 @@ namespace ERP_GMEDINA.Dataset {
             
             private global::System.Data.DataColumn columnsald_Cantidad;
             
+            private global::System.Data.DataColumn columnsal_FechaElaboracion;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UDV_Inv_Salida_Imprimir_ReporteDataTable() {
@@ -6171,14 +6171,6 @@ namespace ERP_GMEDINA.Dataset {
             protected UDV_Inv_Salida_Imprimir_ReporteDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn sal_FechaElaboracionColumn {
-                get {
-                    return this.columnsal_FechaElaboracion;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6343,6 +6335,14 @@ namespace ERP_GMEDINA.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sal_FechaElaboracionColumn {
+                get {
+                    return this.columnsal_FechaElaboracion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6379,7 +6379,6 @@ namespace ERP_GMEDINA.Dataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UDV_Inv_Salida_Imprimir_ReporteRow AddUDV_Inv_Salida_Imprimir_ReporteRow(
-                        System.DateTime sal_FechaElaboracion, 
                         byte tsal_Id, 
                         string tsal_Descripcion, 
                         int bod_Id, 
@@ -6399,10 +6398,10 @@ namespace ERP_GMEDINA.Dataset {
                         string pscat_Descripcion, 
                         string uni_Descripcion, 
                         string prod_CodigoBarras, 
-                        decimal sald_Cantidad) {
+                        decimal sald_Cantidad, 
+                        System.DateTime sal_FechaElaboracion) {
                 UDV_Inv_Salida_Imprimir_ReporteRow rowUDV_Inv_Salida_Imprimir_ReporteRow = ((UDV_Inv_Salida_Imprimir_ReporteRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        sal_FechaElaboracion,
                         tsal_Id,
                         tsal_Descripcion,
                         bod_Id,
@@ -6422,7 +6421,8 @@ namespace ERP_GMEDINA.Dataset {
                         pscat_Descripcion,
                         uni_Descripcion,
                         prod_CodigoBarras,
-                        sald_Cantidad};
+                        sald_Cantidad,
+                        sal_FechaElaboracion};
                 rowUDV_Inv_Salida_Imprimir_ReporteRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUDV_Inv_Salida_Imprimir_ReporteRow);
                 return rowUDV_Inv_Salida_Imprimir_ReporteRow;
@@ -6445,7 +6445,6 @@ namespace ERP_GMEDINA.Dataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnsal_FechaElaboracion = base.Columns["sal_FechaElaboracion"];
                 this.columntsal_Id = base.Columns["tsal_Id"];
                 this.columntsal_Descripcion = base.Columns["tsal_Descripcion"];
                 this.columnbod_Id = base.Columns["bod_Id"];
@@ -6466,13 +6465,12 @@ namespace ERP_GMEDINA.Dataset {
                 this.columnuni_Descripcion = base.Columns["uni_Descripcion"];
                 this.columnprod_CodigoBarras = base.Columns["prod_CodigoBarras"];
                 this.columnsald_Cantidad = base.Columns["sald_Cantidad"];
+                this.columnsal_FechaElaboracion = base.Columns["sal_FechaElaboracion"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnsal_FechaElaboracion = new global::System.Data.DataColumn("sal_FechaElaboracion", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnsal_FechaElaboracion);
                 this.columntsal_Id = new global::System.Data.DataColumn("tsal_Id", typeof(byte), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntsal_Id);
                 this.columntsal_Descripcion = new global::System.Data.DataColumn("tsal_Descripcion", typeof(string), null, global::System.Data.MappingType.Element);
@@ -6513,6 +6511,8 @@ namespace ERP_GMEDINA.Dataset {
                 base.Columns.Add(this.columnprod_CodigoBarras);
                 this.columnsald_Cantidad = new global::System.Data.DataColumn("sald_Cantidad", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsald_Cantidad);
+                this.columnsal_FechaElaboracion = new global::System.Data.DataColumn("sal_FechaElaboracion", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsal_FechaElaboracion);
                 this.columntsal_Descripcion.MaxLength = 100;
                 this.columnbod_Nombre.MaxLength = 100;
                 this.columnestm_Descripcion.MaxLength = 100;
@@ -19112,23 +19112,6 @@ namespace ERP_GMEDINA.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime sal_FechaElaboracion {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'sal_FechaElaboracion\' de la tabla \'UDV_Inv_Salida_Imprimi" +
-                                "r_Reporte\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public byte tsal_Id {
                 get {
                     try {
@@ -19409,14 +19392,19 @@ namespace ERP_GMEDINA.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Issal_FechaElaboracionNull() {
-                return this.IsNull(this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Setsal_FechaElaboracionNull() {
-                this[this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn] = global::System.Convert.DBNull;
+            public System.DateTime sal_FechaElaboracion {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'sal_FechaElaboracion\' de la tabla \'UDV_Inv_Salida_Imprimi" +
+                                "r_Reporte\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19537,6 +19525,18 @@ namespace ERP_GMEDINA.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setpscat_DescripcionNull() {
                 this[this.tableUDV_Inv_Salida_Imprimir_Reporte.pscat_DescripcionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Issal_FechaElaboracionNull() {
+                return this.IsNull(this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setsal_FechaElaboracionNull() {
+                this[this.tableUDV_Inv_Salida_Imprimir_Reporte.sal_FechaElaboracionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -28428,7 +28428,6 @@ WHERE        (invf_Id = @invf_Id)";
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "UDV_Inv_Salida_Imprimir_Reporte";
-            tableMapping.ColumnMappings.Add("sal_FechaElaboracion", "sal_FechaElaboracion");
             tableMapping.ColumnMappings.Add("tsal_Id", "tsal_Id");
             tableMapping.ColumnMappings.Add("tsal_Descripcion", "tsal_Descripcion");
             tableMapping.ColumnMappings.Add("bod_Id", "bod_Id");
@@ -28449,6 +28448,7 @@ WHERE        (invf_Id = @invf_Id)";
             tableMapping.ColumnMappings.Add("uni_Descripcion", "uni_Descripcion");
             tableMapping.ColumnMappings.Add("prod_CodigoBarras", "prod_CodigoBarras");
             tableMapping.ColumnMappings.Add("sald_Cantidad", "sald_Cantidad");
+            tableMapping.ColumnMappings.Add("sal_FechaElaboracion", "sal_FechaElaboracion");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -28468,40 +28468,40 @@ WHERE        (invf_Id = @invf_Id)";
             this._commandCollection[0].CommandText = @"SELECT        sal_FechaElaboracion, tsal_Id, tsal_Descripcion, bod_Id, bod_Nombre, estm_Id, estm_Descripcion, sal_BodDestino, fact_Codigo, bod_ResponsableBodega, prod_Codigo, prod_Descripcion, prod_Marca, prod_Modelo, 
                          prod_Talla, prod_Color, pcat_Nombre, pscat_Descripcion, uni_Descripcion, prod_CodigoBarras, sald_Cantidad
 FROM            Inv.UDV_Inv_Salida_Imprimir_Reporte
-WHERE        (sal_FechaElaboracion BETWEEN @sal_FechaElaboracion AND GETDATE()) AND (tsal_Id = @tsal_Id) AND (bod_Id = @bod_Id) AND (estm_Id = @estm_Id)";
+WHERE        (CONVERT(Varchar(10), sal_FechaElaboracion, 103) = @fecha) and (tsal_Id = @tiposalida) and (estm_Id = @estado) and (bod_Id = @bodega)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@sal_FechaElaboracion", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 0, 0, "sal_FechaElaboracion", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tsal_Id", global::System.Data.SqlDbType.TinyInt, 1, global::System.Data.ParameterDirection.Input, 0, 0, "tsal_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bod_Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "bod_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estm_Id", global::System.Data.SqlDbType.TinyInt, 1, global::System.Data.ParameterDirection.Input, 0, 0, "estm_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fecha", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tiposalida", global::System.Data.SqlDbType.TinyInt, 1, global::System.Data.ParameterDirection.Input, 0, 0, "tsal_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estado", global::System.Data.SqlDbType.TinyInt, 1, global::System.Data.ParameterDirection.Input, 0, 0, "estm_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bodega", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "bod_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(Reportes.UDV_Inv_Salida_Imprimir_ReporteDataTable dataTable, global::System.Nullable<global::System.DateTime> sal_FechaElaboracion, global::System.Nullable<byte> tsal_Id, global::System.Nullable<int> bod_Id, global::System.Nullable<byte> estm_Id) {
+        public virtual int Fill(Reportes.UDV_Inv_Salida_Imprimir_ReporteDataTable dataTable, string fecha, global::System.Nullable<byte> tiposalida, global::System.Nullable<byte> estado, global::System.Nullable<int> bodega) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((sal_FechaElaboracion.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((System.DateTime)(sal_FechaElaboracion.Value));
+            if ((fecha == null)) {
+                throw new global::System.ArgumentNullException("fecha");
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(fecha));
             }
-            if ((tsal_Id.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((byte)(tsal_Id.Value));
+            if ((tiposalida.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((byte)(tiposalida.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((bod_Id.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(bod_Id.Value));
+            if ((estado.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((byte)(estado.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((estm_Id.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[3].Value = ((byte)(estm_Id.Value));
+            if ((bodega.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((int)(bodega.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
@@ -28517,28 +28517,28 @@ WHERE        (sal_FechaElaboracion BETWEEN @sal_FechaElaboracion AND GETDATE()) 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual Reportes.UDV_Inv_Salida_Imprimir_ReporteDataTable GetData(global::System.Nullable<global::System.DateTime> sal_FechaElaboracion, global::System.Nullable<byte> tsal_Id, global::System.Nullable<int> bod_Id, global::System.Nullable<byte> estm_Id) {
+        public virtual Reportes.UDV_Inv_Salida_Imprimir_ReporteDataTable GetData(string fecha, global::System.Nullable<byte> tiposalida, global::System.Nullable<byte> estado, global::System.Nullable<int> bodega) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((sal_FechaElaboracion.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((System.DateTime)(sal_FechaElaboracion.Value));
+            if ((fecha == null)) {
+                throw new global::System.ArgumentNullException("fecha");
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(fecha));
             }
-            if ((tsal_Id.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((byte)(tsal_Id.Value));
+            if ((tiposalida.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((byte)(tiposalida.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((bod_Id.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(bod_Id.Value));
+            if ((estado.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((byte)(estado.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((estm_Id.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[3].Value = ((byte)(estm_Id.Value));
+            if ((bodega.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((int)(bodega.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
