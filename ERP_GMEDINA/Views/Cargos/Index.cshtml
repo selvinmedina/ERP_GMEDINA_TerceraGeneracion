@@ -14,8 +14,7 @@
                     <h5>Listado de Cargos</h5>
                     <div class="ibox-tools"> 
                         @Html.ActionLink("Registrar Cargo", "Create", null, new { @class = "btn btn-primary  btn-xs" })
-                        @*<input type="button" id="btnAgregar" class="btn btn-primary btn-xs" value="Registrar Cargo" />*@                   
-                        <input type="button" id="btnReporte" class="btn btn-primary btn-xs" value="Generar reporte" />
+                        @*<input type="button" id="btnAgregar" class="btn btn-primary btn-xs" value="Registrar Cargo" />*@
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -63,11 +62,6 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('btnReporte').onclick(function () {
-        alert("HOLA");
-    })
-</script>
     
 @section Styles {
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")

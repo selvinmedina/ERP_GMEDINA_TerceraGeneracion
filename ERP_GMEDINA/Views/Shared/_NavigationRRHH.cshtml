@@ -394,6 +394,13 @@
                             </li>
                             }
 
+							@if (Login.GetUserRols("ReportesRRHH/Cargos"))
+							{
+								<li class="@Html.IsSelected(action: "Cargos")">
+									<a href="@Url.Action("Cargos", "ReportesRRHH")">Cargos</a>
+								</li>
+							}
+
                         </ul>
                     </li>
                     @*REPORTES*@
