@@ -7,7 +7,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Crear parametro</h2>
+        <h2>Crear parámetro</h2>
     </div>
     <div class="col-sm-8">
         <div class="title-action">
@@ -72,13 +72,18 @@
             <div class="form-group">
                 <label class="control-label col-md-2">Nombre Empresa<span style="color:red">*</span></label>
                 <div class="col-md-10">
+                    @Html.DropDownList("par_NombreEmpresa", (IEnumerable<SelectListItem>)ViewBag.empr_Id, "Seleccione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.par_NombreEmpresa, null, new { style = "color:red"@*, id = "errorempresa"*@ })
+                </div>
+
+                @*<div class="col-md-10">
                     @Html.EditorFor(model => model.par_NombreEmpresa)
                      @Html.ValidationMessageFor(model => model.par_NombreEmpresa,null,new { style = "color:red" , id = "errornombreempresa" })
-</div>
+</div>*@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2">Telefono Empresa<span style="color:red">*</span></label>
+            <label class="control-label col-md-2">Teléfono Empresa<span style="color:red">*</span></label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.par_TelefonoEmpresa, new { htmlAttributes = new { onkeypress = "return validartel(event)" } })
                 <div id="errortelefono">
@@ -114,7 +119,7 @@
         </div>
 
         <div class="form-group">
-          <label class="control-label col-md-2">Credito-Cobranza<span style="color:red">*</span></label>
+          <label class="control-label col-md-2">Crédito-Cobranza<span style="color:red">*</span></label>
             <div class="col-md-10">
                 @Html.DropDownList("par_RolCreditoCobranza", (IEnumerable<SelectListItem>)ViewBag.Id_Rol2, "Seleccione", new { @class = "form-control" })
                @Html.ValidationMessageFor(model => model.par_RolCreditoCobranza, null, new { style = "color:red", id = "errorcreditocobranza" })
@@ -172,6 +177,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
             </div>
         </div>
     </div>
