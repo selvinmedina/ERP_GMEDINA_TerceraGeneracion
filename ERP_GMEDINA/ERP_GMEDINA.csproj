@@ -5667,6 +5667,7 @@
     <Content Include="Views\Cargos\Create.cshtml" />
     <Content Include="Views\Cargos\Edit.cshtml" />
     <Content Include="Views\CatalogoDeDeducciones\_Edit.cshtml" />
+    <Content Include="Views\ReportesRRHH\Cargos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
