@@ -80,9 +80,7 @@ namespace ERP_GMEDINA.Controllers
                     tbSolicitudEfectivo SolicitudEfectivo = new tbSolicitudEfectivo();
                     tbCargos empleados = new tbCargos();
                     ViewBag.mnda_Id = new SelectList(db.tbMoneda, "mnda_Id", "mnda_Nombre", SolicitudEfectivo.mnda_Id);
-                    //ViewBag.usu_Id = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", MovimientoCaja.usu_Id);
-                    ViewBag.car_id = new SelectList(db.tbCargos, "car_id", "car_Descripcion", empleados.car_Descripcion );
-
+               
                     ViewBag.suc_Descripcion = db.tbUsuario.Where(x => x.usu_Id == idUser).Select(x => x.tbSucursales.suc_Descripcion).SingleOrDefault();
                     ViewBag.suc_Id = db.tbUsuario.Where(x => x.usu_Id == idUser).Select(x => x.tbSucursales.suc_Id == null ? 0 : x.tbSucursales.suc_Id).SingleOrDefault();
 
@@ -91,6 +89,17 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.mocja_UsuarioApertura = db.tbUsuario.Where(x => x.usu_Id == idUser).Select(x => x.usu_Id == null ? 0 : x.usu_Id).SingleOrDefault();
                     var Cajas = db.tbCaja.Select(s => new { cja_Id = s.cja_Id, cja_Descripcion = s.cja_Descripcion, suc_Id = s.suc_Id }).Where(x => x.suc_Id == suc_Id).ToList();
                     ViewBag.cja_Id = new SelectList(Cajas, "cja_Id", "cja_Descripcion", MovimientoCaja.cja_Id);
+
+                    var sql = @"SELECT tbUsuario.usu_Id ,tbUsuario.usu_NombreUsuario ,tbUsuario.usu_Password,tbUsuario.usu_Nombres,tbUsuario.usu_Apellidos,
+                                tbUsuario.usu_Correo,tbUsuario.usu_EsActivo,tbUsuario.usu_RazonInactivo,tbUsuario.usu_SesionesValidas,
+                                tbUsuario.suc_Id,tbUsuario.emp_Id,usu_EsAdministrador
+                                FROM  Acce.tbUsuario INNER JOIN
+                                     Acce.tbRolesUsuario ON Acce.tbUsuario.usu_Id = Acce.tbRolesUsuario.usu_Id
+	                                 INNER JOIN [Acce].[tbRol] ON Acce.tbRolesUsuario.rol_Id=Acce.tbRol.rol_Id
+	                                 where rol_Descripcion like '%caja%' and suc_Id = " + suc_Id;
+                    var vista = db.Database.SqlQuery<tbUsuario>(sql).ToList();
+                    ViewBag.usu_Id = new SelectList(vista, "usu_Id", "usu_NombreUsuario");
+
                     /////Vistas Parciales
                     ViewBag.SolicitudEfectivo = db.tbSolicitudEfectivo.ToList();
                     ViewBag.MovimientoCaja = db.tbMovimientoCaja.ToList();
@@ -262,7 +271,17 @@ namespace ERP_GMEDINA.Controllers
                             Function.InsertBitacoraErrores("MovimientoCaja/CreateApertura", MensajeError, "CreateApertura");
 
                             //Usuario
-                            ViewBag.usu_Id = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMovimientoCaja.usu_Id);
+
+                            var sqlR = @"SELECT tbUsuario.usu_Id ,tbUsuario.usu_NombreUsuario ,tbUsuario.usu_Password,tbUsuario.usu_Nombres,tbUsuario.usu_Apellidos,
+                                tbUsuario.usu_Correo,tbUsuario.usu_EsActivo,tbUsuario.usu_RazonInactivo,tbUsuario.usu_SesionesValidas,
+                                tbUsuario.suc_Id,tbUsuario.emp_Id,usu_EsAdministrador
+                                FROM  Acce.tbUsuario INNER JOIN
+                                     Acce.tbRolesUsuario ON Acce.tbUsuario.usu_Id = Acce.tbRolesUsuario.usu_Id
+	                                 INNER JOIN [Acce].[tbRol] ON Acce.tbRolesUsuario.rol_Id=Acce.tbRol.rol_Id
+	                                 where rol_Descripcion like '%caja%' and suc_Id = " + suc_Id;
+                            var vistaR = db.Database.SqlQuery<tbUsuario>(sqlR).ToList();
+                            ViewBag.usu_Id = new SelectList(vistaR, "usu_Id", "usu_NombreUsuario");
+
                             //Caja
                             ViewBag.cja_Id = new SelectList(db.tbCaja, "cja_Id", "cja_Descripcion", tbMovimientoCaja.cja_Id);
                             ///Sucursal
@@ -282,7 +301,16 @@ namespace ERP_GMEDINA.Controllers
                     ViewBag.mocja_UsuarioApertura = db.tbUsuario.Where(x => x.usu_Id == idUser).Select(x => x.usu_Id).SingleOrDefault();
 
                     //Usuario
-                    ViewBag.usu_Id = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMovimientoCaja.usu_Id);
+                    var sql = @"SELECT tbUsuario.usu_Id ,tbUsuario.usu_NombreUsuario ,tbUsuario.usu_Password,tbUsuario.usu_Nombres,tbUsuario.usu_Apellidos,
+                                tbUsuario.usu_Correo,tbUsuario.usu_EsActivo,tbUsuario.usu_RazonInactivo,tbUsuario.usu_SesionesValidas,
+                                tbUsuario.suc_Id,tbUsuario.emp_Id,usu_EsAdministrador
+                                FROM  Acce.tbUsuario INNER JOIN
+                                     Acce.tbRolesUsuario ON Acce.tbUsuario.usu_Id = Acce.tbRolesUsuario.usu_Id
+	                                 INNER JOIN [Acce].[tbRol] ON Acce.tbRolesUsuario.rol_Id=Acce.tbRol.rol_Id
+	                                 where rol_Descripcion like '%caja%' and suc_Id = " + suc_ID;
+                    var vista = db.Database.SqlQuery<tbUsuario>(sql).ToList();
+                    ViewBag.usu_Id = new SelectList(vista, "usu_Id", "usu_NombreUsuario");
+
                     ///Sucursal
                     ViewBag.suc_Id = new SelectList(db.tbSucursales, "suc_Id", "suc_Descripcion");
                     //Caja
