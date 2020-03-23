@@ -116,6 +116,7 @@ $(document).ready(function () {
           data: 'Acciones',
           defaultContent: '<div>' +
                                  '<input type="button" class="btn btn-white btn-xs" onclick="Edit(this)" value="Editar" />' +
+                                 '<input type="button" class="btn btn-danger btn-xs" onclick="Inactivar(this)" value="Inactivar" />' +
                              '</div>'
          }
    ],
@@ -292,46 +293,49 @@ $("#ModalEditar").find("#btnActualizar").on("click", function () {
 );
 });
 $("#ModalInactivar").find("#InActivar").on("click", function () {
- if (Entidad == 'Depto') {
   var depto =
  {
-  depto_Id: dRow.data().Id,
-  depto_RazonInactivo: $("#ModalInactivar").find("#depto_RazonInactivo").val(),
+     depto_Id: idDelete,
+  depto_RazonInactivo: $("#ModalInactivar").find("#depto_RazonInactivo").val()
  };
   if (depto.depto_RazonInactivo.trim() == '') {
    return null;
   }
-  inactivar.push(depto);
   ChildTable
-      .row(dRow)
-      .remove()
-      .draw();
+            .row(dRow)
+            .remove()
+  .draw();
+  inactivar.push(depto);
+  $('#ModalEditar').modal('hide');
   dRow = null;
-  $('#ModalInactivar').modal('hide');
- } else {
-  var area_Razoninactivo = $("#ModalInactivar").find("#depto_RazonInactivo").val()
-  _ajax(JSON.stringify({ area_Razoninactivo: area_Razoninactivo }),
-      '/Areas/Delete',
-      'POST',
-      function (obj) {
-       if (obj != "-1" && obj != "-2" && obj != "-3") {
-        //LimpiarControles(["habi_Descripcion", "habi_RazonInactivo"]);
-        //MsgSuccess("¡Exito!", "Se ah Eliminado el Area");
-        $(location).attr('href', '/Areas/Index');
-       } else {
-        MsgError("Error", "No se inactivó el registro, contacte al administrador.");
-       }
-      });
- }
+  CierraPopups();
 });
-$("#btnInactivar").on("click", function () {
- $("#depto_RazonInactivo").val("");
- $('#ModalEditar').modal('hide');
- $('#ModalInactivar').modal('toggle');
- $('#ModalInactivar').modal('show');
- $("#ModalInactivar").find("#depto_RazonInactivo").focus();
- Entidad = "Depto";
-});
+//$("#btnInactivar").on("click", function () {
+// $("#depto_RazonInactivo").val("");
+// $('#ModalEditar').modal('hide');
+// $('#ModalInactivar').modal('toggle');
+// $('#ModalInactivar').modal('show');
+// $("#ModalInactivar").find("#depto_RazonInactivo").focus();
+// Entidad = "Depto";
+//});
+var idDelete = 0;
+function Inactivar(btn) {
+    var validacionPermiso = userModelState("Areas/Delete");
+    if (validacionPermiso.status == true) {
+
+        var tr = $(btn).closest('tr');
+        var row = ChildTable.row(tr);
+        var datos = row.data();
+        dRow = row;
+        
+        depto_Id = datos.Id;
+        idDelete = depto_Id;
+        CierraPopups();
+        $('#ModalInactivar').modal('show');
+        $("#ModalInactivar").find("#depto_RazonInactivo").val("");
+        $("#ModalInactivar").find("#depto_RazonInactivo").focus();
+    }
+}
 //$("#btnInactivarArea").on("click", function () {
 // $('#ModalInactivar').modal('toggle');
 // $('#ModalInactivar').modal('show');
