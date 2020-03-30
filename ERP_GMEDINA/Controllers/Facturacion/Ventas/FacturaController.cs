@@ -147,7 +147,10 @@ namespace ERP_GMEDINA.Controllers
                 if (idUser != 0)
                 {
                     var Suc_Id = db.tbUsuario.Where(x => x.usu_Id == idUser).Select(x => x.suc_Id).SingleOrDefault();
-                    return View(tbFacturaUser.Where(a => a.suc_Id == Suc_Id).ToList());
+
+                    var lista = (list.Where(a => a.suc_Id == Suc_Id).ToList());
+
+                    return View(list.Where(a => a.suc_Id == Suc_Id).ToList());
                 }
                 else
                     return RedirectToAction("Index");
